@@ -1,0 +1,43 @@
+<style>
+    .modal-content {
+      background-color: #212121
+    }
+</style>
+  <!-- More Info -->
+  <div class="modal fade" id="Modal-Add"
+       tabindex="-1"
+       aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="ModalLabel">
+            <!-- -->
+            Add Product
+          </h5>
+          <button type="button" class="close"
+                  data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" style="color: white;">x</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- <form action="{{ url_for('main.add') }}" method="POST"> -->
+            <!-- này là bắt buộc nếu muốn trong views.py hoaajt động -->
+            {{ addForm.studentID.label() }}      
+            {{ addForm.studentID(class="form-control", placeholder='Enter Your Student ID') }}
+            <br>
+            {{ addForm.fullname.label() }}      
+            {{ addForm.fullname(class="form-control", placeholder='Enter Your Student Name') }}
+            <br>
+            {{ addForm.price.label() }}      
+            {{ addForm.price(class="form-control", placeholder='Enter Your Email Address') }}
+            <br>
+            <input type="hidden" id="add_item" name="add_item" value="">
+            {{ addForm.submitAdd(class="btn btn-lg btn-block btn-success") }}
+          </form>
+        </div>
+        <div class="modal-footer">
+            
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Log In
+{% endblock %}
+
+{% block content %}
+    
+
+    <div class="container">
+        <form method="POST" class="form-signin" style="color:white">
+            {{ form.hidden_tag() }}
+            <h1 class="h3 mb-3 font-weight-normal text-center mt-3">
+                Please Login
+            </h1>
+            <br>
+            {{ form.username.label() }}
+            {{ form.username(class="form-control", placeholder="User Name") }}
+
+            {{ form.password.label() }}
+            {{ form.password(class="form-control", placeholder="Password") }}
+
+            <br>
+
+
+            <div class="checkbox mb-3 text-center">
+               {{ form.remember_me }}
+               Remember be
+               <h6 style="display: inline-block;">Do not have an account?</h6>
+               <a class="btn btn-sm btn-secondary" href="{{ url_for('auth.register_page') }}" style="display: inline-block;" >Register</a>
+            </div>
+
+            <br>
+            {{ form.submit(class="btn btn-lg btn-block btn-primary") }}
+
+        </form>
+    </div>
+
+
+    
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Sign Up
+{% endblock %}
+
+{% block content %}
+    <div class="container ">
+        
+        {# hàm register_page() trong views.py truyền vô tham số form thì h đem 'form' ra để access  #}
+        <form method="POST" class="form-register " style="color:white">
+           {{ form.hidden_tag() }}
+            <h1 class="h3 font-weight-normal text-center mt-5">
+                Please Create your Account
+            </h1>
+
+           {{ form.username.label() }}      {# call cái field username ra #}
+           {{ form.username(class="form-control", placeholder='Enter Your Username') }}          
+            {# trang trí form bằng bootstrap #}
+
+            {{ form.fullname.label() }}      {# call cái field username ra #}
+            {{ form.fullname(class="form-control", placeholder='Enter Your Full Name') }} 
+
+            {{ form.email.label() }}      
+            {{ form.email(class="form-control", placeholder='Enter Your Email Address') }}
+
+            {{ form.phone.label() }}      {# call cái field username ra #}
+            {{ form.phone(class="form-control", placeholder='Enter Your Phone Number') }} 
+
+            {{ form.password1.label() }}      
+            {{ form.password1(class="form-control", placeholder='Enter Your Password') }}   
+            
+            {{ form.password2.label() }}      
+            {{ form.password2(class="form-control", placeholder='Confirm Your Password') }}
+            
+            <br>
+            <div class="checkbox mb-3 text-center">
+                <h6 style="display: inline-block;">Already have an account?</h6>
+                 <a class="btn btn-sm btn-secondary" href="{{ url_for('auth.login_page') }}" style="display: inline-block;" >Log In</a>
+            </div>
+ 
+            <br>
+            {{ form.submit(class="btn btn-lg btn-block btn-primary") }}
+        </form>
+        
+    </div>
+
+    
+{% endblock %}

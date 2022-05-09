@@ -1,0 +1,43 @@
+<style>
+    .modal-content {
+      background-color: #212121
+    }
+</style>
+  
+<!-- Purchase Confirm -->
+<div class="modal fade" id="Modal-PurchaseConfirm-{{ student.student_id }}"
+     tabindex="-1"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ModalLabel">
+          <!-- -->
+            Purchase
+        </h5>
+        <button type="button" class="close"
+                data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" style="color: white;">x</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="{{ url_for('main.purchase') }}" method="POST">         <!--aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-->
+          {{ purchaseForm.hidden_tag() }}
+          <h4 class="text-center">
+            Are you sure you want to pay <b>{{ student.student_name }}</b> tuition for <b>{{ student.student_tuition }}$</b> ?
+          </h4>
+          <br>
+          <h6 class="text-center">
+            Click <b>Purchase</b> to pay this tuition
+          </h6>
+
+          <input type="hidden" id="" name="purchased_item" value="{{ student.student_id }}">
+          {{ purchaseForm.submitPurchase(class="btn btn-block btn-success") }}
+        </form>
+      </div>
+      <div class="modal-footer">
+        
+      </div>
+    </div>
+  </div>
+</div>
