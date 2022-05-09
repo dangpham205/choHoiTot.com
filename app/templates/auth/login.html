@@ -21,11 +21,12 @@
             {{ form.password(class="form-control", placeholder="Password") }}
 
             <br>
-
+            <div class="checkbox mb-3 text-center">
+                {{ form.remember_me }}
+                Remember me
+            </div>
 
             <div class="checkbox mb-3 text-center">
-               {{ form.remember_me }}
-               Remember be
                <h6 style="display: inline-block;">Do not have an account?</h6>
                <a class="btn btn-sm btn-secondary" href="{{ url_for('auth.register_page') }}" style="display: inline-block;" >Register</a>
             </div>
