@@ -43,7 +43,15 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link">Welcome {{ current_user.user_name }}</a>
+                    <div class="dropdown">
+                        <a class=" dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Welcome {{ current_user.user_name }}
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" >Change Email</a>
+                            <a class="dropdown-item" >Change Password</a>
+                        </div>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('auth.logout_page') }}">Log Out</a>

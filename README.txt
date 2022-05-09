@@ -5,7 +5,8 @@ Thành viên nhóm 8:
 
 done    |   đăng nhập, đăng kí (có xác thực email)
 done    |   ghi nhớ đăng nhập
-    |   injection year now ở dưới footer
+done    |   injection year now ở dưới footer
+    |   reCAPTCHA trong login
     |   profile user(chỉnh sửa profile)+ hiển thị tin đang bán + có avatar sd Gravatar
     |   up sản phẩm+post của mình lên có chia category (giống chợ tốt)
     |   mua sản phẩm (budget là Đồng Tốt, cho người dùng tự nạp) (have verify email to confirm )
