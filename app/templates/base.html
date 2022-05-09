@@ -49,7 +49,7 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <a class="dropdown-item" >Change Email</a>
-                            <a class="dropdown-item" >Change Password</a>
+                            <a class="dropdown-item" href="{{ url_for('profile.change_password') }}">Change Password</a>
                             <a class="dropdown-item" href="{{ url_for('auth.logout_page') }}">Log Out</a>
                         </div>
                     </div>
