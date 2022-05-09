@@ -27,8 +27,12 @@
             </div>
 
             <div class="checkbox mb-3 text-center">
-               <h6 style="display: inline-block;">Do not have an account?</h6>
+               <h6 style="display: inline-block; color: gray;">Do not have an account?</h6>
                <a class="btn btn-sm btn-secondary" href="{{ url_for('auth.register_page') }}" style="display: inline-block;" >Register</a>
+            </div>
+
+            <div class="checkbox mb-3 text-center">
+                <a style="color: white;" href="{{ url_for('auth.forgot_pass_request') }}">Forgot password?</a>
             </div>
 
             <br>

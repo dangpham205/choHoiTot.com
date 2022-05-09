@@ -81,7 +81,29 @@ class User(db.Model, UserMixin):
                 db.session.commit()
 
             return 'TRUE'
-        
+    
+    def reset_password(token, new_password, expiration=120):
+    # Deserialize a JWS Compact Serialization
+        jws = JsonWebSignature()
+        try:
+            data = jws.deserialize_compact(token, key=current_app.config['SECRET_KEY'])
+        except authlib.jose.errors.BadSignatureError:       #KHI TOKEN BỊ TOUCH(CHỈNH SỬA)
+            return False
+        except:
+            return False
+        # Validate timestamp and token
+        decoded_payload = json.loads(data.get('payload'))
+        timestamp = datetime.strptime(decoded_payload.get('timestamp'), '%Y-%m-%d %H:%M:%S.%f')
+        duration_in_second = (datetime.now() - timestamp).total_seconds()
+        user_id = decoded_payload.get('confirm')
+        user = User.query.filter_by(id=user_id).first()
+        if duration_in_second < 0 or duration_in_second > expiration :
+            return False
+        else:
+            user.password = new_password
+            # db.session.add(user)
+            db.session.commit()
+            return True
 
 class Student(db.Model):
     id = db.Column(db.Integer, primary_key=True)

@@ -2,7 +2,7 @@ from flask import render_template, redirect, session, url_for, flash, request
 
 from app.email import send_email
 from ..models import Student, User
-from .forms import RegisterForm, LoginForm
+from .forms import ForgotPassForm, RegisterForm, LoginForm, SendForgotPassForm
 from .. import db
 from flask_login import current_user, login_required, login_user, logout_user
 from . import auth
@@ -45,6 +45,32 @@ def confirm_register(token):
             flash('The confirmation link is invalid or has expired. ', category='danger')
     return redirect(url_for('main.home_page'))
 
+@auth.route('/forgot_pass_request', methods=['GET', 'POST'])
+def forgot_pass_request():
+    form = SendForgotPassForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(user_email=form.email.data.lower()).first()
+        if user is not None :
+            token = user.generate_confirmation_token()          
+            send_email(user.user_email, 'mail/forgot_password', user=user, token=token)
+            flash('Your account has received an email to reset password.'
+                ' Please check your email! ', category='success')
+            return redirect(url_for('auth.login_page'))
+    return render_template('auth/forgot_pass_request.html', form=form)
+
+@auth.route('/forgot_pass/<token>', methods=['GET', 'POST'])
+def forgot_pass(token):
+    form = ForgotPassForm()
+    if form.validate_on_submit():
+        if not current_user.is_authenticated and token is not None:
+            flag = User.reset_password(token=token, new_password=form.new_password.data)
+            if flag:
+                flash('Password changed succeed.', category='success')
+                return redirect(url_for('auth.login_page'))
+            else:
+                flash('The confirmation link is invalid or has expired.', category='danger')
+                return render_template('auth/forgot_pass.html', form=form)
+    return render_template('auth/forgot_pass.html', form=form)
 
 @auth.route('/unconfirmed')
 def unconfirmed():
@@ -70,7 +96,7 @@ def login_page():
             return redirect(url_for('auth.unconfirmed'))
         if attempted_user and attempted_user.check_password(form.password.data):
             login_user(attempted_user)
-            flash('Success!!', category='success')
+            flash('Login Success!!', category='success')
             return redirect(url_for('main.ibanking_page'))
         else:
             flash('Log In Error!!', category='danger')      

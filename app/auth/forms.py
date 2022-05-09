@@ -35,3 +35,13 @@ class RegisterForm(FlaskForm):
     def validate_phone(self, field):
         if field.data.isnumeric() == False:
             raise ValidationError('Phone number can only contains number.')
+
+class SendForgotPassForm(FlaskForm):
+    email = StringField('Email', validators=[DataRequired(), Length(1, 64),Email()])
+    submit = SubmitField('Send Email')
+
+class ForgotPassForm(FlaskForm):
+    new_password = PasswordField('New password', validators=[
+        DataRequired(), EqualTo('new_password2', message='Passwords must match.')])
+    new_password2 = PasswordField('Confirm password', validators=[DataRequired()])
+    submit = SubmitField('Reset Password')

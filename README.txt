@@ -3,8 +3,9 @@ Thành viên nhóm 8:
     + Phạm Hải Đăng  519H0277
     + Dương Chí Kiện 519H0077
 
-done    |   đăng nhập, đăng kí (có xác thực email)
+done    |   đăng nhập, đăng kí (có xác thực email, resend confirm email)
 done    |   ghi nhớ đăng nhập
+done    |   forgot password
 done    |   injection year now ở dưới footer
     |   reCAPTCHA trong login
     |   profile user(chỉnh sửa profile)+ hiển thị tin đang bán + có avatar sd Gravatar
