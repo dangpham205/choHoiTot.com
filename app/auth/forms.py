@@ -1,4 +1,4 @@
-from flask_wtf import FlaskForm
+from flask_wtf import FlaskForm, RecaptchaField
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import Length, EqualTo, Email, DataRequired, ValidationError, Regexp
 from ..models import User
@@ -7,6 +7,7 @@ import re
 class LoginForm(FlaskForm):
     username = StringField(label='Username:', validators=[DataRequired()])
     password = PasswordField(label='Password:', validators=[DataRequired()])
+    recaptcha = RecaptchaField()
     remember_me = BooleanField('Remember me')
     submit = SubmitField(label='Log In')
 

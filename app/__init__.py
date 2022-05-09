@@ -19,9 +19,8 @@ def create_app():
     app = Flask(__name__, static_folder="../static")
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///endterm.db'
     app.config['SECRET_KEY'] = '18a29538cdd94979294afa64'   #secret de co the hien thi form, python-->import os-->os.urandom(12).hex()
-    # login_manager = LoginManager(app)
-    # login_manager.login_view = 'login_page'         #tên của method trong view để dẫn đến trang login
-    # login_manager.login_message_category = 'info'       #tạo category cho flash
+    app.config['RECAPTCHA_PUBLIC_KEY'] = "6LfOCtgfAAAAAOZlXMCa8tA4vXTmPPOoSY5FG1zV"
+    app.config['RECAPTCHA_PRIVATE_KEY'] = "6LfOCtgfAAAAAKUxYIzTT_Jugz0kiHcYjGjm0TKB"
     db.init_app(app)
     bcrypt.init_app(app)
     login_manager.init_app(app)
