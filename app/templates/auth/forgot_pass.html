@@ -8,16 +8,16 @@
     
 
     <div class="container">
-        <form method="POST" class="form-signin" style="color:white">
+        <form method="POST" class="form-signin" style="color:#333333">
             {{ form.hidden_tag() }}
             <h1 class="h3 mb-3 font-weight-normal text-center mt-3">
                 Reset Password
             </h1>
             <br>
             {{ form.new_password.label() }}
-            {{ form.new_password(class="form-control", placeholder="") }}
+            {{ form.new_password(class="form-control mb-3", placeholder="") }}
             {{ form.new_password2.label() }}
-            {{ form.new_password2(class="form-control", placeholder="") }}
+            {{ form.new_password2(class="form-control mb-3", placeholder="") }}
 
             <br>
             {{ form.submit(class="btn btn-lg btn-block btn-primary") }}

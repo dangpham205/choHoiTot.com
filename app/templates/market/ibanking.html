@@ -10,12 +10,12 @@
     <div class="row" style="margin-top: 12px; padding-left: 0px; width: 100%;">
         <div class="col-7" style="margin-right: -12px; margin-left: 12px;">
             <!-- SEARCH -->
-            <h4 style="color: #7cfc00; margin-top: 8px;">Available Tuitions</h4>
+            <h4 style="color: #ffba00; margin-top: 8px;">Available Tuitions</h4>
             <br>
             <div class="row" style="margin-left: 0px; ">
                 <form action="{{ url_for('main.ibanking_page') }}" method="POST" style="margin-left: 0px; width: 70%;" class="row">
                     {{ searchForm.keyword(class="form-control col-9", placeholder='Enter Your Student ID') }}
-                    {{ searchForm.submitSearch(class="btn btn-block col-2 btn-success", style="margin-left: 8px;") }}
+                    {{ searchForm.submitSearch(class="btn btn-block col-2", style="margin-left: 8px;") }}
                 </form>
             </div>
             
@@ -29,7 +29,7 @@
             <!-- BẢNG HIỂN THỊ HỌC PHÍ -->
             <br>
             <div style="overflow-x: auto; height: 550px; max-height: 490px;">
-            <table class="table table-hover table-dark " style="margin-top: -16px;">
+            <table class="table table-hover" id="table" style="margin-top: -16px;">
                 <thead>
                     <tr>
                         <!-- Your Columns HERE -->
@@ -44,7 +44,7 @@
                     <!-- Your rows inside the table HERE: -->
                     {% for student in students %}
                     {% include 'includes/purchase_items_modals.html'   %}
-                        <tr>
+                        <tr id="table-row">
                             <td>{{ student.student_id }}</td>
                             <td>{{ student.student_name }}</td>
                             <td>{{ student.student_tuition }}$</td>
@@ -64,9 +64,9 @@
             {% if current_user.is_authenticated %}
             <div class="row" style=" margin-top: 40px;">
                 <div class="col">
-                    <h4 style="color: #7cfc00;">User Information</h4> 
+                    <h4 style="color: #ffba00;">User Information</h4> 
                     <br>
-                    <table class="table table-hover table-dark " style="margin-top: 0px;">
+                    <table class="table table-hover" id="table" style="margin-top: 0px;">
                         <thead>
                         <tr>
                             <!-- Your Columns HERE -->
@@ -76,7 +76,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                            <tr>
+                            <tr id="table-row">
                                 <td>{{ current_user.user_fullname }}</td>
                                 <td>{{ current_user.user_phone }}</td>
                                 <td>{{ current_user.user_email }}</td>
@@ -88,10 +88,10 @@
             {% endif %}
 
             <!-- BẢNG LỊCH SỬ GIAO DỊCH -->
-            <h4 style="margin-top: 12px; color: #7cfc00;">Paid History</h4>        
+            <h4 style="margin-top: 12px; color: #ffba00;">Paid History</h4>        
             <br>
             <div style="overflow-x: auto; max-height: 320px;">
-                <table class="table table-hover table-dark " style="margin-top: -14px; ">
+                <table class="table table-hover" id="table" style="margin-top: -14px; ">
                     <thead>
                         <tr>
                             <!-- Your Columns HERE -->
@@ -104,7 +104,7 @@
                     <tbody>
                         <!-- Your rows inside the table HERE: -->
                         {% for owned_student in owned_students %}
-                            <tr>
+                            <tr id="table-row">
                                 <td style="padding-bottom: 8px;">{{ owned_student.student_id }}</td>
                                 <td>{{ owned_student.student_name }}</td>
                                 <td>{{ owned_student.student_tuition }}$</td>

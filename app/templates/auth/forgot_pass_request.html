@@ -8,14 +8,14 @@
     
 
     <div class="container">
-        <form method="POST" class="form-signin" style="color:white">
+        <form method="POST" class="form-signin" style="color:#333333">
             {{ form.hidden_tag() }}
             <h1 class="h3 mb-3 font-weight-normal text-center mt-3">
                 Forgot Password
             </h1>
             <br>
             {{ form.email.label() }}
-            {{ form.email(class="form-control", placeholder="") }}
+            {{ form.email(class="form-control mb-3", placeholder="") }}
 
             <br>
 
