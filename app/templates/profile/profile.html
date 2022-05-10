@@ -16,6 +16,12 @@
         <br>
     {% endif %}
     Member since <em>{{ moment(user.member_since).format('LL') }}</em>.&nbsp;
+   {{ 
+
+       user.member_since,
+       user.last_seen
+    }}
+    
 
     <br>
     Last seen <em style="color: black;">{{ moment(user.last_seen).fromNow() }}</em>.

@@ -5,7 +5,7 @@ from ..models import User
 import re
 
 class LoginForm(FlaskForm):
-    username = StringField(label='Username:', validators=[DataRequired()])
+    email = StringField(label='Email:', validators=[DataRequired()])
     password = PasswordField(label='Password:', validators=[DataRequired()])
     # recaptcha = RecaptchaField()
     remember_me = BooleanField('Remember me')

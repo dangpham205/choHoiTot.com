@@ -26,3 +26,7 @@ class EditProfileForm(FlaskForm):
     phone = StringField(label='Phone Number:', validators=[Length(min=8, max=12), DataRequired()])
     bio = StringField(label='About Me:')
     submit = SubmitField(label='Update')
+
+class AddBudgetForm(FlaskForm):
+    amount = StringField(label='Amount:', validators=[DataRequired()])
+    submit = SubmitField(label='Add')

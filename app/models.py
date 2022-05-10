@@ -51,7 +51,7 @@ class User(db.Model, UserMixin):
     @property
     def prettier_budget(self):
         if len(str(self.user_budget)) >= 4:
-            return f'{str(self.user_budget)[:-3]},{str(self.user_budget)[-3:]}$'
+            return f'{str(self.user_budget)[:-3]},{str(self.user_budget)[-3:]}' + ' đồng hơi Tốt'
         else:
             return f"{self.user_budget}$"
 

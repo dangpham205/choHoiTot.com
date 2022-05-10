@@ -54,6 +54,7 @@
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="nav-drop">
                             <a class="dropdown-item" id="nav-drop-item"href="{{ url_for('profile.profile_page', username=current_user.user_name) }}">Your Profile</a>
                             <a class="dropdown-item" id="nav-drop-item">Change Email</a>
+                            <a class="dropdown-item" id="nav-drop-item"href="{{ url_for('profile.add_budget') }}">Add Budget</a>
                             <a class="dropdown-item" id="nav-drop-item"href="{{ url_for('profile.change_password') }}">Change Password</a>
                             <a class="dropdown-item" id="nav-drop-item"href="{{ url_for('auth.logout_page') }}">Log Out</a>
                         </div>

@@ -1,7 +1,7 @@
 from datetime import datetime
 from flask import render_template, redirect, url_for, flash, request, session
 
-from app.profile.forms import ChangePassForm, EditProfileForm
+from app.profile.forms import ChangePassForm, EditProfileForm, AddBudgetForm
 from ..models import Student, User
 from .. import db
 from hashlib import md5
@@ -36,6 +36,37 @@ def edit_profile():
         for error in form.errors.values():
             flash(f'{error}', category='danger')
     return render_template('profile/edit_profile.html', user=user, form=form)
+
+@profile.route('/add_budget', methods=['GET', 'POST'])
+@login_required
+def add_budget():
+    form = AddBudgetForm()
+    user = User.query.filter_by(user_name = current_user.user_name).first()
+    if form.validate_on_submit():
+        if (form.amount.data.isnumeric() == False):
+            flash('Please enter a number !!', category='danger')
+        else:
+            token = user.generate_confirmation_token()          
+            send_email(user.user_email, 'mail/add_budget', user=user, token=token, amount=form.amount.data)
+            # user.user_budget += int(form.amount.data)
+            # db.session.commit()
+            flash('We just sent an email for you to confirm your transaction !', category='success')
+    return render_template('profile/add_budget.html', user=user, form=form)
+    
+@profile.route('/confirm_add_budget/<amount>/<token>')
+@login_required
+def confirm_add_budget(amount,token):
+    if current_user.confirm(token) == 'TRUE':
+        current_user.user_budget += int(amount)
+        db.session.commit()
+    elif current_user.confirm(token) == 'TOUCHED':
+        flash('The confirmation link is invalid. ', category='danger')
+    elif current_user.confirm(token) == 'EXPIRED':
+        flash('The confirmation link is expired. ', category='danger')
+    else:
+        flash('Something went wrong. ', category='danger')
+    return redirect(url_for('main.home_page'))
+
 
 
 @profile.route('/change_password', methods=['GET', 'POST'])

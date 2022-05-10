@@ -5,7 +5,6 @@ from flask_login import LoginManager
 from flask_mail import Mail
 from flask_moment import Moment
 
-
 login_manager = LoginManager()
 login_manager.login_view = 'auth.login_page'    #login_required sẽ direct đến trang này nếu chưa login
 login_manager.login_message_category = 'info'       #tạo category cho flash
@@ -35,9 +34,9 @@ def create_app():
     mail.init_app(app)
 
     
-    @app.shell_context_processor
-    def make_shell_context():
-        return dict(db=db, User=User, Student=Student)
+    # @app.shell_context_processor
+    # def make_shell_context():
+    #     return dict(db=db, User=User, Student=Student)
 
     @app.before_first_request
     def create_tables():

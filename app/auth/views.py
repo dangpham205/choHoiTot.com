@@ -91,7 +91,7 @@ def resend_confirmation():
 def login_page():
     form = LoginForm()
     if form.validate_on_submit():
-        attempted_user = User.query.filter_by(user_name=form.username.data).first()
+        attempted_user = User.query.filter_by(user_email=form.email.data).first()
         if attempted_user:
             if attempted_user.confirmed == False:
                 return redirect(url_for('auth.unconfirmed'))

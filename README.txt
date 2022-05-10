@@ -10,8 +10,11 @@ done    |   injection year now ở dưới footer
 done    |   reCAPTCHA trong login
         |   profile user(chỉnh sửa profile)+ hiển thị tin đang bán + có avatar sd Gravatar :
 done                + change password sau khi đăng nhập
+done                + Edit profile (username, full name, phone, bio)
+done                + Có avatar 
+done    |   (budget là Đồng hoi Tốt, cho người dùng tự nạp) (have verify email to confirm )
+    |   mua sản phẩm 
     |   up sản phẩm+post của mình lên có chia category (giống chợ tốt)
-    |   mua sản phẩm (budget là Đồng Tốt, cho người dùng tự nạp) (have verify email to confirm )
     |   quản lí tin (xem tất cả tin của mình gồm đang bán và đã bán)
     |   cho người dùng tìm kiếm + follow nhau (sách chap 12)
     |   Khi bấm vô trang chi tiết sp:
