@@ -11,7 +11,7 @@ done    |   reCAPTCHA trong login
         |   profile user(chỉnh sửa profile)+ hiển thị tin đang bán + có avatar sd Gravatar :
 done                + change password sau khi đăng nhập
 done                + Edit profile (username, full name, phone, bio)
-done                + Có avatar 
+done                + Có avatar (avatar sẽ dựa trên cột điểm của user, mỗi lần mua hàng sẽ đc cộng điểm)
 done    |   (budget là Đồng hoi Tốt, cho người dùng tự nạp) (have verify email to confirm )
     |   mua sản phẩm 
     |   up sản phẩm+post của mình lên có chia category (giống chợ tốt)

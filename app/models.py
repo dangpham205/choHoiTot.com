@@ -28,6 +28,7 @@ class User(db.Model, UserMixin):
     bio = db.Column(db.Text())
     member_since = db.Column(db.DateTime(), default = datetime.utcnow())
     last_seen = db.Column(db.DateTime(), default=datetime.utcnow())
+    user_score = db.Column(db.Integer(), nullable=False, default=0)     #dựa vào cột này để set avatar cho người dùng
     user_paid_list = db.relationship('Student', backref = 'owned_user', lazy=True)
 
     def update_last_seen(self):

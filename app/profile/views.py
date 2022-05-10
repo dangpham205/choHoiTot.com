@@ -15,8 +15,12 @@ def profile_page(username):
         user = User.query.filter_by(user_name = username).first_or_404()
         email= user.user_email
         email_hash = md5(email.encode("utf-8")).hexdigest()
-        user_avatar = f"https://www.gravatar.com/avatar/{email_hash}?s=100&d=https://lolslaves.com/wp-content/uploads/2020/01/3.png"
-        # role_id = str(current_user.role)
+        if user.user_score > 5000:
+            user_avatar = f"https://www.gravatar.com/avatar/{email_hash}?s=100&d=https://static.wikia.nocookie.net/leagueoflegends/images/2/29/Season_2019_-_Challenger_2.png/revision/latest/scale-to-width-down/250?cb=20181229234915"
+        elif user.user_score > 2500:
+            user_avatar = f"https://www.gravatar.com/avatar/{email_hash}?s=100&d=https://static.wikia.nocookie.net/leagueoflegends/images/a/a3/Season_2019_-_Platinum_2.png/revision/latest/scale-to-width-down/250?cb=20181229234933"
+        else:        
+            user_avatar = f"https://www.gravatar.com/avatar/{email_hash}?s=100&d=https://static.wikia.nocookie.net/leagueoflegends/images/f/f4/Season_2019_-_Bronze_1.png/revision/latest/scale-to-width-down/250?cb=20181229234910"
         return render_template('profile/profile.html', user=user, user_avatar=user_avatar)
 
 @profile.route('/edit_profile', methods=['GET', 'POST'])
