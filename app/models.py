@@ -29,7 +29,7 @@ class User(db.Model, UserMixin):
     member_since = db.Column(db.DateTime(), default = datetime.utcnow())
     last_seen = db.Column(db.DateTime(), default=datetime.utcnow())
     user_score = db.Column(db.Integer(), nullable=False, default=0)     #dựa vào cột này để set avatar cho người dùng
-    user_paid_list = db.relationship('Student', backref = 'owned_user', lazy=True)
+    user_paid_list = db.relationship('Product', backref = 'owned_user', lazy=True)
 
     def update_last_seen(self):
         self.last_seen = datetime.utcnow()
@@ -114,25 +114,23 @@ class User(db.Model, UserMixin):
             db.session.commit()
             return True
 
-class Student(db.Model):
+class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    student_id = db.Column(db.String(10), nullable=False, unique=True)
-    student_name = db.Column(db.String(50), nullable=False)
-    student_tuition = db.Column(db.Integer(), nullable=False)
-    student_date = db.Column(db.String(40), nullable=False, default=datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
-    student_owner = db.Column(db.Integer, db.ForeignKey('user.id')) 
-
-    def __repr__(self):
-        return f'id {self.item_id}, name {self.item_name}'
+    name = db.Column(db.String(50), nullable=False)
+    price = db.Column(db.Integer(), nullable=False)
+    description = db.Column(db.Text())
+    date = db.Column(db.String(40), nullable=False, default=datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
+    category = db.Column(db.String(50), nullable=False)
+    owner_id = db.Column(db.Integer, db.ForeignKey('user.id')) 
 
     def purchase(self, user):
-        if(self.student_owner==None):
-            self.student_owner = user.id
-            self.student_date = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-            user.user_budget -= self.student_tuition
+        if(self.owner_id==None):
+            self.owner_id = user.id
+            self.date = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+            user.user_budget -= self.price
             db.session.commit()
-            flash(f"Congratulations! You just paid {self.student_id}'s tuition for {self.student_tuition}$", category='success')
+            flash(f"Chúc mừng! Bạn vừa mua {self.name}' với giá {self.price} đồng Hơi Tốt", category='success')
             return True
         else:
-            flash(f'Already paid by another user.' , category='danger')
+            flash(f'Sản phẩm đã được mua bởi người dùng khác.' , category='danger')
             return False

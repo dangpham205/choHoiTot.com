@@ -2,7 +2,7 @@ from datetime import datetime
 from flask import render_template, redirect, url_for, flash, request, session
 
 from app.profile.forms import ChangePassForm, EditProfileForm, AddBudgetForm
-from ..models import Student, User
+from ..models import Product, User
 from .. import db
 from hashlib import md5
 from flask_login import login_required, current_user
