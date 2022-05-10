@@ -7,7 +7,7 @@ import re
 class LoginForm(FlaskForm):
     username = StringField(label='Username:', validators=[DataRequired()])
     password = PasswordField(label='Password:', validators=[DataRequired()])
-    recaptcha = RecaptchaField()
+    # recaptcha = RecaptchaField()
     remember_me = BooleanField('Remember me')
     submit = SubmitField(label='Log In')
 

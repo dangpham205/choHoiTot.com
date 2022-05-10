@@ -32,6 +32,15 @@ def create_app():
     app.config['MAIL_USE_SSL'] = True
     mail.init_app(app)
 
+    
+    @app.shell_context_processor
+    def make_shell_context():
+        return dict(db=db, User=User, Student=Student)
+
+    @app.before_first_request
+    def create_tables():
+        db.create_all()
+
 
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)

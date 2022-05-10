@@ -92,8 +92,9 @@ def login_page():
     form = LoginForm()
     if form.validate_on_submit():
         attempted_user = User.query.filter_by(user_name=form.username.data).first()
-        if attempted_user.confirmed == False:
-            return redirect(url_for('auth.unconfirmed'))
+        if attempted_user:
+            if attempted_user.confirmed == False:
+                return redirect(url_for('auth.unconfirmed'))
         if attempted_user and attempted_user.check_password(form.password.data):
             login_user(attempted_user)
             flash('Login Success!!', category='success')
