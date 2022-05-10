@@ -9,23 +9,29 @@
 
 <img src="{{ user_avatar }}" />
 <p style="color: black;">
-    Member since <em>{{ moment(user.member_since). format('LL') }}</em>.&nbsp;
+    Username: {{ user.user_name }}
+    <br>
+    {% if user.bio %}
+        Bio: {{ user.bio }}
+        <br>
+    {% endif %}
+    Member since <em>{{ moment(user.member_since).format('LL') }}</em>.&nbsp;
 
     <br>
-    Last seen <em style="color: black;">{{ moment(user.last_seen).fromNow () }}</em>.
+    Last seen <em style="color: black;">{{ moment(user.last_seen).fromNow() }}</em>.
     <br>
 
     {% if current_user.is_authenticated %}
-        {% if current_user.username == user.username %}
-            <a >Edit Profile</a>
+        {% if current_user.user_name == user.user_name %}
+            <a class="btn btn-sm ml-2" href="{{ url_for('profile.edit_profile') }}" style="display: inline-block;" >Edit Profile</a>
+            <br>
         {% endif %}
     {% endif %}
+    Full name: {{ user.user_fullname }}
     <br>
-   {{ user.user_fullname }}
+    Phone number: {{ user.user_phone }}
     <br>
-   {{ user.user_phone }}
-    <br>
-   {{ user.user_email }}
+    Email: {{ user.user_email }}
 </p>
 
 

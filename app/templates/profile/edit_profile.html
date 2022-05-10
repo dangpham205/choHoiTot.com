@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Edit Profile
+{% endblock %}
+
+{% block content %}
+    <div class="container ">
+        
+        {# hàm register_page() trong views.py truyền vô tham số form thì h đem 'form' ra để access  #}
+        <form method="POST" class="form-register " style="color:#333333">
+           {{ form.hidden_tag() }}
+            <h1 class="h3 text-center mt-5">
+                Edit Profile
+            </h1>
+
+           {{ form.username.label() }}      {# call cái field username ra #}
+           {{ form.username(class="form-control mb-3", placeholder=user.user_name) }}          
+            {# trang trí form bằng bootstrap #}
+
+            {{ form.fullname.label() }}      {# call cái field username ra #}
+            {{ form.fullname(class="form-control mb-3", placeholder=user.user_fullname) }} 
+
+            {{ form.phone.label() }}      {# call cái field username ra #}
+            {{ form.phone(class="form-control mb-3", placeholder=user.user_phone) }} 
+
+            {{ form.bio.label() }}      
+            {{ form.bio(class="form-control mb-3", placeholder=user.bio) }}   
+            
+            <br>
+ 
+            {{ form.submit(class="btn btn-lg btn-block mb-3") }}
+            
+        </form>
+        
+    </div>
+
+    
+{% endblock %}
