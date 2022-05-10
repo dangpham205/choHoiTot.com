@@ -25,7 +25,15 @@ class User(db.Model, UserMixin):
     user_budget = db.Column(db.Integer(), nullable=False, default=2000)
     user_status = db.Column(db.Boolean, default=True)
     confirmed = db.Column(db.Boolean, default=False)
+    bio = db.Column(db.Text())
+    member_since = db.Column(db.DateTime(), default = datetime.utcnow())
+    last_seen = db.Column(db.DateTime(), default=datetime.utcnow())
     user_paid_list = db.relationship('Student', backref = 'owned_user', lazy=True)
+
+    def update_last_seen(self):
+        self.last_seen = datetime.utcnow()
+        # db.session.add(self)
+        db.session.commit()
 
     #tạo ra 1 property tên password 
     @property

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Profile {{ user.user_name}}
+{% endblock %}
+
+{% block content %}
+    
+
+<img src="{{ user_avatar }}" />
+<p style="color: black;">
+    Member since <em>{{ moment(user.member_since). format('LL') }}</em>.&nbsp;
+
+    <br>
+    Last seen <em style="color: black;">{{ moment(user.last_seen).fromNow () }}</em>.
+    <br>
+
+    {% if current_user.is_authenticated %}
+        {% if current_user.username == user.username %}
+            <a >Edit Profile</a>
+        {% endif %}
+    {% endif %}
+    <br>
+   {{ user.user_fullname }}
+    <br>
+   {{ user.user_phone }}
+    <br>
+   {{ user.user_email }}
+</p>
+
+
+
+
+    
+{% endblock %}
