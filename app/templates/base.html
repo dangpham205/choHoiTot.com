@@ -52,11 +52,11 @@
                             Welcome {{ current_user.user_name }}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="nav-drop">
-                            <a class="dropdown-item" id="nav-drop-item"href="{{ url_for('profile.profile_page', username=current_user.user_name) }}">Your Profile</a>
+                            <a class="dropdown-item" id="nav-drop-item"href="{{ url_for('profile.profile_page', username=current_user.user_name) }}">Trang cá nhân</a>
                             <a class="dropdown-item" id="nav-drop-item">Change Email</a>
-                            <a class="dropdown-item" id="nav-drop-item"href="{{ url_for('profile.add_budget') }}">Add Budget</a>
-                            <a class="dropdown-item" id="nav-drop-item"href="{{ url_for('profile.change_password') }}">Change Password</a>
-                            <a class="dropdown-item" id="nav-drop-item"href="{{ url_for('auth.logout_page') }}">Log Out</a>
+                            <a class="dropdown-item" id="nav-drop-item"href="{{ url_for('profile.manage_budget') }}">Quản lí tài khoản</a>
+                            <a class="dropdown-item" id="nav-drop-item"href="{{ url_for('profile.change_password') }}">Thay đổi mật khẩu</a>
+                            <a class="dropdown-item" id="nav-drop-item"href="{{ url_for('auth.logout_page') }}">Đăng xuất</a>
                         </div>
                     </div>
                 </li>

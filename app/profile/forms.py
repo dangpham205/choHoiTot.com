@@ -27,6 +27,13 @@ class EditProfileForm(FlaskForm):
     bio = StringField(label='About Me:')
     submit = SubmitField(label='Update')
 
+class Go2AddBudgetForm(FlaskForm):
+    submit = SubmitField(label='Nạp tài khoản')
+
+class Go2ManageBudgetForm(FlaskForm):
+    submit = SubmitField(label='Lịch sử biến động số dư')
+
+
 class AddBudgetForm(FlaskForm):
-    amount = StringField(label='Amount:', validators=[DataRequired()])
-    submit = SubmitField(label='Add')
+    amount = StringField(label='Số đồng Hơi Tốt bạn muốn nạp:', validators=[DataRequired()])
+    submit = SubmitField(label='Nạp')

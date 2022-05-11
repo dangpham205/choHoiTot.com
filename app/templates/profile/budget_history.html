@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Lịch sử biến động số dư
+{% endblock %}
+
+{% block content %}
+    
+
+    <div class="container">
+        <form method="POST" class="form-signin" style="color:#333333">
+            <h1 class="h3 mb-3 font-weight-normal text-center mt-3">
+                Lịch sử biến động số dư
+            </h1>
+            <br>
+            <table class="table table-hover" id="table" style="margin-top: -16px;">
+                <thead>
+                    <tr>
+                        <!-- Your Columns HERE -->
+                        <th scope="col">Thời gian</th>
+                        <th scope="col">Chi tiết</th>
+                        <th scope="col">Số lượng</th>
+                        <th scope="col">Số dư</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for record in records %}
+                        <tr id="table-row">
+                            <td>{{ record.date }}</td>
+                            <td>{{ record.description }}</td>
+                            <td>{{ record.amount }}</td>
+                            <td>{{ record.budget }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <br>
+
+        </form>
+    </div>
+
+
+    
+{% endblock %}

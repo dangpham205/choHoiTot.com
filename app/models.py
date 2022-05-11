@@ -52,9 +52,9 @@ class User(db.Model, UserMixin):
     @property
     def prettier_budget(self):
         if len(str(self.user_budget)) >= 4:
-            return f'{str(self.user_budget)[:-3]},{str(self.user_budget)[-3:]}' + ' đồng hơi Tốt'
+            return '{:,}'.format(self.user_budget) + ' đồng Hơi Tốt'
         else:
-            return f"{self.user_budget}$"
+            return f"{self.user_budget}" + " đồng Hơi Tốt"
 
     def can_purchase(self, item_obj):
         return self.user_budget >= item_obj.student_tuition
@@ -134,3 +134,13 @@ class Product(db.Model):
         else:
             flash(f'Sản phẩm đã được mua bởi người dùng khác.' , category='danger')
             return False
+
+class Budget(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    description = db.Column(db.Text())          #tiền chuyển ra, vào
+    date = db.Column(db.String(40), nullable=False, default=datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
+    amount = db.Column(db.Text())        # +5500, -600
+    budget = db.Column(db.Text())        # số dư
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id')) 
+
+

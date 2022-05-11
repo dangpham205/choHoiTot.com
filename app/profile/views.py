@@ -1,12 +1,13 @@
 from datetime import datetime
 from flask import render_template, redirect, url_for, flash, request, session
 
-from app.profile.forms import ChangePassForm, EditProfileForm, AddBudgetForm
-from ..models import Product, User
+from app.profile.forms import ChangePassForm, EditProfileForm, AddBudgetForm, Go2AddBudgetForm, Go2ManageBudgetForm
+from ..models import Product, User, Budget
 from .. import db
 from hashlib import md5
 from flask_login import login_required, current_user
 from . import profile
+from sqlalchemy import desc
 from ..email import send_email, send_congrat_email
 
 @profile.route('/<username>')
@@ -41,6 +42,20 @@ def edit_profile():
             flash(f'{error}', category='danger')
     return render_template('profile/edit_profile.html', user=user, form=form)
 
+@profile.route('manage_budget', methods=['GET', 'POST'])
+@login_required
+def manage_budget():
+    form1 = Go2AddBudgetForm()
+    form2 = Go2ManageBudgetForm()
+    return render_template('profile/manage_budget.html', form1=form1, form2=form2)
+
+@profile.route('budget_history', methods=['GET', 'POST'])
+@login_required
+def budget_history():
+    records = Budget.query.filter_by(user_id=current_user.id).order_by(desc(Budget.id))
+    return render_template('profile/budget_history.html', records = records)
+
+
 @profile.route('/add_budget', methods=['GET', 'POST'])
 @login_required
 def add_budget():
@@ -52,9 +67,8 @@ def add_budget():
         else:
             token = user.generate_confirmation_token()          
             send_email(user.user_email, 'mail/add_budget', user=user, token=token, amount=form.amount.data)
-            # user.user_budget += int(form.amount.data)
-            # db.session.commit()
             flash('We just sent an email for you to confirm your transaction !', category='success')
+            return redirect(url_for('profile.manage_budget'))
     return render_template('profile/add_budget.html', user=user, form=form)
     
 @profile.route('/confirm_add_budget/<amount>/<token>')
@@ -63,6 +77,15 @@ def confirm_add_budget(amount,token):
     if current_user.confirm(token) == 'TRUE':
         current_user.user_budget += int(amount)
         db.session.commit()
+        record_amount = prettier_budget(int(amount))
+        record_budget = prettier_budget(current_user.user_budget)
+        budget_record = Budget(description='Tiền chuyển vào',
+                                amount='+'+ record_amount,
+                                budget=record_budget,
+                                user_id= current_user.id)
+        db.session.add(budget_record)
+        db.session.commit()
+        flash('Bạn đã nạp tiền vào tài khoản thành công!.', category='success')
     elif current_user.confirm(token) == 'TOUCHED':
         flash('The confirmation link is invalid. ', category='danger')
     elif current_user.confirm(token) == 'EXPIRED':
@@ -86,3 +109,9 @@ def change_password() :
             return redirect(url_for('main.home_page'))
         flash('Wrong password!.', category='info')
     return render_template('profile/change_password.html', form=form)
+
+def prettier_budget(budget):
+        if len(str(budget)) >= 4:
+            return '{:,}'.format(budget)
+        else:
+            return f"{budget}"

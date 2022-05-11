@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Quản lí tài khoản
+{% endblock %}
+
+{% block content %}
+    
+
+    <div class="container">
+        <form method="POST" class="form-signin" style="color:#333333" action="{{ url_for('profile.add_budget') }}">
+            {{ form1.hidden_tag() }}
+            <h1 class="h3 mb-3 font-weight-normal text-center mt-3">
+                Quản lí tài khoản
+            </h1>
+
+            <br>
+            {{ form1.submit(class="btn btn-lg btn-block btn-primary") }}
+
+        </form>
+        <form method="POST" class="form-signin" style="color:#333333" action="{{ url_for('profile.budget_history') }}">
+            {{ form2.hidden_tag() }}
+            <br>
+            {{ form2.submit(class="btn btn-lg btn-block btn-primary") }}
+
+        </form>
+    </div>
+
+
+    
+{% endblock %}
