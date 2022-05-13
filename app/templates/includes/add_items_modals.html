@@ -32,7 +32,8 @@
             {{ addForm.description(class="form-control", placeholder='Enter Your Email Address') }}
             <br>
             {{ addForm.category.label() }}
-            {{ addForm.category}}
+            {{ addForm.category(class="btn btn-info")}}
+            <br>
             <br>
             <input type="hidden" id="add_item" name="add_item" value="">
             {{ addForm.submit(class="btn btn-lg btn-block btn-success") }}

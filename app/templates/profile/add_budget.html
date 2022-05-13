@@ -11,17 +11,13 @@
         <form method="POST" class="form-signin" style="color:#333333">
             {{ form.hidden_tag() }}
             <h1 class="h3 mb-3 font-weight-normal text-center mt-3">
-                Add Budget
+                Nạp số dư
             </h1>
             <br>
             {{ form.amount.label() }}
             {{ form.amount(class="form-control mb-3", placeholder="") }}
 
             <br>
-
-            <div class="checkbox mb-3 text-center" style="color: gray;">
-                Please enter your account's email
-            </div>
 
             <br>
             {{ form.submit(class="btn btn-lg btn-block btn-primary") }}

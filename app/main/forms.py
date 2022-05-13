@@ -9,7 +9,7 @@ class AddForm(FlaskForm):
     name = StringField(label='Tên sản phẩm:', validators=[DataRequired()])
     price = StringField(label='Giá:', validators=[DataRequired()])
     description = StringField(label='Mô tả sản phẩm:', validators=[DataRequired()])
-    myChoices = ['Đồ điện tử', 'Xe cộ', 'Đồ gia dụng', 'Giải trí']
+    myChoices = ['Tất cả', 'Đồ điện tử', 'Đồ gia dụng', 'Giải trí', 'Xe cộ']
     category = SelectField(u'Danh mục sản phẩm:', choices = myChoices, validators = [DataRequired()])
     submit = SubmitField(label='Add')
 

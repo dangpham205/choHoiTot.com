@@ -1,8 +1,8 @@
 <p>Dear {{ user.user_name }},</p>
-<p>To confirm your transaction for your account.</p>
-<a href="{{ url_for('profile.confirm_add_budget', amount= amount, token=token, _external=True) }}">CLICK HERE TO CONFIRM</a>
-<p>Alternatively, you can paste the following link in your browser's address bar:</p>
+<p>Để hoàn thành giao dịch nạp {{ amount }} đồng Tốt vào tài khoản choHoiTot của bạn.</p>
+<a href="{{ url_for('profile.confirm_add_budget', amount= amount, token=token, _external=True) }}">BẤM VÀO ĐÂY ĐỂ XÁC THỰC</a>
+<p>Hoặc, bạn có thể đi tới đường link sau bằng cửa sổ browser của bạn:</p>
 <p>{{ url_for('profile.confirm_add_budget', amount= amount, token=token, _external=True) }}</p>
-<p>Sincerely,</p>
-<p>The Flasky Team</p>
+<p>Xin trân trọng cảm ơn,</p>
+<p>Team 8</p>
 <p><small>Note: replies to this email address are not monitored.</small></p>

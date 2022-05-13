@@ -98,7 +98,7 @@ def login_page():
         if attempted_user and attempted_user.check_password(form.password.data):
             login_user(attempted_user)
             flash('Login Success!!', category='success')
-            return redirect(url_for('main.ibanking_page'))
+            return redirect(url_for('main.chotot_page', category='products'))
         else:
             flash('Log In Error!!', category='danger')      
 

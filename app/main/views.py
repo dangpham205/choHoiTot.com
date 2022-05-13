@@ -15,9 +15,9 @@ from ..email import send_email, send_congrat_email
 def home_page():
     return render_template("home.html")
 
-@main.route('/ibanking', methods=['GET', 'POST'])
+@main.route('/chotot/<category>', methods=['GET', 'POST'])
 @login_required             #yêu cầu user phải đăng nhập mới được vô trang market ==> file init phải có thêm dòng 13,14
-def ibanking_page():
+def chotot_page(category):
     purchaseForm = PurchaseForm()
     addForm = AddForm()
     searchForm = SearchForm()
@@ -31,7 +31,7 @@ def ibanking_page():
         
         # students = Student.query.filter_by(student_owner=None, student_id=stuId)    #return all the items in the db MÀ CHƯA CÓ OWNER
         # owned_students = Student.query.filter_by(student_owner=current_user.id) 
-        return render_template('market/ibanking.html', 
+        return render_template('market/chotot.html', 
                                 # students=students, 
                                 # owned_students = owned_students, 
                                 purchaseForm=purchaseForm, 
@@ -39,10 +39,10 @@ def ibanking_page():
                                 searchForm=searchForm)
 
     if request.method == 'GET':
-        # students = Student.query.filter_by(student_owner=None, student_id=stuId)    #return all the items in the db MÀ CHƯA CÓ OWNER
+        products = Product.query.filter_by(owner_id=None)    #return all the items in the db MÀ CHƯA CÓ OWNER
         # owned_students = Student.query.filter_by(student_owner=current_user.id) 
-        return render_template('market/ibanking.html', 
-                                # students=students, 
+        return render_template('market/chotot.html', 
+                                products = products, 
                                 # owned_students = owned_students, 
                                 purchaseForm=purchaseForm, 
                                 addForm= addForm, 
@@ -78,7 +78,7 @@ def purchase():
             #             flash("Please check your email to confirm your purchase. ", category='success')
             #     else:
             #         flash(f"Unfortunately, you don't have enough money to paid for {student_obj.student_id} tuition!", category='danger')
-    return redirect(url_for('main.ibanking_page'))
+    return redirect(url_for('main.chotot_page', category='products'))
 
 @main.route('/confirm_email/<student_id>/<token>')
 @login_required
@@ -98,7 +98,7 @@ def confirm_email(student_id,token):
         flash('The confirmation link is expired. ', category='danger')
     else:
         flash('Something went wrong. ', category='danger')
-    return redirect(url_for('main.ibanking_page'))
+    return redirect(url_for('main.chotot_page', category='products'))
 
 @main.route('/add', methods=['GET', 'POST'])
 @login_required
@@ -118,4 +118,4 @@ def add():
             db.session.add(add_product)
             db.session.commit()
             flash(f'Sản phẩm {addForm.name.data} đã được đăng bán thành công !!' , category='success')
-    return redirect(url_for('main.ibanking_page'))
+    return redirect(url_for('main.chotot_page', category='products'))

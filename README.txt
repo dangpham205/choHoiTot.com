@@ -13,7 +13,8 @@ done                + change password sau khi đăng nhập
 done                + Edit profile (username, full name, phone, bio)
 done                + Có avatar (avatar sẽ dựa trên cột điểm của user, mỗi lần mua hàng sẽ đc cộng điểm)
 done    |   (budget là Đồng hoi Tốt, cho người dùng tự nạp) (have verify email to confirm )
-done    |   up sản phẩm+post của mình lên có chia category (giống chợ tốt) id,name,price,description,date ,category,owner_id
+done    |   Xem lịch sử biến động số dư
+done    |   up sản phẩm+post của mình lên có chia category (giống chợ tốt)
     |   mua sản phẩm 
     |   quản lí tin (xem tất cả tin của mình gồm đang bán và đã bán)
     |   cho người dùng tìm kiếm + follow nhau (sách chap 12)

@@ -34,7 +34,7 @@
                     <a class="nav-link" id="navbar-item" href="{{ url_for('main.home_page') }}">Home <span class="sr-only">(current)</span></a>
                 </li> -->
                 <li class="nav-item">
-                    <a class="nav-link ml-1" id="navbar-item" href="{{ url_for('main.ibanking_page') }}">iBanking</a>
+                    <a class="nav-link ml-1" id="navbar-item" href="{{ url_for('main.chotot_page', category='products') }}">iBanking</a>
                 </li>
             </ul>
 
@@ -53,8 +53,8 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="nav-drop">
                             <a class="dropdown-item" id="nav-drop-item"href="{{ url_for('profile.profile_page', username=current_user.user_name) }}">Trang cá nhân</a>
-                            <a class="dropdown-item" id="nav-drop-item">Change Email</a>
-                            <a class="dropdown-item" id="nav-drop-item"href="{{ url_for('profile.manage_budget') }}">Quản lí tài khoản</a>
+                            <a class="dropdown-item" id="nav-drop-item"href="{{ url_for('profile.manage_budget') }}">Quản lí số dư</a>
+                            <a class="dropdown-item" id="nav-drop-item">Thay đổi Email</a>
                             <a class="dropdown-item" id="nav-drop-item"href="{{ url_for('profile.change_password') }}">Thay đổi mật khẩu</a>
                             <a class="dropdown-item" id="nav-drop-item"href="{{ url_for('auth.logout_page') }}">Đăng xuất</a>
                         </div>
