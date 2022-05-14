@@ -15,6 +15,13 @@ bcrypt = Bcrypt()
 mail = Mail()
 moment = Moment()
 
+
+def prettier_budget(budget):
+    if len(str(budget)) >= 4:
+        return '{:,}'.format(budget)
+    else:
+        return f"{budget}"
+
 def create_app():
     app = Flask(__name__, static_folder="../static")
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///endterm.db'
@@ -25,6 +32,7 @@ def create_app():
     bcrypt.init_app(app)
     login_manager.init_app(app)
     moment.init_app(app)
+    app.jinja_env.globals.update(prettier_budget=prettier_budget)
     app.config['MAIL_SERVER']='smtp.gmail.com'
     app.config['MAIL_PORT'] = 465
     app.config['MAIL_USERNAME'] = 'ipos10d@gmail.com'

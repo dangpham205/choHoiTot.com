@@ -3,7 +3,7 @@ from unicodedata import name
 from flask import render_template, redirect, url_for, flash, request, session
 
 from ..models import Product, User
-from .forms import AddForm, PurchaseForm, SearchForm
+from .forms import AddForm, Go2ProductDetailForm, PurchaseForm, SearchForm
 from .. import db
 from flask_login import login_required, current_user
 from . import main
@@ -20,6 +20,7 @@ def home_page():
 def chotot_page(category):
     purchaseForm = PurchaseForm()
     addForm = AddForm()
+    go2ProductDetailForm = Go2ProductDetailForm()
     searchForm = SearchForm()
     stuId = ""
     if request.method == 'POST':
@@ -35,6 +36,7 @@ def chotot_page(category):
                                 # students=students, 
                                 # owned_students = owned_students, 
                                 purchaseForm=purchaseForm, 
+                                go2ProductDetailForm = go2ProductDetailForm,
                                 addForm= addForm, 
                                 searchForm=searchForm)
 
@@ -45,13 +47,21 @@ def chotot_page(category):
                                 products = products, 
                                 # owned_students = owned_students, 
                                 purchaseForm=purchaseForm, 
+                                go2ProductDetailForm = go2ProductDetailForm,
                                 addForm= addForm, 
                                 searchForm=searchForm)
+
+@main.route('/product_detail/<product_id>', methods=['GET', 'POST'])
+def detail_page(product_id):
+    addForm = AddForm()
+    if product_id:
+        product = Product.query.filter_by(id=product_id).first()
+    return render_template('market/product_detail.html', product = product)
+    
 
 @main.route('/purchase', methods=['POST'])
 @login_required
 def purchase():
-    
     if request.method == 'POST':
         if 'last_purchase_submit' in session:
             last_submit = session['last_purchase_submit']
@@ -119,3 +129,10 @@ def add():
             db.session.commit()
             flash(f'Sản phẩm {addForm.name.data} đã được đăng bán thành công !!' , category='success')
     return redirect(url_for('main.chotot_page', category='products'))
+
+
+def prettier_budget(budget):
+        if len(str(budget)) >= 4:
+            return '{:,}'.format(budget)
+        else:
+            return f"{budget}"

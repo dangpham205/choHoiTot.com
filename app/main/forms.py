@@ -17,3 +17,7 @@ class AddForm(FlaskForm):
 class SearchForm(FlaskForm):
     keyword = StringField(label='Student ID:', validators=[])
     submitSearch = SubmitField(label='Search')
+
+class Go2ProductDetailForm(FlaskForm):
+    submit = SubmitField(label='Detail')
+
