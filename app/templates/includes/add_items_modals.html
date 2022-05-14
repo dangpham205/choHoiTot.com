@@ -12,7 +12,7 @@
         <div class="modal-header">
           <h5 class="modal-title" id="ModalLabel">
             <!-- -->
-            Add Product
+            Thêm sản phẩm
           </h5>
           <button type="button" class="close"
                   data-dismiss="modal" aria-label="Close">
@@ -23,20 +23,20 @@
           <form action="{{ url_for('main.add') }}" method="POST">
             <!-- này là bắt buộc nếu muốn trong views.py hoaajt động -->
             {{ addForm.name.label() }}      
-            {{ addForm.name(class="form-control", placeholder='Enter Your Student ID') }}
+            {{ addForm.name(class="form-control", placeholder='Nhập tên sản phẩm') }}
             <br>
             {{ addForm.price.label() }}      
-            {{ addForm.price(class="form-control", placeholder='Enter Your Student Name') }}
+            {{ addForm.price(class="form-control", placeholder='Nhập giá') }}
             <br>
             {{ addForm.description.label() }}      
-            {{ addForm.description(class="form-control", placeholder='Enter Your Email Address') }}
+            {{ addForm.description(class="form-control", placeholder='Nhập mô tả') }}
             <br>
             {{ addForm.category.label() }}
-            {{ addForm.category(class="btn btn-info")}}
+            {{ addForm.category(class="btn")}}
             <br>
             <br>
             <input type="hidden" id="add_item" name="add_item" value="">
-            {{ addForm.submit(class="btn btn-lg btn-block btn-success") }}
+            {{ addForm.submit(class="btn btn-lg btn-block") }}
           </form>
         </div>
         <div class="modal-footer">
