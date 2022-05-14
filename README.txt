@@ -15,14 +15,14 @@ done                + Có avatar (avatar sẽ dựa trên cột điểm của us
 done    |   (budget là Đồng hoi Tốt, cho người dùng tự nạp) (have verify email to confirm )
 done    |   Xem lịch sử biến động số dư
 done    |   up sản phẩm+post của mình lên có chia category (giống chợ tốt)
-    |   mua sản phẩm 
-    |   quản lí tin (xem tất cả tin của mình gồm đang bán và đã bán)
-    |   cho người dùng tìm kiếm + follow nhau (sách chap 12)
     |   Khi bấm vô trang chi tiết sp:
     |   	+Xem người bán last seen
     |   	+Nút mua (xác thực email)
     |   	+Nút xem profile người bán
     |   	+Hiển thị các sp khác lquan cùng cate ở dưới
+    |   mua sản phẩm 
+    |   quản lí tin (xem tất cả tin của mình gồm đang bán và đã bán)
+    |   cho người dùng tìm kiếm + follow nhau (sách chap 12)
     |   (bảng) notify khi có người khác mua của mình, khi mình bán thành công, đăng tin thành công???
         trong bảng notify có column 'seen', mặc định khi tạo sẽ bằng False
         mỗi lần load trang chủ sẽ kiểm tra có noti có seen bằng False, nếu có thì sẽ cho biến have_noti = True
