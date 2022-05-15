@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Profile {{ user.user_name}}
+    @{{ user.user_name}}
 {% endblock %}
 
 {% block content %}
@@ -35,30 +35,30 @@
             {% if user.bio %}
                 -- {{ user.bio }} --
             {% else %}
-                -- No bio yet --
+                -- <i>Chưa có tiểu sử<i> --
             {% endif %}
         </p>
 
         <!-- Member since <em>{{ moment(user.member_since).format('LL') }}</em>.&nbsp; -->
         <div style="color: rgb(143, 143, 143);">
-            Member since: {{user.member_since}}
+            Là thành viên từ: {{user.member_since}}
             <br>
-            Last seen: {{user.last_seen}}
+            Lần cuối hoạt động: {{user.last_seen}}
     
             <!-- Last seen <em style="color: black;">{{ moment(user.last_seen).fromNow() }}</em>. -->
         </div>
     </div>
 
     <div class="profile-col-3">
-        <div style="font-size: 18px;">Contact me via: </div>
+        <div style="font-size: 18px;">Liên hệ với tôi qua: </div>
         
         <div class="user-phone-no">
-            <b>Phone number: </b>
+            <b>Số điện thoại: </b>
             {{ user.user_phone }}
         </div>
 
         <div>
-            or
+            hoặc
         </div>
 
         <div class="user-email">

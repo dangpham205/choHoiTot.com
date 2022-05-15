@@ -15,34 +15,34 @@ class RegisterForm(FlaskForm):
     def validate_username(self,username_to_check):
         user = User.query.filter_by(user_name=username_to_check.data).first()       #phải có .data
         if user:
-            raise ValidationError('Username already exists')
+            raise ValidationError('Username này đã tồn tại')
 
     def validate_email(self,email_to_check):
         email = User.query.filter_by(user_email=email_to_check.data).first()
         if email:
-            raise ValidationError('Email already exists')
+            raise ValidationError('Email này đã tồn tại')
 
     username = StringField('Username:', validators=[DataRequired(), Length(1, 64), Regexp('^[A-Za-z][A-Za-z0-9_.]*$', 0,
-               'Usernames must have only letters, numbers, dots or '
-               'underscores')])
-    fullname = StringField(label='Full Name:', validators=[Length(min=2, max=40), DataRequired()])      
+               "Usernames chỉ được phép chứa chữ cái, số, '.' or "
+               '_')])
+    fullname = StringField(label='Họ và tên:', validators=[Length(min=2, max=40), DataRequired()])      
     email = StringField(label='Email:',  validators=[Email(),  DataRequired()])
-    phone = StringField(label='Phone Number:', validators=[Length(min=8, max=12), DataRequired()])      
-    password1 = PasswordField(label='Password:', validators=[Length(min=5),  DataRequired()])
-    password2 = PasswordField(label='Confirm Password:',  validators=[EqualTo('password1'), DataRequired()])
+    phone = StringField(label='Số điện thoại:', validators=[Length(min=8, max=12), DataRequired()])      
+    password1 = PasswordField(label='Mật khẩu:', validators=[Length(min=5),  DataRequired()])
+    password2 = PasswordField(label='Nhập lại mật khẩu:',  validators=[EqualTo('password1'), DataRequired()])
     #check password có giống nhau không ở đây
-    submit = SubmitField(label='Register')
+    submit = SubmitField(label='Đăng Kí')
 
     def validate_phone(self, field):
         if field.data.isnumeric() == False:
-            raise ValidationError('Phone number can only contains number.')
+            raise ValidationError('Số điện thoại chỉ được phép chứa số.')
 
 class SendForgotPassForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Length(1, 64),Email()])
-    submit = SubmitField('Send Email')
+    submit = SubmitField('Gửi Email')
 
 class ForgotPassForm(FlaskForm):
-    new_password = PasswordField('New password', validators=[
-        DataRequired(), EqualTo('new_password2', message='Passwords must match.')])
-    new_password2 = PasswordField('Confirm password', validators=[DataRequired()])
-    submit = SubmitField('Reset Password')
+    new_password = PasswordField('Mật khẩu mới', validators=[
+        DataRequired(), EqualTo('new_password2', message='Mật khẩu phải giống nhau.')])
+    new_password2 = PasswordField('Nhập lại mật khẩu', validators=[DataRequired()])
+    submit = SubmitField('Đặt Lại Mật Khẩu')

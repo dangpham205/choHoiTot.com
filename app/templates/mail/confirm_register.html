@@ -1,8 +1,10 @@
-<p>Dear {{ user.user_name }},</p>
-<p>Welcome to <b>Flasky</b>!</p>
-<p>To confirm your account please <a href="{{ url_for('auth.confirm_register', token=token, _external=True) }}">CLICK HERE</a>.</p>
-<p>Alternatively, you can paste the following link in your browser's address bar:</p>
+<p>Tới {{ user.user_name }},</p>
+<p>Chào mừng bạn đến với <b>chợHơiTốt</b>!</p>
+<p>Để xác thực tài khoản của bạn, hãy <a href="{{ url_for('auth.confirm_register', token=token, _external=True) }}">BẤM VÀO ĐÂY ĐỂ XÁC THỰC</a>.</p>
+<p>Hoặc, bạn có thể đi tới đường link sau bằng cửa sổ browser của bạn:</p>
 <p>{{ url_for('auth.confirm_register', token=token, _external=True) }}</p>
-<p>Sincerely,</p>
-<p>The Flasky Team</p>
+<br>
+<p>Yêu cầu này sẽ hết hiệu lực sau 3 phút!</p>
+<p>Xin trân trọng cảm ơn,</p>
+<p>Team 8</p>
 <p><small>Note: replies to this email address are not monitored.</small></p>

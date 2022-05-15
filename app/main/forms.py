@@ -3,7 +3,7 @@ from wtforms import StringField, SubmitField, SelectField
 from wtforms.validators import DataRequired
 
 class PurchaseForm(FlaskForm):
-    submitPurchase = SubmitField(label='Purchase')
+    submitPurchase = SubmitField(label='Mua Ngay')
 
 class AddForm(FlaskForm):
     name = StringField(label='Tên sản phẩm:', validators=[DataRequired()])

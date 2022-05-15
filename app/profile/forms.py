@@ -7,25 +7,25 @@ from ..models import User
 
 
 class ChangePassForm(FlaskForm):
-    old_password = PasswordField('Old password', validators=[DataRequired()])
-    new_password = PasswordField('New password', validators=[
-        DataRequired(), EqualTo('new_password2', message='Passwords must match.')])
-    new_password2 = PasswordField('Confirm password', validators=[DataRequired()])
-    submit = SubmitField('Change Password')
+    old_password = PasswordField('Mật khẩu cũ', validators=[DataRequired()])
+    new_password = PasswordField('Mật khẩu mới', validators=[
+        DataRequired(), EqualTo('new_password2', message='Mật khẩu phải giống nhau.')])
+    new_password2 = PasswordField('Nhập lại mật khẩu', validators=[DataRequired()])
+    submit = SubmitField('Thay Đổi Mật Khẩu')
 
 class EditProfileForm(FlaskForm):
     def validate_username(self,username_to_check):
         user = User.query.filter_by(user_name=username_to_check.data).first()       #phải có .data
         if user:
-            raise ValidationError('Username already exists')
+            raise ValidationError('Username này đã tồn tại')
 
     username = StringField('Username:', validators=[DataRequired(), Length(1, 64), Regexp('^[A-Za-z][A-Za-z0-9_.]*$', 0,
-               'Usernames must have only letters, numbers, dots or '
-               'underscores')])
-    fullname = StringField(label='Full Name:', validators=[Length(min=2, max=40), DataRequired()])
-    phone = StringField(label='Phone Number:', validators=[Length(min=8, max=12), DataRequired()])
-    bio = StringField(label='About Me:')
-    submit = SubmitField(label='Update')
+               "Usernames chỉ được phép chứa chữ cái, số, '.' or "
+               '_')])
+    fullname = StringField(label='Họ và tên:', validators=[Length(min=2, max=40), DataRequired()])
+    phone = StringField(label='Số điện thoại:', validators=[Length(min=8, max=12), DataRequired()])
+    bio = StringField(label='Tiểu sử:')
+    submit = SubmitField(label='Cập Nhật')
 
 class Go2AddBudgetForm(FlaskForm):
     submit = SubmitField(label='Nạp tài khoản')

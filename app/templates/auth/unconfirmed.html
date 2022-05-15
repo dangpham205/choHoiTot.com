@@ -1,23 +1,23 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Confirm your account
+    Xác thực tài khoản
 {% endblock %}
 
 {% block content %}
     
     <div class="container mb-3 text-center" , style="color: #333333;">
         <h1>
-            Welcome to choHoiTot
+            Chào mừng bạn đến choHoiTot
         </h1>
-        <h3>You have not confirmed your account yet.</h3>
+        <h3>Tài khoản của bạn chưa được xác thực!</h3>
         <p>
-            Before you can access this site you need to confirm your account.
-            Check your inbox, you should have received an email with a confirmation link.
+            Trước khi truy cập trang web, bạn cần phải xác thực tài khoản của mình thông qua email.
+            Hãy check mail của bạn, và click vào confirmation link mà chúng tôi đã gửi cho bạn!.
         </p>
         <p>
-            Need another confirmation email?
-            <a href="{{ url_for('auth.resend_confirmation') }}">Click here</a>
+            Cần 1 confirmation email khác?
+            <a href="{{ url_for('auth.resend_confirmation') }}">BẤM VÀO ĐÂY</a>
         </p>
     </div>
 

@@ -34,7 +34,7 @@
                     <a class="nav-link" id="navbar-item" href="{{ url_for('main.home_page') }}">Home <span class="sr-only">(current)</span></a>
                 </li> -->
                 <li class="nav-item">
-                    <a class="nav-link ml-1" id="navbar-item" href="{{ url_for('main.chotot_page', category='products') }}">iBanking</a>
+                    <a class="nav-link ml-1" id="navbar-item" href="{{ url_for('main.chotot_page', category='products') }}">Trang chủ</a>
                 </li>
             </ul>
 
@@ -65,10 +65,10 @@
             {% else %}
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" id="navbar-item" href="{{ url_for('auth.login_page') }}">Login</a>
+                        <a class="nav-link" id="navbar-item" href="{{ url_for('auth.login_page') }}">Đăng nhập</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="navbar-item" href="{{ url_for('auth.register_page') }}">Register</a>
+                        <a class="nav-link" id="navbar-item" href="{{ url_for('auth.register_page') }}">Đăng kí</a>
                     </li>
                 </ul>
             {% endif %}

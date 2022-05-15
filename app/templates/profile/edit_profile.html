@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Edit Profile
+Chỉnh sửa trang cá nhân
 {% endblock %}
 
 {% block content %}
@@ -11,21 +11,21 @@
         <form method="POST" class="form-register " style="color:#333333">
            {{ form.hidden_tag() }}
             <h1 class="h3 text-center mt-5">
-                Edit Profile
+                Chỉnh sửa trang cá nhân
             </h1>
 
            {{ form.username.label() }}      {# call cái field username ra #}
-           {{ form.username(class="form-control mb-3", placeholder=user.user_name) }}          
+           {{ form.username(class="form-control mb-3", value=user.user_name) }}          
             {# trang trí form bằng bootstrap #}
 
             {{ form.fullname.label() }}      {# call cái field username ra #}
-            {{ form.fullname(class="form-control mb-3", placeholder=user.user_fullname) }} 
+            {{ form.fullname(class="form-control mb-3", value=user.user_fullname) }} 
 
             {{ form.phone.label() }}      {# call cái field username ra #}
-            {{ form.phone(class="form-control mb-3", placeholder=user.user_phone) }} 
+            {{ form.phone(class="form-control mb-3", value=user.user_phone) }} 
 
             {{ form.bio.label() }}      
-            {{ form.bio(class="form-control mb-3", placeholder=user.bio) }}   
+            {{ form.bio(class="form-control mb-3", value=user.bio) }}   
             
             <br>
  

@@ -1,8 +1,9 @@
-<p>Dear {{ user.user_name }},</p>
+<p>Tới {{ user.user_name }},</p>
 <p>To confirm your purchase for {{ student.student_name }} (Student ID: {{ student.student_id }}).</p>
-<a href="{{ url_for('main.confirm_email', student_id=student.student_id, token=token, _external=True) }}">CLICK HERE TO CONFIRM</a>
-<p>Alternatively, you can paste the following link in your browser's address bar:</p>
+<a href="{{ url_for('main.confirm_email', student_id=student.student_id, token=token, _external=True) }}">BẤM VÀO ĐÂY ĐỂ XÁC THỰC</a>
+<p>Yêu cầu này sẽ hết hiệu lực sau 3 phút!</p>
+<p>Hoặc, bạn có thể đi tới đường link sau bằng cửa sổ browser của bạn:</p>
 <p>{{ url_for('main.confirm_email', student_id=student.student_id, token=token, _external=True) }}</p>
-<p>Sincerely,</p>
-<p>The Flasky Team</p>
+<p>Xin trân trọng cảm ơn,</p>
+<p>Team 8</p>
 <p><small>Note: replies to this email address are not monitored.</small></p>

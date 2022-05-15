@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Log In
+    Đăng nhập
 {% endblock %}
 
 {% block content %}
@@ -11,7 +11,7 @@
         <form method="POST" class="form-signin" style="color:#333333">
             {{ form.hidden_tag() }}
             <h1 class="h3 mb-3 text-center" style="margin-top: 40px;">
-                LOGIN
+                Đăng nhập
             </h1>
             <br>
             {{ form.email.label() }}
@@ -27,16 +27,16 @@
             <div class="checkbox mb-3 mt-3 text-center">
                 <br>
                 {{ form.remember_me }}
-                Remember me
+                Ghi nhớ đăng nhập
             </div>
 
             <div class="checkbox mb-3 text-center">
-               <h6 style="display: inline-block; color: gray;">Do not have an account?</h6>
-               <a class="btn btn-sm ml-2" href="{{ url_for('auth.register_page') }}" style="display: inline-block;" >Register</a>
+               <h6 style="display: inline-block; color: gray;">Bạn chưa có tài khoản?</h6>
+               <a class="btn btn-sm ml-2" href="{{ url_for('auth.register_page') }}" style="display: inline-block;" >Đăng kí</a>
             </div>
 
             <div class="checkbox mb-2 text-center">
-                <a style="color: #333333;" href="{{ url_for('auth.forgot_pass_request') }}">Forgot password?</a>
+                <a style="color: #333333;" href="{{ url_for('auth.forgot_pass_request') }}">Quên mật khẩu?</a>
             </div>
 
             <br>
