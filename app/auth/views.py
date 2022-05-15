@@ -23,7 +23,7 @@ def register_page():
         token = new_user.generate_confirmation_token()          
         send_email(new_user.user_email, 'mail/confirm_register', user=new_user, token=token)
         session['unconfirmed_user'] = form.username.data
-        flash('We just sent an confirmation email, please verify your account to log in !', category='success')
+        flash('Một Email đã được gửi cho bạn, hãy kiểm tra và xác thực tài khoản !', category='success')
         return redirect(url_for('auth.login_page'))
     if form.errors != {}:       #if there are errors
         for error in form.errors.values():
@@ -40,9 +40,9 @@ def confirm_register(token):
             return redirect(url_for('main.home_page'))
         if user.confirm(token, change_confirmed = True) == "TRUE":
             login_user(user)
-            flash('You have confirmed your account. Thanks!', category='success')
+            flash('Bạn đã xác thực tài khoản thành công, Xin Chào !', category='success')
         else:
-            flash('The confirmation link is invalid or has expired. ', category='danger')
+            flash('Email xác thực đã hết thời hạn.', category='danger')
     return redirect(url_for('main.home_page'))
 
 @auth.route('/forgot_pass_request', methods=['GET', 'POST'])
@@ -53,8 +53,8 @@ def forgot_pass_request():
         if user is not None :
             token = user.generate_confirmation_token()          
             send_email(user.user_email, 'mail/forgot_password', user=user, token=token)
-            flash('Your account has received an email to reset password.'
-                ' Please check your email! ', category='success')
+            flash('Bạn đã nhận được một Email để xác nhận thay đổi mật khẩu.'
+                ' Hãy kiểm tra ! ', category='success')
             return redirect(url_for('auth.login_page'))
     return render_template('auth/forgot_pass_request.html', form=form)
 
@@ -65,10 +65,10 @@ def forgot_pass(token):
         if not current_user.is_authenticated and token is not None:
             flag = User.reset_password(token=token, new_password=form.new_password.data)
             if flag:
-                flash('Password changed succeed.', category='success')
+                flash('Mật khẩu được đổi thành công.', category='success')
                 return redirect(url_for('auth.login_page'))
             else:
-                flash('The confirmation link is invalid or has expired.', category='danger')
+                flash('Email xác nhận mật khẩu mới đã hết thời hạn.', category='danger')
                 return render_template('auth/forgot_pass.html', form=form)
     return render_template('auth/forgot_pass.html', form=form)
 
@@ -84,7 +84,7 @@ def resend_confirmation():
         if not user.confirmed:
             new_token = user.generate_confirmation_token() 
             send_email(user.user_email, 'mail/confirm_register', user=user, token=new_token)
-            flash('A new confirmation email has been sent to you by email. ', category='success')
+            flash('Một email xác thực mới đã được gửi vào hòm thư của bạn. ', category='success')
     return redirect(url_for('main.home_page'))
 
 @auth.route('/login', methods=['GET', 'POST'])
@@ -97,15 +97,15 @@ def login_page():
                 return redirect(url_for('auth.unconfirmed'))
         if attempted_user and attempted_user.check_password(form.password.data):
             login_user(attempted_user)
-            flash('Login Success!!', category='success')
+            flash('Đăng nhập thành công !', category='success')
             return redirect(url_for('main.chotot_page', category='products'))
         else:
-            flash('Log In Error!!', category='danger')      
+            flash('Lỗi đăng nhập !', category='danger')      
 
     return render_template('auth/login.html', form=form)
 
 @auth.route('/logout')
 def logout_page():
     logout_user()
-    flash('Logged Out!!', category='info')
+    flash('Đăng xuất thành công !', category='info')
     return redirect(url_for('main.home_page'))

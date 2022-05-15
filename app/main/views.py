@@ -71,7 +71,7 @@ def purchase():
                 current_user.user_status = True
                 db.session.commit()
         if current_user.user_status == False:
-            flash("Another transaction is being executed at the moment. Please try again later !!", category='info')
+            flash("Một giao dịch khác đang được thực hiện, hãy thử lại sau !", category='info')
         else:
         # Purchase function
             purchased_item = request.form.get('purchased_item')      #này chỉ lấy tên của item được bấm mua (này là name trong purchase model)
@@ -101,13 +101,13 @@ def confirm_email(student_id,token):
         #     mail_body = f"Congratulations! You just paid {student_obj.student_id} tuition for {student_obj.student_tuition}$"
             # send_congrat_email(current_user.user_email, mail_body)
     elif current_user.confirm(token) == 'TOUCHED':
-        flash('The confirmation link is invalid. ', category='danger')
+        flash('Link xác nhận mua hàng không hợp lệ. ', category='danger')
     elif current_user.confirm(token) == 'EXPIRED':
         current_user.user_status = True
         db.session.commit()
-        flash('The confirmation link is expired. ', category='danger')
+        flash('Link xác nhận mua hàng đã hết thời hạn. ', category='danger')
     else:
-        flash('Something went wrong. ', category='danger')
+        flash('Ôi không...', category='danger')
     return redirect(url_for('main.chotot_page', category='products'))
 
 @main.route('/add', methods=['GET', 'POST'])

@@ -109,3 +109,66 @@ body {
     color: #545454;
     flex: 1;
 }
+
+/* IBanking page */
+.search-wrapper {
+    display: flex;
+    margin: auto;
+    width: 1200px;
+    justify-content: space-between;
+}
+
+.product-wrapper {
+    width: 1200px;
+    display: flex;
+    margin: auto;
+    margin-top: 12px;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.product-col {
+    width: 32%;
+}
+
+.product-card {
+    height: 200px;
+    text-align: center;
+    background-color: #fef6da;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+}
+
+.product-name {
+    color: #333333;
+    font-size: 20px;
+    font-weight: 500;
+    margin: 8px 0;
+}
+
+.product-divider {
+    height: 1px;
+    background-color: #ccc;
+    width: 60%;
+    display: flex;
+    margin: auto;
+}
+
+.product-price {
+    color: red;
+    font-weight: 600;
+    font-size: 26px;
+    margin-top: 18px;
+    flex: 1;
+}
+
+.product-date {
+    color: #949494;
+    margin-bottom: 6px;
+}
+
+.product-footer {
+    margin-bottom: 16px;
+}

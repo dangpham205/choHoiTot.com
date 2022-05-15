@@ -19,5 +19,5 @@ class SearchForm(FlaskForm):
     submitSearch = SubmitField(label='🔍')
 
 class Go2ProductDetailForm(FlaskForm):
-    submit = SubmitField(label='Detail')
+    submit = SubmitField(label='Xem chi tiết')
 
