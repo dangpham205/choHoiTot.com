@@ -9,7 +9,7 @@ class LoginForm(FlaskForm):
     password = PasswordField(label='Password:', validators=[DataRequired()])
     # recaptcha = RecaptchaField()
     remember_me = BooleanField('Remember me')
-    submit = SubmitField(label='Log In')
+    submit = SubmitField(label='Đăng Nhập')
 
 class RegisterForm(FlaskForm):
     def validate_username(self,username_to_check):
@@ -29,7 +29,7 @@ class RegisterForm(FlaskForm):
     email = StringField(label='Email:',  validators=[Email(),  DataRequired()])
     phone = StringField(label='Số điện thoại:', validators=[Length(min=8, max=12), DataRequired()])      
     password1 = PasswordField(label='Mật khẩu:', validators=[Length(min=5),  DataRequired()])
-    password2 = PasswordField(label='Nhập lại mật khẩu:',  validators=[EqualTo('password1'), DataRequired()])
+    password2 = PasswordField(label='Nhập lại mật khẩu:',  validators=[EqualTo('password1', message='Mật khẩu phải giống nhau.'), DataRequired()])
     #check password có giống nhau không ở đây
     submit = SubmitField(label='Đăng Kí')
 
