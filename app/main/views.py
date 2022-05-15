@@ -110,7 +110,7 @@ def confirm_email(student_id,token):
         flash('Link xác nhận mua hàng đã hết thời hạn. ', category='danger')
     else:
         flash('Ôi không...', category='danger')
-    return redirect(url_for('main.chotot_page', category='products'))
+    return redirect(url_for('main.chotot_page', category='Tất cả'))
 
 @main.route('/add', methods=['GET', 'POST'])
 @login_required
@@ -128,7 +128,7 @@ def add():
             db.session.add(add_product)
             db.session.commit()
             flash(f'Sản phẩm {addForm.name.data} đã được đăng bán thành công !!' , category='success')
-    return redirect(url_for('main.chotot_page', category='products'))
+    return redirect(url_for('main.chotot_page', category='Tất cả'))
 
 
 def prettier_budget(budget):

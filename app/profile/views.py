@@ -1,5 +1,6 @@
 from datetime import datetime
 from flask import render_template, redirect, url_for, flash, request, session
+from jinja2 import Markup
 
 from app.profile.forms import ChangePassForm, EditProfileForm, AddBudgetForm, Go2AddBudgetForm, Go2ManageBudgetForm
 from ..models import Product, User, Budget
@@ -85,7 +86,8 @@ def confirm_add_budget(amount,token):
                                 user_id= current_user.id)
         db.session.add(budget_record)
         db.session.commit()
-        flash('Bạn đã nạp tiền vào tài khoản thành công!.', category='success')
+        flash('Bạn đã nạp tiền vào tài khoản thành công!', category='success')
+        return redirect(url_for('main.chotot_page', category='Tất cả'))
     elif current_user.confirm(token) == 'TOUCHED':
         flash('Link nạp tiền không hợp lệ. ', category='danger')
     elif current_user.confirm(token) == 'EXPIRED':
