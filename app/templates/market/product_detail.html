@@ -21,7 +21,8 @@
            <br>
            <a class="btn btn-lg btn-primary" >Yêu thích</a>
            <br>
-           <a class="btn btn-lg btn-primary" >Mua ngay</a>
+           {% include 'includes/purchase_items_modals.html'   %}
+           <button class="btn btn-outline btn-primary" data-toggle="modal" data-target="#Modal-Purchase-{{ product.id }}">Mua ngay</button>
             <br>
             <br>
             Các sản phẩm cùng danh mục: {{ product.category }} <br>

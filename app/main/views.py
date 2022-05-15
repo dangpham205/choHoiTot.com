@@ -18,7 +18,6 @@ def home_page():
 @main.route('/chotot/<category>', methods=['GET', 'POST'])
 @login_required             #yêu cầu user phải đăng nhập mới được vô trang market ==> file init phải có thêm dòng 13,14
 def chotot_page(category):
-    purchaseForm = PurchaseForm()
     addForm = AddForm()
     searchForm = SearchForm()
     stuId = ""
@@ -34,7 +33,6 @@ def chotot_page(category):
         return render_template('market/chotot.html', 
                                 # students=students, 
                                 # owned_students = owned_students, 
-                                purchaseForm=purchaseForm, 
                                 addForm= addForm, 
                                 searchForm=searchForm)
 
@@ -52,19 +50,24 @@ def chotot_page(category):
                                 products = products, 
                                 category = category,
                                 # owned_students = owned_students, 
-                                purchaseForm=purchaseForm, 
                                 addForm= addForm, 
                                 searchForm=searchForm)
 
 @main.route('/product_detail/<product_id>', methods=['GET', 'POST'])
 def detail_page(product_id):
+    purchaseForm = PurchaseForm()
     if product_id:
         product = Product.query.filter_by(id=product_id).first()
         owner = User.query.filter_by(id=product.owner_id).first()
         others = Product.query.filter(Product.category == product.category,
                                     Product.owner_id != current_user.id,
                                     Product.id != product.id).limit(7).all()
-    return render_template('market/product_detail.html', product = product , owner = owner, others = others)
+    return render_template('market/product_detail.html', 
+                            product = product , 
+                            owner = owner, 
+                            others = others,
+                            purchaseForm=purchaseForm, 
+                            )
     
 
 @main.route('/purchase', methods=['POST'])
