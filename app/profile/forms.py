@@ -35,5 +35,5 @@ class Go2ManageBudgetForm(FlaskForm):
 
 
 class AddBudgetForm(FlaskForm):
-    amount = StringField(label='Số đồng Tốt bạn muốn nạp:', validators=[DataRequired()])
+    amount = StringField(label='Số tiền bạn muốn nạp:', validators=[DataRequired()])
     submit = SubmitField(label='Nạp')

@@ -60,21 +60,9 @@ Chợ Hơi Tốt
                                 {{ product.date }}
                             </div>
     
-                            <form action="{{ url_for('main.detail_page', product_id=product.id) }}" method="GET" style="display: flex; margin: auto; width: 39%;" class="row">
-                                {{ go2ProductDetailForm.submit(class="btn btn-block", style="") }}
-                            </form>
-                        </div>
-                        <!-- <div class="product-card" style=" color: black; background-color: yellow;">
-                            {{ product.name }}<br>
-                            <div class="font-weight-bold" style="color: red; font-size: 18px;">
-                            {{ prettier_budget( product.price ) }} đồng Tốt<br>
-                        </div>
-                        {{ product.date }}<br>
-                        </div>
-                        <form action="{{ url_for('main.detail_page', product_id=product.id) }}" method="GET" style="margin-left: 0px; width: 70%;" class="row">
-                            {{ go2ProductDetailForm.submit(class="btn btn-block col-2", style="margin-left: 8px;") }}
-                        </form> -->
+                            <a class="btn btn-lg btn-primary" href="{{ url_for('main.detail_page', product_id=product.id) }}" target="_blank">Chi tiết</a>
 
+                        </div>
                     </div>
                 {% endfor %}
             </div>

@@ -52,9 +52,9 @@ class User(db.Model, UserMixin):
     @property
     def prettier_budget(self):
         if len(str(self.user_budget)) >= 4:
-            return '{:,}'.format(self.user_budget) + ' đồng Tốt'
+            return '{:,}'.format(self.user_budget) + ' đồng'
         else:
-            return f"{self.user_budget}" + " đồng Tốt"
+            return f"{self.user_budget}" + " đồng"
 
     def can_purchase(self, item_obj):
         return self.user_budget >= item_obj.student_tuition

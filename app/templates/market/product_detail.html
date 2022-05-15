@@ -11,7 +11,7 @@
             Tin được đăng vào: {{ product.date }} <br>
            {{  product.name }} <br>
            Mô tả: {{  product.description }} <br>
-           {{ prettier_budget(product.price) }} đồng Tốt<br>
+           {{ prettier_budget(product.price) }} đồng<br>
            <br>
            Người bán <br>
            {{ owner.user_email }} <br>
@@ -31,7 +31,7 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ other.name }}</h5>
                             <p class="card-text"><strong>
-                                {{ prettier_budget(other.price) }} đồng Tốt
+                                {{ prettier_budget(other.price) }} đồng
                             </strong></p>
                             <a class="btn btn-lg btn-primary" href="{{ url_for('main.detail_page', product_id=other.id) }}" target="_blank">Chi tiết</a>
                         </div>

@@ -18,6 +18,5 @@ class SearchForm(FlaskForm):
     keyword = StringField(label='Tìm kiếm sản phẩm', validators=[])
     submitSearch = SubmitField(label='🔍')
 
-class Go2ProductDetailForm(FlaskForm):
-    submit = SubmitField(label='Xem chi tiết')
+
 
