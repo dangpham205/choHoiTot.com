@@ -41,7 +41,7 @@ def chotot_page(category):
                                 searchForm=searchForm)
 
     if request.method == 'GET':
-        products = Product.query.filter_by(owner_id=None)    #return all the items in the db MÀ CHƯA CÓ OWNER
+        products = Product.query.filter(Product.status =='SELLING', Product.owner_id != current_user.id)    #return all the items in the db MÀ CHƯA CÓ OWNER
         # owned_students = Student.query.filter_by(student_owner=current_user.id) 
         return render_template('market/chotot.html', 
                                 products = products, 
@@ -118,16 +118,14 @@ def confirm_email(student_id,token):
 def add():
     addForm = AddForm()
     if request.method == 'POST':
-        product_to_add = Product.query.filter_by(name=addForm.name.data).first()
-        if product_to_add:
-            flash('Tên sản phẩm này đã tồn tại !!', category='danger')
-        elif (addForm.price.data.isnumeric() == False):
+        if (addForm.price.data.isnumeric() == False):
             flash('Hãy nhập giá tiền hợp lệ !!', category='danger')
         else:
             add_product = Product(description=addForm.description.data,
                             name=addForm.name.data,
                             price=addForm.price.data,
-                            category=addForm.category.data)
+                            category=addForm.category.data,
+                            owner_id=current_user.id)
             db.session.add(add_product)
             db.session.commit()
             flash(f'Sản phẩm {addForm.name.data} đã được đăng bán thành công !!' , category='success')

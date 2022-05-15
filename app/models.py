@@ -121,6 +121,7 @@ class Product(db.Model):
     description = db.Column(db.Text())
     date = db.Column(db.String(40), nullable=False, default=datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
     category = db.Column(db.String(50), nullable=False)
+    status = db.Column(db.String(40), nullable=False, default="SELLING")
     owner_id = db.Column(db.Integer, db.ForeignKey('user.id')) 
 
     def purchase(self, user):
