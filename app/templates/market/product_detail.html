@@ -33,7 +33,7 @@
                             <p class="card-text"><strong>
                                 {{ prettier_budget(other.price) }} đồng Tốt
                             </strong></p>
-                            <a class="btn btn-lg btn-primary" href="{{ url_for('main.detail_page', product_id=other.id) }}">Chi tiết</a>
+                            <a class="btn btn-lg btn-primary" href="{{ url_for('main.detail_page', product_id=other.id) }}" target="_blank">Chi tiết</a>
                         </div>
                     </div>
                 {% endfor %}

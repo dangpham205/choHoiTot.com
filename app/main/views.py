@@ -41,7 +41,9 @@ def chotot_page(category):
                                 searchForm=searchForm)
 
     if request.method == 'GET':
-        products = Product.query.filter(Product.status =='SELLING', Product.owner_id != current_user.id)    #return all the items in the db MÀ CHƯA CÓ OWNER
+        products = Product.query.filter(Product.status =='SELLING', 
+                                        Product.owner_id != current_user.id,
+                                        Product.category == category)    #return all the items in the db MÀ CHƯA CÓ OWNER
         # owned_students = Student.query.filter_by(student_owner=current_user.id) 
         return render_template('market/chotot.html', 
                                 products = products, 
