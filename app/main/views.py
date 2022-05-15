@@ -40,6 +40,7 @@ def chotot_page(category):
 
     if request.method == 'GET':
         if category == "all":
+            category = 'Tất cả'
             products = Product.query.filter(Product.status =='SELLING', 
                                         Product.owner_id != current_user.id).all() 
         else:    
@@ -49,6 +50,7 @@ def chotot_page(category):
         # owned_students = Student.query.filter_by(student_owner=current_user.id) 
         return render_template('market/chotot.html', 
                                 products = products, 
+                                category = category,
                                 # owned_students = owned_students, 
                                 purchaseForm=purchaseForm, 
                                 addForm= addForm, 

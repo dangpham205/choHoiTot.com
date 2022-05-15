@@ -16,10 +16,10 @@ done    |   (budget là Đồng hoi Tốt, cho người dùng tự nạp) (have 
 done    |   Xem lịch sử biến động số dư
 done    |   up sản phẩm+post của mình lên có chia category (giống chợ tốt)
     |   Khi bấm vô trang chi tiết sp:
-    |   	+Xem người bán last seen
     |   	+Nút mua (xác thực email)
-    |   	+Nút xem profile người bán
-    |   	+Hiển thị các sp khác lquan cùng cate ở dưới
+done    |   	+Xem người bán last seen
+done    |   	+Nút xem profile người bán
+done    |   	+Hiển thị các sp khác lquan cùng cate ở dưới
     |   mua sản phẩm 
     |   quản lí tin (xem tất cả tin của mình gồm đang bán và đã bán)
     |   cho người dùng tìm kiếm + follow nhau (sách chap 12)
@@ -30,5 +30,4 @@ done    |   up sản phẩm+post của mình lên có chia category (giống ch�
         khi bấm vô trang tb, sẽ set tất cả noti 'seen' về True
     |   (bảng) lưu favorite product bằng cách tạo 1 bảng db favorite (id, productId, userId)
         khi query thì sẽ query các favorite có userId == current_user_id
-    |   (bảng) trả giá, mua lại: tạo ra 1 bảng 
      

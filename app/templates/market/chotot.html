@@ -23,6 +23,23 @@ Chợ Hơi Tốt
             
             <br>
 
+
+            <!-- Category -->
+            <div class="row">
+                <a class="btn btn-s btn-info" href="{{ url_for('main.chotot_page', category='all') }}">Tất cả</a>
+                <a class="btn btn-s btn-info" href="{{ url_for('main.chotot_page', category='Đồ điện tử') }}">Đồ điện tử</a>
+                <a class="btn btn-s btn-info" href="{{ url_for('main.chotot_page', category='Đồ gia dụng') }}">Đồ gia dụng</a>
+                <a class="btn btn-s btn-info" href="{{ url_for('main.chotot_page', category='Giải trí') }}">Giải trí</a>
+                <a class="btn btn-s btn-info" href="{{ url_for('main.chotot_page', category='Xe cộ') }}">Xe cộ</a>
+            </div>
+
+            <br>
+            <div class="container mb-3 " , style="color: #635c5c;">
+                chợHơiTốt >> Sản phẩm >> {{ category }}
+            </div>
+
+            <br>
+
             
             <!-- BẢNG HIỂN THỊ HỌC PHÍ -->
             <!-- <br>
@@ -60,7 +77,7 @@ Chợ Hơi Tốt
                                 {{ product.date }}
                             </div>
     
-                            <a class="btn btn-lg btn-primary" href="{{ url_for('main.detail_page', product_id=product.id) }}" target="_blank">Chi tiết</a>
+                            <a class="btn btn-s btn-primary" href="{{ url_for('main.detail_page', product_id=product.id) }}" target="_blank">Chi tiết</a>
 
                         </div>
                     </div>
