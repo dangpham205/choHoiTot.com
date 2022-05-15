@@ -1,25 +1,44 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Forgot Password
+    {{  product.name }} 
 {% endblock %}
 
 {% block content %}
     
 
-    <div class="container">
-        <h1 class="h3 mb-3 font-weight-normal text-center mt-3" style="color: black;">
-           {{ 
-
-               product.name
-            }}
+        <h1 class="h5 mb-3 font-weight-normal text-center mt-3" style="color: black;">
+            Tin được đăng vào: {{ product.date }} <br>
+           {{  product.name }} <br>
+           Mô tả: {{  product.description }} <br>
+           {{ prettier_budget(product.price) }} đồng Tốt<br>
+           <br>
+           Người bán <br>
+           {{ owner.user_email }} <br>
+           @{{ owner.user_name }} <br>
+           Last seen: {{ owner.last_seen }} <br>
+           <a class="btn btn-lg btn-primary" href="{{ url_for('profile.profile_page', username=owner.user_name) }}">Xem trang người bán</a>
+           <br>
+           <a class="btn btn-lg btn-primary" >Yêu thích</a>
+           <br>
+           <a class="btn btn-lg btn-primary" >Mua ngay</a>
             <br>
-           {{ 
-            prettier_budget(product.price)
-               
-            }}
+            <br>
+            Các sản phẩm cùng danh mục: {{ product.category }} <br>
+            <div class="row">
+                {% for other in others %}
+                    <div style="margin-bottom: 5px" class="card text-center bg-dark">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ other.name }}</h5>
+                            <p class="card-text"><strong>
+                                {{ prettier_budget(other.price) }} đồng Tốt
+                            </strong></p>
+                            <a class="btn btn-lg btn-primary" href="{{ url_for('main.detail_page', product_id=other.id) }}">Chi tiết</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
         </h1>
-    </div>
 
 
     
