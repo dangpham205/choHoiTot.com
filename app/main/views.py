@@ -39,9 +39,13 @@ def chotot_page(category):
                                 searchForm=searchForm)
 
     if request.method == 'GET':
-        products = Product.query.filter(Product.status =='SELLING', 
+        if category == "all":
+            products = Product.query.filter(Product.status =='SELLING', 
+                                        Product.owner_id != current_user.id).all() 
+        else:    
+            products = Product.query.filter(Product.status =='SELLING', 
                                         Product.owner_id != current_user.id,
-                                        Product.category == category)    #return all the items in the db MÀ CHƯA CÓ OWNER
+                                        Product.category == category).all()    #return all the items in the db MÀ CHƯA CÓ OWNER
         # owned_students = Student.query.filter_by(student_owner=current_user.id) 
         return render_template('market/chotot.html', 
                                 products = products, 
@@ -110,7 +114,7 @@ def confirm_email(student_id,token):
         flash('Link xác nhận mua hàng đã hết thời hạn. ', category='danger')
     else:
         flash('Ôi không...', category='danger')
-    return redirect(url_for('main.chotot_page', category='Tất cả'))
+    return redirect(url_for('main.chotot_page', category='all'))
 
 @main.route('/add', methods=['GET', 'POST'])
 @login_required
@@ -128,7 +132,7 @@ def add():
             db.session.add(add_product)
             db.session.commit()
             flash(f'Sản phẩm {addForm.name.data} đã được đăng bán thành công !!' , category='success')
-    return redirect(url_for('main.chotot_page', category='Tất cả'))
+    return redirect(url_for('main.chotot_page', category='all'))
 
 
 def prettier_budget(budget):

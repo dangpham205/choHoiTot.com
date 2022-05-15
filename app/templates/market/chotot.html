@@ -12,7 +12,7 @@ Chợ Hơi Tốt
             <br>
             <div class="search-wrapper">
                 <!-- SEARCH -->
-                <form action="{{ url_for('main.chotot_page', category='products') }}" method="POST" style="margin-left: 0px; width: 70%;" class="row">
+                <form action="{{ url_for('main.chotot_page', category='all') }}" method="POST" style="margin-left: 0px; width: 70%;" class="row">
                     {{ searchForm.keyword(class="form-control col-10", style= "height: 50px", placeholder='Nhập sản phẩm muốn tìm kiếm') }}
                     {{ searchForm.submitSearch(class="btn btn-block col-1", style=" margin-left: 8px;") }}
                 </form>

@@ -87,7 +87,7 @@ def confirm_add_budget(amount,token):
         db.session.add(budget_record)
         db.session.commit()
         flash('Bạn đã nạp tiền vào tài khoản thành công!', category='success')
-        return redirect(url_for('main.chotot_page', category='Tất cả'))
+        return redirect(url_for('main.chotot_page', category='all'))
     elif current_user.confirm(token) == 'TOUCHED':
         flash('Link nạp tiền không hợp lệ. ', category='danger')
     elif current_user.confirm(token) == 'EXPIRED':
