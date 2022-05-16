@@ -1,6 +1,6 @@
 <style>
     .modal-content {
-      background-color: #212121
+      background-color: #ffffff
     }
 </style>
   
@@ -13,11 +13,11 @@
       <div class="modal-header">
         <h5 class="modal-title" id="ModalLabel">
           <!-- -->
-            Purchase
+            Mua sản phẩm
         </h5>
         <button type="button" class="close"
                 data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true" style="color: white;">x</span>
+          <span aria-hidden="true" style="color: #333;">x</span>
         </button>
       </div>
       <div class="modal-body">
@@ -31,7 +31,7 @@
           </h6>
 
           <input type="hidden" id="" name="purchased_item" value="{{ product.id }}">
-          {{ purchaseForm.submitPurchase(class="btn btn-block btn-success") }}
+          {{ purchaseForm.submitPurchase(class="btn btn-block") }}
         </form>
       </div>
       <div class="modal-footer">

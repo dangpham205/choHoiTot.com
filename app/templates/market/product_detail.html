@@ -5,27 +5,85 @@
 {% endblock %}
 
 {% block content %}
-    
 
-        <h1 class="h5 mb-3 font-weight-normal text-center mt-3" style="color: black;">
-            Tin được đăng vào: {{ product.date }} <br>
-           {{  product.name }} <br>
-           Mô tả: {{  product.description }} <br>
-           {{ prettier_budget(product.price) }} đồng<br>
-           <br>
-           Người bán <br>
-           {{ owner.user_email }} <br>
-           @{{ owner.user_name }} <br>
-           Last seen: {{ owner.last_seen }} <br>
-           <a class="btn btn-lg btn-primary" href="{{ url_for('profile.profile_page', username=owner.user_name) }}">Xem trang người bán</a>
-           <br>
-           <a class="btn btn-lg btn-primary" >Yêu thích</a>
-           <br>
-           {% include 'includes/purchase_items_modals.html'   %}
-           <button class="btn btn-outline btn-primary" data-toggle="modal" data-target="#Modal-Purchase-{{ product.id }}">Mua ngay</button>
-            <br>
-            <br>
-            Các sản phẩm cùng danh mục: {{ product.category }} <br>
+    <div class="detail-container">
+        <div class="detail-header">
+            <div class="detail-header-col-1">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <h3 class="detail-prod-name">
+                        {{  product.name }}
+                    </h3>
+    
+                    <span class="detail-prod-price">{{ prettier_budget(product.price) }} đồng</span>
+                </div>
+                
+                <div>Tin được đăng vào: {{ product.date }}</div>
+            
+                <div>
+                    Mô tả: {{  product.description }}
+                </div>
+
+                <div style="display: flex; align-items: center; justify-content: space-between;">
+                    <a class="btn-love btn" style="margin-top: 10px">Yêu thích</a>
+
+                   {% include 'includes/purchase_items_modals.html'   %}
+                   <button class="btn" data-toggle="modal" data-target="#Modal-Purchase-{{ product.id }}" style="padding: 8px 24px;">Mua ngay</button>
+                </div>
+
+
+
+            </div>
+
+            <div class="detail-header-divider"></div>
+
+            <div class="detail-header-col-2">                
+                <div>
+                    <div class="detail-header-email">
+                        <div style="font-size: 20px; margin-bottom: 4px">Sản phẩm của: </div>
+                        {{  owner.user_email }}
+                    </div>
+                    <div class="profile-username">
+                        @{{ owner.user_name }}
+                    </div>
+
+                </div>
+
+                <div>
+                   <a class="btn" style="margin-bottom: 16px;" href="{{ url_for('profile.profile_page', username=owner.user_name) }}">Xem trang người bán</a>
+                   
+                </div>
+
+                <div>
+                    Last seen: {{ owner.last_seen }}
+                </div>
+            </div>  
+        </div>
+        <div class="detail-body">
+            <div class="detail-body-title">
+                <span>
+                    Xem thêm sản phẩm cùng danh mục '{{ product.category }}': 
+                </span>
+
+                <a href="{{ url_for('main.chotot_page', category='all') }}" style="color: #fdc407; text-decoration: underline;">
+                    Xem thêm >
+                </a>
+            </div>
+
+            <div class="detail-card-wrapper">
+                {% for other in others %}
+                    <div class="detail-card">
+                        <h5 class="detail-card-title">{{ other.name }}</h5>
+                        <p class="detail-card-price">
+                            {{ prettier_budget(other.price) }} đồng
+                        </p>
+                        <a class="btn" href="{{ url_for('main.detail_page', product_id=other.id) }}" target="_blank">Chi tiết</a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    
+           <!-- Tin được đăng vào: {{ product.date }} <br>
             <div class="row">
                 {% for other in others %}
                     <div style="margin-bottom: 5px" class="card text-center bg-dark">
@@ -38,8 +96,7 @@
                         </div>
                     </div>
                 {% endfor %}
-            </div>
-        </h1>
+            </div> -->
 
 
     

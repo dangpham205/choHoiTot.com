@@ -25,18 +25,18 @@ Chợ Hơi Tốt
 
 
             <!-- Category -->
-            <div class="row">
-                <a class="btn btn-s btn-info" href="{{ url_for('main.chotot_page', category='all') }}">Tất cả</a>
-                <a class="btn btn-s btn-info" href="{{ url_for('main.chotot_page', category='Đồ điện tử') }}">Đồ điện tử</a>
-                <a class="btn btn-s btn-info" href="{{ url_for('main.chotot_page', category='Đồ gia dụng') }}">Đồ gia dụng</a>
-                <a class="btn btn-s btn-info" href="{{ url_for('main.chotot_page', category='Giải trí') }}">Giải trí</a>
-                <a class="btn btn-s btn-info" href="{{ url_for('main.chotot_page', category='Xe cộ') }}">Xe cộ</a>
+            <div class="row" style="width: 1200px; display:flex; margin:auto;">
+                <a class="btn btn-s" href="{{ url_for('main.chotot_page', category='all') }}">Tất cả</a>
+                <a class="btn btn-s ml-2" href="{{ url_for('main.chotot_page', category='Đồ điện tử') }}">Đồ điện tử</a>
+                <a class="btn btn-s ml-2" href="{{ url_for('main.chotot_page', category='Đồ gia dụng') }}">Đồ gia dụng</a>
+                <a class="btn btn-s ml-2" href="{{ url_for('main.chotot_page', category='Giải trí') }}">Giải trí</a>
+                <a class="btn btn-s ml-2" href="{{ url_for('main.chotot_page', category='Xe cộ') }}">Xe cộ</a>
             </div>
 
             <br>
-            <div class="container mb-3 " , style="color: #635c5c;">
+            <i class="" , style="color: #635c5c; width: 1200px; display:flex; margin:auto; ">
                 chợHơiTốt >> Sản phẩm >> {{ category }}
-            </div>
+            </i>
 
             <br>
 

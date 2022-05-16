@@ -33,6 +33,11 @@ body {
     color: #ffffff;
 }
 
+.btn-love {
+    background-color: #ef6666;
+}
+
+
 #table {
     background-color: #ffba00;
 }
@@ -171,4 +176,86 @@ body {
 
 .product-footer {
     margin-bottom: 16px;
+}
+
+/* Product detail screen */
+.detail-container {
+    width: 1200px;
+    margin: auto;
+    margin-top: 90px;
+}
+
+.detail-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.detail-header-col-1 {
+    color: #333333;
+    width: 65%;
+}
+
+.detail-prod-name {
+    font-size: 30px;
+}
+
+.detail-prod-price {
+    color: red;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.detail-header-divider {
+    width: 1px;
+    height: 100%;
+    background-color: #ccc;
+}
+
+.detail-header-col-2 {
+    text-align: right;
+    width: 33%;
+    color: #333333;
+}
+
+.detail-header-email {
+    font-size: 26px;
+    font-weight: 500;
+}
+
+.detail-header-username {
+    color: #ffba00;
+}
+
+.detail-body {
+    margin-top: 80px;
+    color: #333333;
+    text-align: center;
+}
+
+.detail-body-title {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.detail-card-wrapper {
+    display: flex;
+    justify-content: start;
+}
+
+.detail-card {
+    width: 24%;
+    background-color: #fef2ca;
+    border-radius: 8px;
+    margin: 0 8px;
+    padding: 14px 0;
+}
+
+.detail-card-price {
+    color: #ed4d4d;
+    font-weight: 600;
+    font-size: 18px;
 }
