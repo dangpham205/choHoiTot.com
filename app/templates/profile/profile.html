@@ -9,8 +9,10 @@
 <!--AVATAR O DAY NE -->
 <div class="profile-container">
     <div class="profile-col-1">
-        <img id="user-ava" src="{{ user_avatar }}" />
-        <a class="btn btn-sm edit-profile-btn" href="{{ url_for('profile.change_avatar') }}" style="display: block;" >Thay ảnh đại diện</a>
+        <img src="/static/avatar/{{ current_user.avatar }}" alt="user avatar" width="200px" height="200px" style="object-fit: cover;">
+        <br>
+        <br>
+        <a class="btn btn-sm edit-profile-btn" href="{{ url_for('profile.change_avatar') }}" style="display: block;" >Thay đổi ảnh đại diện</a>
         <div id="user-ava-bellow">
             {% if current_user.is_authenticated %}
                 {% if current_user.user_name == user.user_name %}

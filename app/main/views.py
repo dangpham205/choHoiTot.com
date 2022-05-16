@@ -1,4 +1,5 @@
 from datetime import datetime
+import os
 from unicodedata import name
 from flask import render_template, redirect, url_for, flash, request, session
 
@@ -8,6 +9,8 @@ from .. import db
 from flask_login import login_required, current_user
 from . import main
 from ..email import send_email, send_congrat_email
+from werkzeug.utils import secure_filename
+
 
 
 @main.route('/')
@@ -40,10 +43,11 @@ def chotot_page(category):
         if category == "all":
             category = 'Tất cả'
             products = Product.query.filter(Product.status =='SELLING', 
-                                        Product.owner_id != current_user.id).all() 
+                                        # Product.owner_id != current_user.id
+                                        ).all() 
         else:    
             products = Product.query.filter(Product.status =='SELLING', 
-                                        Product.owner_id != current_user.id,
+                                        # Product.owner_id != current_user.id,
                                         Product.category == category).all()    #return all the items in the db MÀ CHƯA CÓ OWNER
         # owned_students = Student.query.filter_by(student_owner=current_user.id) 
         return render_template('market/chotot.html', 
@@ -126,8 +130,11 @@ def confirm_email(student_id,token):
 def add():
     addForm = AddForm()
     if request.method == 'POST':
+        file =addForm.file.data#First grab the file
         if (addForm.price.data.isnumeric() == False):
             flash('Hãy nhập giá tiền hợp lệ !!', category='danger')
+        elif allowed_file(file.filename) == False:
+            flash(f'File ảnh không hợp lệ!', category='danger')
         else:
             add_product = Product(description=addForm.description.data,
                             name=addForm.name.data,
@@ -136,9 +143,17 @@ def add():
                             owner_id=current_user.id)
             db.session.add(add_product)
             db.session.commit()
+            file.filename = f"{add_product.id}."+ file.filename.rsplit('.', 1)[1].lower()
+            file.save(os.path.join(os.path.abspath(os.path.dirname(__file__)), '../../static/product', secure_filename(file.filename)))#Then save the file
+            add_product.image = f"{add_product.id}."+ file.filename.rsplit('.', 1)[1].lower()
+            db.session.commit()
             flash(f'Sản phẩm {addForm.name.data} đã được đăng bán thành công !!' , category='success')
     return redirect(url_for('main.chotot_page', category='all'))
 
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
+
+def allowed_file(filename):
+	return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 def prettier_budget(budget):
         if len(str(budget)) >= 4:

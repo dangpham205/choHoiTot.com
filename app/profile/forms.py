@@ -40,4 +40,4 @@ class AddBudgetForm(FlaskForm):
 
 class UploadFileForm(FlaskForm):
     file= FileField("File", validators=[InputRequired()])
-    submit=SubmitField("Upload File")
+    submit=SubmitField("Cập Nhật")

@@ -28,7 +28,6 @@ def create_app():
     app.config['SECRET_KEY'] = '18a29538cdd94979294afa64'   #secret de co the hien thi form, python-->import os-->os.urandom(12).hex()
     app.config['RECAPTCHA_PUBLIC_KEY'] = "6LfOCtgfAAAAAOZlXMCa8tA4vXTmPPOoSY5FG1zV"
     app.config['RECAPTCHA_PRIVATE_KEY'] = "6LfOCtgfAAAAAKUxYIzTT_Jugz0kiHcYjGjm0TKB"
-    app.config['UPLOAD_FOLDER'] = 'images/avatar'
     db.init_app(app)
     bcrypt.init_app(app)
     login_manager.init_app(app)

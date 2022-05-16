@@ -19,15 +19,7 @@ import app
 def profile_page(username):
     if username is not None:        
         user = User.query.filter_by(user_name = username).first_or_404()
-        email= user.user_email
-        email_hash = md5(email.encode("utf-8")).hexdigest()
-        if user.user_score > 15000000:
-            user_avatar = f"https://www.gravatar.com/avatar/{email_hash}?s=100&d=https://static.wikia.nocookie.net/leagueoflegends/images/2/29/Season_2019_-_Challenger_2.png/revision/latest/scale-to-width-down/250?cb=20181229234915"
-        elif user.user_score > 5000000:
-            user_avatar = f"https://www.gravatar.com/avatar/{email_hash}?s=100&d=https://static.wikia.nocookie.net/leagueoflegends/images/a/a3/Season_2019_-_Platinum_2.png/revision/latest/scale-to-width-down/250?cb=20181229234933"
-        else:        
-            user_avatar = f"https://www.gravatar.com/avatar/{email_hash}?s=100&d=https://static.wikia.nocookie.net/leagueoflegends/images/f/f4/Season_2019_-_Bronze_1.png/revision/latest/scale-to-width-down/250?cb=20181229234910"
-        return render_template('profile/profile.html', user=user, user_avatar=user_avatar)
+        return render_template('profile/profile.html', user=user)
 
 @profile.route('/edit_profile', methods=['GET', 'POST'])
 @login_required
@@ -60,8 +52,13 @@ def change_avatar():
         file =form.file.data#First grab the file
         if allowed_file(file.filename):
             file.filename = f"{current_user.id}."+ file.filename.rsplit('.', 1)[1].lower()
-            file.save(os.path.join(os.path.abspath(os.path.dirname(__file__)), '../images/avatar', secure_filename(file.filename)))#Then save the file
-            flash(f'File has been uploaded', category='info')
+            file.save(os.path.join(os.path.abspath(os.path.dirname(__file__)), '../../static/avatar', secure_filename(file.filename)))#Then save the file
+            current_user.avatar = f"{current_user.id}."+ file.filename.rsplit('.', 1)[1].lower()
+            db.session.commit()
+            flash(f'Ảnh đại diện đã được cập nhật!', category='info')
+            return render_template('profile/change_avatar.html', form = form)
+        else:
+            flash(f'File ảnh không hợp lệ!', category='danger')
     return render_template('profile/change_avatar.html', form = form)
 
 @profile.route('manage_budget', methods=['GET', 'POST'])

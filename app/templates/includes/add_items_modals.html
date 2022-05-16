@@ -20,7 +20,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <form action="{{ url_for('main.add') }}" method="POST">
+          <form action="{{ url_for('main.add') }}" method="POST" enctype='multipart/form-data'>
             <!-- này là bắt buộc nếu muốn trong views.py hoaajt động -->
             {{ addForm.name.label() }}      
             {{ addForm.name(class="form-control", placeholder='Nhập tên sản phẩm') }}
@@ -30,6 +30,10 @@
             <br>
             {{ addForm.description.label() }}      
             {{ addForm.description(class="form-control", placeholder='Nhập mô tả') }}
+            <br>
+            {{ addForm.file.label() }} :
+            {{ addForm.file() }} 
+            <br>
             <br>
             {{ addForm.category.label() }}
             {{ addForm.category(class="btn")}}

@@ -24,6 +24,7 @@ class User(db.Model, UserMixin):
     password_hash = db.Column(db.String(60), nullable=False)            #phải để 60 vì hash ra sẽ gất dài
     user_budget = db.Column(db.Integer(), nullable=False, default=2000)
     user_status = db.Column(db.Boolean, default=True)
+    avatar = db.Column(db.String(40), nullable=False, default="default.jpg")
     confirmed = db.Column(db.Boolean, default=False)
     bio = db.Column(db.Text())
     member_since = db.Column(db.DateTime(), default = datetime.utcnow())
@@ -121,6 +122,7 @@ class Product(db.Model):
     description = db.Column(db.Text())
     date = db.Column(db.String(40), nullable=False, default=datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
     category = db.Column(db.String(50), nullable=False)
+    image = db.Column(db.String(40))
     status = db.Column(db.String(40), nullable=False, default="SELLING")
     owner_id = db.Column(db.Integer, db.ForeignKey('user.id')) 
 

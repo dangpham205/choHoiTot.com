@@ -1,12 +1,13 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, SelectField
-from wtforms.validators import DataRequired
+from wtforms import StringField, SubmitField, SelectField, FileField
+from wtforms.validators import DataRequired, InputRequired
 
 class PurchaseForm(FlaskForm):
     submitPurchase = SubmitField(label='Mua Ngay')
 
 class AddForm(FlaskForm):
     name = StringField(label='Tên sản phẩm:', validators=[DataRequired()])
+    file= FileField("Ảnh sản phẩm", validators=[InputRequired()])
     price = StringField(label='Giá:', validators=[DataRequired()])
     description = StringField(label='Mô tả sản phẩm:', validators=[DataRequired()])
     myChoices = ['Tất cả', 'Đồ điện tử', 'Đồ gia dụng', 'Giải trí', 'Xe cộ']
