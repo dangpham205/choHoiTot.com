@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, PasswordField
-from wtforms.validators import DataRequired, EqualTo
+from wtforms import StringField, SubmitField, PasswordField, FileField
+from wtforms.validators import DataRequired, EqualTo, InputRequired
 from wtforms.validators import Length, EqualTo, Email, DataRequired, ValidationError, Regexp
 
 from ..models import User
@@ -37,3 +37,7 @@ class Go2ManageBudgetForm(FlaskForm):
 class AddBudgetForm(FlaskForm):
     amount = StringField(label='Số tiền bạn muốn nạp:', validators=[DataRequired()])
     submit = SubmitField(label='Nạp')
+
+class UploadFileForm(FlaskForm):
+    file= FileField("File", validators=[InputRequired()])
+    submit=SubmitField("Upload File")

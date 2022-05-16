@@ -1,15 +1,19 @@
 from datetime import datetime
+import os
 from flask import render_template, redirect, url_for, flash, request, session
-from jinja2 import Markup
-
-from app.profile.forms import ChangePassForm, EditProfileForm, AddBudgetForm, Go2AddBudgetForm, Go2ManageBudgetForm
+from app.profile.forms import ChangePassForm, EditProfileForm, AddBudgetForm, Go2AddBudgetForm, Go2ManageBudgetForm, UploadFileForm
 from ..models import Product, User, Budget
 from .. import db
 from hashlib import md5
 from flask_login import login_required, current_user
 from . import profile
 from sqlalchemy import desc
-from ..email import send_email, send_congrat_email
+from ..email import send_email
+from werkzeug.utils import secure_filename
+
+import app
+
+
 
 @profile.route('/<username>')
 def profile_page(username):
@@ -42,6 +46,23 @@ def edit_profile():
         for error in form.errors.values():
             flash(f'{error}', category='danger')
     return render_template('profile/edit_profile.html', user=user, form=form)
+
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
+
+def allowed_file(filename):
+	return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+@profile.route('change_avatar', methods=['GET', 'POST'])
+@login_required
+def change_avatar():
+    form = UploadFileForm()
+    if form.validate_on_submit():
+        file =form.file.data#First grab the file
+        if allowed_file(file.filename):
+            file.filename = f"{current_user.id}."+ file.filename.rsplit('.', 1)[1].lower()
+            file.save(os.path.join(os.path.abspath(os.path.dirname(__file__)), '../images/avatar', secure_filename(file.filename)))#Then save the file
+            flash(f'File has been uploaded', category='info')
+    return render_template('profile/change_avatar.html', form = form)
 
 @profile.route('manage_budget', methods=['GET', 'POST'])
 @login_required
