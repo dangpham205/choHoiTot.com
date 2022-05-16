@@ -65,7 +65,7 @@ def detail_page(product_id):
         owner = User.query.filter_by(id=product.owner_id).first()
         others = Product.query.filter(Product.category == product.category,
                                     # Product.owner_id != current_user.id,
-                                    Product.id != product.id).limit(7).all()
+                                    Product.id != product.id).limit(5).all()
     return render_template('market/product_detail.html', 
                             product = product , 
                             owner = owner, 

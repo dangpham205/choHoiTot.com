@@ -71,6 +71,10 @@ body {
     /* align-items: center; */
 }
 
+.edit-profile-btn {
+    width: 100%;
+}
+
 .profile-col-1 {
     margin-right: 30px;
 }
@@ -137,9 +141,10 @@ body {
 }
 
 .product-card {
-    height: 200px;
+    height: 400px;
     text-align: center;
-    background-color: #fef6da;
+    align-items: center;
+    background-color: #feeeb9;
     margin-bottom: 20px;
     display: flex;
     flex-direction: column;
@@ -154,6 +159,7 @@ body {
 }
 
 .product-divider {
+    margin-top: 8px;
     height: 1px;
     background-color: #ccc;
     width: 60%;
@@ -182,7 +188,7 @@ body {
 .detail-container {
     width: 1200px;
     margin: auto;
-    margin-top: 90px;
+    margin-top: 50px;
 }
 
 .detail-header {
@@ -248,7 +254,7 @@ body {
 
 .detail-card {
     width: 24%;
-    background-color: #fef2ca;
+    background-color: #feeeb9;
     border-radius: 8px;
     margin: 0 8px;
     padding: 14px 0;

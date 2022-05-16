@@ -60,16 +60,13 @@ Chợ Hơi Tốt
             <div class="product-wrapper">
                 {% for product in products %}
                     <div class="product-col product-card">
-                        <img src="/static/product/{{ product.image }}" alt="product image" width="200px" height="200px" style="object-fit: cover;">
-
+                        
                         <div class="product-name">
                             {{ product.name }}
                         </div>
 
-                        <div class="product-divider">
-
-                        </div>
-
+                        <img src="/static/product/{{ product.image }}" alt="product-img" width="200px" height="200px" style="object-fit: cover; width: 70%;">
+                        
                         <div class="product-price">
                             {{ prettier_budget( product.price ) }} đồng
                         </div>
@@ -79,7 +76,7 @@ Chợ Hơi Tốt
                                 {{ product.date }}
                             </div>
     
-                            <a class="btn btn-s btn-primary" href="{{ url_for('main.detail_page', product_id=product.id) }}" target="_blank">Chi tiết</a>
+                            <a class="btn" href="{{ url_for('main.detail_page', product_id=product.id) }}" target="_blank">Chi tiết</a>
 
                         </div>
                     </div>

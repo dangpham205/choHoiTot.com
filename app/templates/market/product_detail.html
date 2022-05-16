@@ -10,9 +10,9 @@
         <div class="detail-header">
             <div class="detail-header-col-1">
 
-                <img src="/static/product/{{ product.image }}" alt="product image" width="200px" height="200px" style="object-fit: cover;">
+                <img src="/static/product/{{ product.image }}" alt="product image"  style="width: 100%; ">
 
-                <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 12px;">
                     <h3 class="detail-prod-name">
                         {{  product.name }}
                     </h3>
@@ -77,7 +77,7 @@
                     <div class="detail-card">
                         
                         <h5 class="detail-card-title">{{ other.name }}</h5>
-                        <img src="/static/product/{{ other.image }}" alt="product image" width="200px" height="200px" style="object-fit: cover;">
+                        <img src="/static/product/{{ other.image }}" alt="product image" style="object-fit: cover; width: 200px; height: 200px;">
                         <p class="detail-card-price">
                             {{ prettier_budget(other.price) }} đồng
                         </p>
