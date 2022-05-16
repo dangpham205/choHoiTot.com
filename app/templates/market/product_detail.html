@@ -67,7 +67,7 @@
                     Xem thêm sản phẩm cùng danh mục '{{ product.category }}': 
                 </span>
 
-                <a href="{{ url_for('main.chotot_page', category='all') }}" style="color: #fdc407; text-decoration: underline;">
+                <a href="{{ url_for('main.chotot_page', category=product.category ) }}" style="color: #fdc407; text-decoration: underline;">
                     Xem thêm >
                 </a>
             </div>

@@ -40,15 +40,15 @@ def chotot_page(category):
                                 searchForm=searchForm)
 
     if request.method == 'GET':
-        if category == "all":
+        if category == "all" or category == 'Tất cả':
             category = 'Tất cả'
             products = Product.query.filter(Product.status =='SELLING', 
                                         # Product.owner_id != current_user.id
-                                        ).all() 
+                                        ).order_by(Product.id.desc()).all() 
         else:    
             products = Product.query.filter(Product.status =='SELLING', 
                                         # Product.owner_id != current_user.id,
-                                        Product.category == category).all()    #return all the items in the db MÀ CHƯA CÓ OWNER
+                                        Product.category == category).order_by(Product.id.desc()).all()    #return all the items in the db MÀ CHƯA CÓ OWNER
         # owned_students = Student.query.filter_by(student_owner=current_user.id) 
         return render_template('market/chotot.html', 
                                 products = products, 

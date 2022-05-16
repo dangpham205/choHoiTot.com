@@ -98,7 +98,7 @@ def login_page():
         if attempted_user and attempted_user.check_password(form.password.data):
             login_user(attempted_user)
             flash('Đăng nhập thành công !', category='success')
-            return redirect(url_for('main.chotot_page', category='products'))
+            return redirect(url_for('main.chotot_page', category='all'))
         else:
             flash('Lỗi đăng nhập !', category='danger')      
 
