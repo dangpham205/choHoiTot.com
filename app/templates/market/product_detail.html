@@ -9,6 +9,9 @@
     <div class="detail-container">
         <div class="detail-header">
             <div class="detail-header-col-1">
+
+                <img src="/static/product/{{ product.image }}" alt="product image" width="200px" height="200px" style="object-fit: cover;">
+
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                     <h3 class="detail-prod-name">
                         {{  product.name }}
@@ -72,7 +75,9 @@
             <div class="detail-card-wrapper">
                 {% for other in others %}
                     <div class="detail-card">
+                        
                         <h5 class="detail-card-title">{{ other.name }}</h5>
+                        <img src="/static/product/{{ other.image }}" alt="product image" width="200px" height="200px" style="object-fit: cover;">
                         <p class="detail-card-price">
                             {{ prettier_budget(other.price) }} đồng
                         </p>

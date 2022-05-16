@@ -60,6 +60,8 @@ Chợ Hơi Tốt
             <div class="product-wrapper">
                 {% for product in products %}
                     <div class="product-col product-card">
+                        <img src="/static/product/{{ product.image }}" alt="product image" width="200px" height="200px" style="object-fit: cover;">
+
                         <div class="product-name">
                             {{ product.name }}
                         </div>
