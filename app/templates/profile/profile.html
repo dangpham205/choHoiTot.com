@@ -33,6 +33,10 @@
         <div>
             <div class="profile-name">
                 {{ user.user_fullname }}
+                {% if user.user_score >= 10000000 %}
+                    <img src="/static/check.png" alt="account-check" width="30px">
+                {% endif %}
+
             </div>
             <div class="profile-username mt-1">
                 @{{ user.user_name }}

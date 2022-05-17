@@ -44,6 +44,9 @@
                     <div class="detail-header-email">
                         <div style="font-size: 20px; margin-bottom: 4px">Sản phẩm của: </div>
                         {{  owner.user_fullname }}
+                        {% if owner.user_score >= 10000000 %}
+                            <img src="/static/check.png" alt="account-check" width="20px">
+                        {% endif %}
                     </div>
                     <div class="profile-username">
                         @{{ owner.user_name }}

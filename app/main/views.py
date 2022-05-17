@@ -95,10 +95,11 @@ def purchase(product_id):
 @login_required
 def confirm_purchase(product_id,token):
     if current_user.confirm(token) == 'TRUE':
-        product = Product.query.filter_by(id = product_id, status= 'SELLING').first()
+        product = Product.query.filter_by(id = product_id).first()
         if product.purchase(current_user) == True:
             print(product.owner_id)
             print(product.status)
+            send_email(current_user.user_email, 'mail/purchase_success', user=current_user, product=product)
         #     mail_body = f"Congratulations! You just paid {student_obj.student_id} tuition for {student_obj.student_tuition}$"
             # send_congrat_email(current_user.user_email, mail_body)
     elif current_user.confirm(token) == 'TOUCHED':

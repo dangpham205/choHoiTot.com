@@ -128,6 +128,8 @@ class Product(db.Model):
 
     def purchase(self, user):
         if(self.status=='SELLING'):
+            old_owner = User.query.filter_by(id=self.owner_id).first()
+            old_owner.user_score += self.price
             self.owner_id = user.id
             self.status = 'OWNED'
             self.date = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
