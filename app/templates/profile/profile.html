@@ -38,7 +38,7 @@
                 {% endif %}
 
             </div>
-            <div class="profile-username mt-1">
+            <div class="profile-username">
                 @{{ user.user_name }}
             </div>
         </div>
@@ -47,7 +47,7 @@
             {% if user.bio %}
                 -- {{ user.bio }} --
             {% else %}
-                -- <i>Chưa có tiểu sử<i> --
+                -- <i>Chưa có tiểu sử</i> --
             {% endif %}
         </p>
 
@@ -78,35 +78,53 @@
             {{ user.user_email }} 
         </div>
     </div>
-    
-    
-    
 </div>
 
+<div>
+    <h3 style="color: #333333; text-align: center; margin-top: 80px; margin-bottom: 30px;">Các sản phẩm đang bán: </h3>
 
-{% for product in products %}
-    <div class="container mb-3 text-center" , style="color: #333333;">
-        {{ product.name }} 
-        <br>
-        <img src="/static/product/{{ product.image }}" alt="product-img" width="200px" height="200px" style="object-fit: cover; width: 70%;">
-        <br>
-        {{ prettier_budget( product.price ) }} đồng
-        <br>
-        {{ product.date }}
-        <br>
-        Mô tả: {{  product.description }}
-        <br> 
-        {{ product.category }}
-        <br>
-        {% include 'includes/update_items_modals.html'   %}
-        <button class="btn" data-toggle="modal" data-target="#Modal-Update-{{ product.id }}" style="padding: 8px 24px;">Chỉnh sửa</button>
-        <br>
-        {% include 'includes/delete_items_modals.html'   %}
-        <button class="btn" data-toggle="modal" data-target="#Modal-Delete-{{ product.id }}" style="padding: 8px 24px;">Xóa tin</button>
-    </div>
+    {% for product in products %}
+        <div style="display: flex; padding: 20px;" class="profile-item-card">
+            <div style="width: 40%;">
+                <img src="/static/product/{{ product.image }}" alt="product-img" style="width: 100%; border-radius: 8px;">
+            </div>
 
-    <br><br>
-{% endfor %}
+            <div style="margin-left: 40px; text-align: left; flex:1;">
+                <div class="profile-item-name">
+                    {{ product.name }} 
+                </div>
 
+                <div class="profile-item-price">
+                    {{ prettier_budget( product.price ) }} đồng
+                </div>
+
+                <div class="profile-item-desc">
+                    Mô tả: {{  product.description }}
+                </div>
+
+                <div class="profile-item-cate">
+                    Danh mục: {{ product.category }}
+                </div>
+                
+                <div class="profile-item-date">
+                    Ngày đăng bài: {{ product.date }}
+                </div>
+            </div>
+
+            <div class="profile-btn-wrapper">
+                
+                {% include 'includes/delete_items_modals.html'   %}
+                <button class="btn btn-close profile-close-btn" data-toggle="modal" data-target="#Modal-Delete-{{ product.id }}" style="padding: 8px 10px;">Xóa tin</button>
+
+                {% include 'includes/update_items_modals.html'   %}
+                <button class="btn profile-edit-btn" data-toggle="modal" data-target="#Modal-Update-{{ product.id }}">Chỉnh sửa</button>
+            </div>
+
+        </div>
+
+        <br>
+        <!-- <div style="width: 40%; height: 1px; background-color:#ccc; margin: auto; margin-top: 40px; margin-bottom: 40px;"></div> -->
+    {% endfor %}
+</div>
     
 {% endblock %}

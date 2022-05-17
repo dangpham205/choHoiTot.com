@@ -7,17 +7,17 @@
 <!-- Purchase Confirm -->
 <div class="modal fade" id="Modal-Delete-{{ product.id }}"
      tabindex="-1"
-     aria-labelledby="exampleModalLabel" aria-hidden="true">
+     aria-labelledby="exampleModalLabel" aria-hidden="true" style="color: #fff">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="ModalLabel">
           <!-- -->
-            Mua sản phẩm
+            Xóa sản phẩm
         </h5>
         <button type="button" class="close"
                 data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true" style="color: #333;">x</span>
+          <span aria-hidden="true" style="color: white;">x</span>
         </button>
       </div>
       <form method="POST" action="{{ url_for('main.purchase', product_id = product.id)}}">
@@ -28,13 +28,10 @@
           </h4>
           <br>
           <h6 class="text-center">
-            Bấm <b>Mua ngay</b> để mua sản phẩm này <br>
+            Bấm <b>Xóa</b> để mua sản phẩm này <br>
             <br>
-            <button type="submit" class="btn">Mua ngay</button>
+            <button type="submit" class="btn" style="padding: 6px 32px;">Xóa</button>
           </h6>
-        </div>
-        <div class="modal-footer">
-          
         </div>
       </form>
     </div>

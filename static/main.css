@@ -37,6 +37,9 @@ body {
     background-color: #ef6666;
 }
 
+.btn-close {
+    background-color: #ed4d4d;
+}
 
 #table {
     background-color: #ffba00;
@@ -108,7 +111,7 @@ body {
 
 .profile-username {
     font-style: italic;
-    margin-top: -10px;
+    margin-top: -4px;
     margin-bottom: 12px;
     font-size: 14px;
     color: #949494;
@@ -117,6 +120,64 @@ body {
 .profile-bio {
     color: #545454;
     flex: 1;
+}
+
+.profile-item-card {
+    position: relative;
+    color: #333333;
+    margin: auto;
+    text-align: center;
+    width: 1200px;
+    margin-bottom: 20px;
+    background-color: #feeeb9;
+    border-radius: 10px;
+}
+
+.profile-item-name {
+    font-size: 28px;
+    font-weight: 500;
+    line-height: 28px;
+}
+
+.profile-item-price {
+    font-size: 24px;
+    font-weight: 600;
+    color: #ed4d4d;
+    margin-top: 10px;
+}
+
+.profile-item-date {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #949494;
+
+}
+
+.profile-item-desc {
+    font-size: 18px;
+}
+
+.profile-item-cate {
+    margin-top: 190px;
+    color: #6b6b6b;
+    font-size: 16px;
+}
+
+.profile-btn-wrapper {
+    display: block;
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+}
+
+.profile-edit-btn, .profile-close-btn{
+    width: 100px;
+    height: 42px;
+    margin-bottom: 10px;
+}
+
+.profile-edit-btn {
+    margin-left: 6px;
 }
 
 /* IBanking page */
