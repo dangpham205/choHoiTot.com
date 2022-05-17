@@ -19,7 +19,10 @@ import app
 def profile_page(username):
     if username is not None:        
         user = User.query.filter_by(user_name = username).first_or_404()
-        return render_template('profile/profile.html', user=user)
+        products = Product.query.filter(Product.status =='SELLING', 
+                                        Product.owner_id == user.id
+                                        ).order_by(Product.id.desc()).all() 
+        return render_template('profile/profile.html', user=user, products = products)
 
 @profile.route('/edit_profile', methods=['GET', 'POST'])
 @login_required

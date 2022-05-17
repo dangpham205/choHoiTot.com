@@ -78,11 +78,29 @@
             {{ user.user_email }} 
         </div>
     </div>
-
+    
+    
     
 </div>
 
 
+{% for product in products %}
+    <div class="container mb-3 text-center" , style="color: #333333;">
+      {{ product.name }} 
+      <br>
+      <img src="/static/product/{{ product.image }}" alt="product-img" width="200px" height="200px" style="object-fit: cover; width: 70%;">
+      <br>
+      {{ prettier_budget( product.price ) }} đồng
+      <br>
+      {{ product.date }}
+      <br>
+      Mô tả: {{  product.description }}
+      <br> 
+      {{ product.category }}
+    </div>
+
+    <br><br>
+{% endfor %}
 
     
 {% endblock %}
