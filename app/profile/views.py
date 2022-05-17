@@ -27,10 +27,18 @@ def edit_profile():
     form = EditProfileForm()
     user = User.query.filter_by(user_name = current_user.user_name).first()
     if form.validate_on_submit():
-        user.user_name = form.username.data
-        user.user_fullname = form.fullname.data
-        user.user_phone = form.phone.data
-        user.bio = form.bio.data
+        if form.username.data :
+            user = User.query.filter_by(user_name=form.username.data).first()
+            if user and user.id != current_user.id:
+                flash('Username này đã tồn tại', category='danger')
+            else:
+                user.user_name = form.username.data
+        if form.fullname.data:
+            user.user_fullname = form.fullname.data
+        if form.phone.data:
+            user.user_phone = form.phone.data
+        if form.phone.data:
+            user.bio = form.bio.data
         db.session.commit()
         flash('Trang cá nhân được cập nhật thành công !', category='success')
         return redirect(url_for('profile.profile_page', username=current_user.user_name))
