@@ -21,9 +21,9 @@ done    |   	+Xem người bán last seen
 done    |   	+Nút xem profile người bán
 done    |   	+Hiển thị các sp khác lquan cùng cate ở dưới
 done    |   mua sản phẩm 
-    |    xem tất cả tin của mình đang bán trong trang profile
-    |        +liệt kê các sp ĐANG đc đăng bán
-	|        +thay vì nút mua thì sẽ là nút update, delete
+        |    xem tất cả tin của mình đang bán trong trang profile
+done    |        +liệt kê các sp ĐANG đc đăng bán
+    	|        +thay vì nút mua thì sẽ là nút update, delete (khi ở trang người khác thì sẽ là nút mua)
     |    làm trang đã mua
     |        +liệt kê các sp đã đc mua thành công
     |        +có option cho phép bán lên lại ==> set status của product lại thành 'selling'

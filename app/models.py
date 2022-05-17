@@ -130,6 +130,7 @@ class Product(db.Model):
         if(self.status=='SELLING'):
             old_owner = User.query.filter_by(id=self.owner_id).first()
             old_owner.user_score += self.price
+            old_owner.user_budget += self.price
             self.owner_id = user.id
             self.status = 'OWNED'
             self.date = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
@@ -137,11 +138,17 @@ class Product(db.Model):
             db.session.commit()
             record_amount = prettier_budget(int(self.price))
             record_budget = prettier_budget(user.user_budget)
-            budget_record = Budget(description='Tiền chuyển ra',
+            record_budget_2 = prettier_budget(old_owner.user_budget)
+            budget_record_mua = Budget(description='Tiền chuyển ra',
                                 amount='-'+ record_amount,
                                 budget=record_budget,
                                 user_id= user.id)
-            db.session.add(budget_record)
+            budget_record_ban = Budget(description='Tiền chuyển vào',
+                                amount='+'+ record_amount,
+                                budget=record_budget_2,
+                                user_id= user.id)
+            db.session.add(budget_record_mua)
+            db.session.add(budget_record_ban)
             db.session.commit()
             flash(f"Chúc mừng! Bạn vừa mua {self.name} với giá {self.price} đồng!", category='success')
             return True
