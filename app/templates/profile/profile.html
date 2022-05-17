@@ -9,10 +9,16 @@
 <!--AVATAR O DAY NE -->
 <div class="profile-container">
     <div class="profile-col-1">
-        <img src="/static/avatar/{{ current_user.avatar }}" alt="user avatar" width="200px" height="200px" style="object-fit: cover;">
+        <img src="/static/avatar/{{ user.avatar }}" alt="user avatar" width="200px" height="200px" style="object-fit: cover;">
         <br>
         <br>
-        <a class="btn btn-sm edit-profile-btn" href="{{ url_for('profile.change_avatar') }}" style="display: block;" >Thay đổi ảnh đại diện</a>
+        <!-- THAY AVATAR -->
+        {% if current_user.is_authenticated %}
+            {% if current_user.user_name == user.user_name %}
+                <a class="btn btn-sm edit-profile-btn" href="{{ url_for('profile.change_avatar') }}" style="display: block;" >Thay đổi ảnh đại diện</a>
+            {% endif %}
+        {% endif %}
+        <!-- THAY TT CÁ NHÂN -->
         <div id="user-ava-bellow">
             {% if current_user.is_authenticated %}
                 {% if current_user.user_name == user.user_name %}
@@ -20,7 +26,6 @@
                     <br>
                 {% endif %}
             {% endif %}
-
         </div>
     </div>
 
@@ -29,7 +34,7 @@
             <div class="profile-name">
                 {{ user.user_fullname }}
             </div>
-            <div class="profile-username">
+            <div class="profile-username mt-1">
                 @{{ user.user_name }}
             </div>
         </div>

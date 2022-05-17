@@ -26,25 +26,38 @@ def profile_page(username):
 def edit_profile():
     form = EditProfileForm()
     user = User.query.filter_by(user_name = current_user.user_name).first()
+    haveChange = False
     if form.validate_on_submit():
         if form.username.data :
-            user = User.query.filter_by(user_name=form.username.data).first()
-            if user and user.id != current_user.id:
+            user_to_check = User.query.filter_by(user_name=form.username.data).first()
+            if user_to_check and user_to_check.id != user.id:
                 flash('Username này đã tồn tại', category='danger')
+                return render_template('profile/edit_profile.html', user=user, form=form)
+            elif user_to_check and user_to_check.id == user.id:
+                flash('Hãy nhập 1 username khác', category='danger')
+                return render_template('profile/edit_profile.html', user=user, form=form)
             else:
                 user.user_name = form.username.data
+                haveChange = True
         if form.fullname.data:
             user.user_fullname = form.fullname.data
+            haveChange = True
         if form.phone.data:
-            user.user_phone = form.phone.data
-        if form.phone.data:
+            if form.phone.data.isnumeric() == False or len(form.phone.data) > 12 or len(form.phone.data) <8:
+                flash('Hãy nhập 1 số điện thoại hợp lệ', category='danger')
+                return render_template('profile/edit_profile.html', user=user, form=form)
+            else:
+                user.user_phone = form.phone.data
+                haveChange = True
+        if form.bio.data:
             user.bio = form.bio.data
-        db.session.commit()
-        flash('Trang cá nhân được cập nhật thành công !', category='success')
-        return redirect(url_for('profile.profile_page', username=current_user.user_name))
-    if form.errors != {}:       #if there are errors
-        for error in form.errors.values():
-            flash(f'{error}', category='danger')
+            haveChange = True
+        if haveChange == True:
+            db.session.commit()
+            flash('Trang cá nhân được cập nhật thành công !', category='success')
+            return redirect(url_for('profile.profile_page', username=current_user.user_name))
+        elif haveChange == False:
+            flash('Hãy điền các trường thông tin mà bạn muốn cập nhật!', category='info')
     return render_template('profile/edit_profile.html', user=user, form=form)
 
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])

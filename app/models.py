@@ -57,8 +57,8 @@ class User(db.Model, UserMixin):
         else:
             return f"{self.user_budget}" + " đồng"
 
-    def can_purchase(self, item_obj):
-        return self.user_budget >= item_obj.student_tuition
+    def can_purchase(self, product):
+        return self.user_budget >= product.price
 
     def generate_confirmation_token(self):
         jws = JsonWebSignature()
@@ -68,7 +68,7 @@ class User(db.Model, UserMixin):
         token = jws.serialize_compact(protected, payload, secret)
         return token
     
-    def confirm(self, token, expiration=120, change_confirmed=False):
+    def confirm(self, token, expiration=180, change_confirmed=False):
     # Deserialize a JWS Compact Serialization
         jws = JsonWebSignature()
         try:
@@ -92,7 +92,7 @@ class User(db.Model, UserMixin):
 
             return 'TRUE'
     
-    def reset_password(token, new_password, expiration=120):
+    def reset_password(token, new_password, expiration=180):
     # Deserialize a JWS Compact Serialization
         jws = JsonWebSignature()
         try:
@@ -127,12 +127,21 @@ class Product(db.Model):
     owner_id = db.Column(db.Integer, db.ForeignKey('user.id')) 
 
     def purchase(self, user):
-        if(self.owner_id==None):
+        if(self.status=='SELLING'):
             self.owner_id = user.id
+            self.status = 'OWNED'
             self.date = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
             user.user_budget -= self.price
             db.session.commit()
-            flash(f"Chúc mừng! Bạn vừa mua {self.name}' với giá {self.price} đồng Hơi Tốt", category='success')
+            record_amount = prettier_budget(int(self.price))
+            record_budget = prettier_budget(user.user_budget)
+            budget_record = Budget(description='Tiền chuyển ra',
+                                amount='-'+ record_amount,
+                                budget=record_budget,
+                                user_id= user.id)
+            db.session.add(budget_record)
+            db.session.commit()
+            flash(f"Chúc mừng! Bạn vừa mua {self.name} với giá {self.price} đồng!", category='success')
             return True
         else:
             flash(f'Sản phẩm đã được mua bởi người dùng khác.' , category='danger')
@@ -146,4 +155,9 @@ class Budget(db.Model):
     budget = db.Column(db.Text())        # số dư
     user_id = db.Column(db.Integer, db.ForeignKey('user.id')) 
 
+def prettier_budget(budget):
+        if len(str(budget)) >= 4:
+            return '{:,}'.format(budget)
+        else:
+            return f"{budget}"
 

@@ -2,8 +2,6 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, SelectField, FileField
 from wtforms.validators import DataRequired, InputRequired
 
-class PurchaseForm(FlaskForm):
-    submitPurchase = SubmitField(label='Mua Ngay')
 
 class AddForm(FlaskForm):
     name = StringField(label='Tên sản phẩm:', validators=[DataRequired()])

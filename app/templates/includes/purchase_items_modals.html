@@ -20,23 +20,23 @@
           <span aria-hidden="true" style="color: #333;">x</span>
         </button>
       </div>
+      <form method="POST" action="{{ url_for('main.purchase', product_id = product.id)}}">
       <div class="modal-body">
-        <form action=" url_for('main.purchase') " method="POST">        
-          {{ purchaseForm.hidden_tag() }}
           <h4 class="text-center">
+           {{ product.name }} <br>
+           {{ prettier_budget( product.price ) }} đồng
           </h4>
           <br>
           <h6 class="text-center">
-            Click <b>Purchase</b> to pay this tuition
+            Bấm <b>Mua ngay</b> để mua sản phẩm này <br>
+            <br>
+            <button type="submit" class="btn">Mua ngay</button>
           </h6>
-
-          <input type="hidden" id="" name="purchased_item" value="{{ product.id }}">
-          {{ purchaseForm.submitPurchase(class="btn btn-block") }}
-        </form>
-      </div>
-      <div class="modal-footer">
-        
-      </div>
+        </div>
+        <div class="modal-footer">
+          
+        </div>
+      </form>
     </div>
   </div>
 </div>

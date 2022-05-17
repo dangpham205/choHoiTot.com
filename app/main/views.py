@@ -4,7 +4,7 @@ from unicodedata import name
 from flask import render_template, redirect, url_for, flash, request, session
 
 from ..models import Product, User
-from .forms import AddForm, PurchaseForm, SearchForm
+from .forms import AddForm, SearchForm
 from .. import db
 from flask_login import login_required, current_user
 from . import main
@@ -43,11 +43,11 @@ def chotot_page(category):
         if category == "all" or category == 'Tất cả':
             category = 'Tất cả'
             products = Product.query.filter(Product.status =='SELLING', 
-                                        # Product.owner_id != current_user.id
+                                        Product.owner_id != current_user.id
                                         ).order_by(Product.id.desc()).all() 
         else:    
             products = Product.query.filter(Product.status =='SELLING', 
-                                        # Product.owner_id != current_user.id,
+                                        Product.owner_id != current_user.id,
                                         Product.category == category).order_by(Product.id.desc()).all()    #return all the items in the db MÀ CHƯA CÓ OWNER
         # owned_students = Student.query.filter_by(student_owner=current_user.id) 
         return render_template('market/chotot.html', 
@@ -59,70 +59,54 @@ def chotot_page(category):
 
 @main.route('/product_detail/<product_id>', methods=['GET', 'POST'])
 def detail_page(product_id):
-    purchaseForm = PurchaseForm()
-    if product_id:
-        product = Product.query.filter_by(id=product_id).first()
-        owner = User.query.filter_by(id=product.owner_id).first()
-        others = Product.query.filter(Product.category == product.category,
-                                    # Product.owner_id != current_user.id,
-                                    Product.id != product.id).limit(5).all()
+    # if product_id:
+    product = Product.query.filter_by(id=product_id).first()
+    owner = User.query.filter_by(id=product.owner_id).first()
+    others = Product.query.filter(Product.category == product.category,
+                                Product.owner_id != current_user.id,
+                                Product.id != product.id).limit(5).all()
     return render_template('market/product_detail.html', 
                             product = product , 
                             owner = owner, 
                             others = others,
-                            purchaseForm=purchaseForm, 
                             )
     
 
-@main.route('/purchase', methods=['POST'])
+@main.route('/purchase/<product_id>', methods=['POST','GET'])
 @login_required
-def purchase():
+def purchase(product_id):
+    # Purchase function
     if request.method == 'POST':
-        if 'last_purchase_submit' in session:
-            last_submit = session['last_purchase_submit']
-            timestamp = datetime.strptime(last_submit, '%d/%m/%Y %H:%M:%S')
-            duration_in_second = (datetime.now() - timestamp).total_seconds()
-            if (duration_in_second > 300):
-                current_user.user_status = True
-                db.session.commit()
-        if current_user.user_status == False:
-            flash("Một giao dịch khác đang được thực hiện, hãy thử lại sau !", category='info')
+        product = Product.query.filter_by(id = product_id, status= 'SELLING').first()
+        if product:
+            print(product.name)
+            if current_user.can_purchase(product):
+                user = current_user
+                token = user.generate_confirmation_token()      
+                send_email(user.user_email, 'mail/confirm_purchase', user=user, token=token, product=product)
+                flash("Email xác thực cho giao dịch này đã được gửi đến hộp thư của bạn! ", category='success')    
+            else:
+                flash(f"Số dư trong tài khoản của bản không đủ để mua {product.name}!", category='danger')
         else:
-        # Purchase function
-            purchased_item = request.form.get('purchased_item')      #này chỉ lấy tên của item được bấm mua (này là name trong purchase model)
-            # student_obj = Student.query.filter_by(student_id=purchased_item).first()   #dùng tên lấy ra item obj trong db
-            # if student_obj:
-            #     if current_user.can_purchase(student_obj):
-            #         user = current_user
-            #         if user is not None :
-            #             user.user_status = False
-            #             session['last_purchase_submit'] = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-            #             db.session.commit()
-            #             token = user.generate_confirmation_token()          
-            #             send_email(user.user_email, 'mail/confirm_email', user=user, token=token, student=student_obj)
-            #             flash("Please check your email to confirm your purchase. ", category='success')
-            #     else:
-            #         flash(f"Unfortunately, you don't have enough money to paid for {student_obj.student_id} tuition!", category='danger')
-    return redirect(url_for('main.chotot_page', category='products'))
+            flash('Sản phẩm này không phải để bán!', category='danger')
+    return redirect(url_for('main.detail_page', product_id=product_id))
 
-@main.route('/confirm_email/<student_id>/<token>')
+@main.route('/confirm_email/<product_id>/<token>')
 @login_required
-def confirm_email(student_id,token):
+def confirm_purchase(product_id,token):
     if current_user.confirm(token) == 'TRUE':
-        current_user.user_status = True
-        db.session.commit()
-        # student_obj = Student.query.filter_by(student_id=student_id).first()   #dùng tên lấy ra item obj trong db
-        # if student_obj.purchase(current_user) == True:
+        product = Product.query.filter_by(id = product_id, status= 'SELLING').first()
+        if product.purchase(current_user) == True:
+            print(product.owner_id)
+            print(product.status)
         #     mail_body = f"Congratulations! You just paid {student_obj.student_id} tuition for {student_obj.student_tuition}$"
             # send_congrat_email(current_user.user_email, mail_body)
     elif current_user.confirm(token) == 'TOUCHED':
         flash('Link xác nhận mua hàng không hợp lệ. ', category='danger')
     elif current_user.confirm(token) == 'EXPIRED':
-        current_user.user_status = True
-        db.session.commit()
         flash('Link xác nhận mua hàng đã hết thời hạn. ', category='danger')
     else:
-        flash('Ôi không...', category='danger')
+        flash('Đã xảy ra lỗi khi xác thực giao dịch.', category='danger')
     return redirect(url_for('main.chotot_page', category='all'))
 
 @main.route('/add', methods=['GET', 'POST'])
