@@ -12,6 +12,14 @@ class AddForm(FlaskForm):
     category = SelectField(u'Danh mục sản phẩm:', choices = myChoices, validators = [DataRequired()])
     submit = SubmitField(label='Thêm sản phẩm')
 
+class UpdateForm(FlaskForm):
+    name = StringField(label='Tên sản phẩm:')
+    file= FileField("Ảnh sản phẩm")
+    price = StringField(label='Giá:')
+    description = StringField(label='Mô tả sản phẩm:')
+    myChoices = ['Tất cả', 'Đồ điện tử', 'Đồ gia dụng', 'Giải trí', 'Xe cộ']
+    category = SelectField(u'Danh mục sản phẩm:', choices = myChoices)
+    submit = SubmitField(label='Cập nhật')
 
 class SearchForm(FlaskForm):
     keyword = StringField(label='Tìm kiếm sản phẩm', validators=[])

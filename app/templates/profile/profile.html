@@ -86,17 +86,23 @@
 
 {% for product in products %}
     <div class="container mb-3 text-center" , style="color: #333333;">
-      {{ product.name }} 
-      <br>
-      <img src="/static/product/{{ product.image }}" alt="product-img" width="200px" height="200px" style="object-fit: cover; width: 70%;">
-      <br>
-      {{ prettier_budget( product.price ) }} đồng
-      <br>
-      {{ product.date }}
-      <br>
-      Mô tả: {{  product.description }}
-      <br> 
-      {{ product.category }}
+        {{ product.name }} 
+        <br>
+        <img src="/static/product/{{ product.image }}" alt="product-img" width="200px" height="200px" style="object-fit: cover; width: 70%;">
+        <br>
+        {{ prettier_budget( product.price ) }} đồng
+        <br>
+        {{ product.date }}
+        <br>
+        Mô tả: {{  product.description }}
+        <br> 
+        {{ product.category }}
+        <br>
+        {% include 'includes/update_items_modals.html'   %}
+        <button class="btn" data-toggle="modal" data-target="#Modal-Update-{{ product.id }}" style="padding: 8px 24px;">Chỉnh sửa</button>
+        <br>
+        {% include 'includes/delete_items_modals.html'   %}
+        <button class="btn" data-toggle="modal" data-target="#Modal-Delete-{{ product.id }}" style="padding: 8px 24px;">Xóa tin</button>
     </div>
 
     <br><br>

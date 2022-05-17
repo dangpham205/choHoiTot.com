@@ -1,0 +1,42 @@
+<style>
+    .modal-content {
+      background-color: #212121
+    }
+</style>
+  
+<!-- Purchase Confirm -->
+<div class="modal fade" id="Modal-Delete-{{ product.id }}"
+     tabindex="-1"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ModalLabel">
+          <!-- -->
+            Mua sản phẩm
+        </h5>
+        <button type="button" class="close"
+                data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" style="color: #333;">x</span>
+        </button>
+      </div>
+      <form method="POST" action="{{ url_for('main.purchase', product_id = product.id)}}">
+      <div class="modal-body">
+          <h4 class="text-center">
+           {{ product.name }} <br>
+           {{ prettier_budget( product.price ) }} đồng
+          </h4>
+          <br>
+          <h6 class="text-center">
+            Bấm <b>Mua ngay</b> để mua sản phẩm này <br>
+            <br>
+            <button type="submit" class="btn">Mua ngay</button>
+          </h6>
+        </div>
+        <div class="modal-footer">
+          
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

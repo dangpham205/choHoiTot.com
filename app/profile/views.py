@@ -1,6 +1,7 @@
 from datetime import datetime
 import os
 from flask import render_template, redirect, url_for, flash, request, session
+from app.main.forms import UpdateForm
 from app.profile.forms import ChangePassForm, EditProfileForm, AddBudgetForm, Go2AddBudgetForm, Go2ManageBudgetForm, UploadFileForm
 from ..models import Product, User, Budget
 from .. import db
@@ -17,12 +18,13 @@ import app
 
 @profile.route('/<username>')
 def profile_page(username):
+    updateForm = UpdateForm()
     if username is not None:        
         user = User.query.filter_by(user_name = username).first_or_404()
         products = Product.query.filter(Product.status =='SELLING', 
                                         Product.owner_id == user.id
                                         ).order_by(Product.id.desc()).all() 
-        return render_template('profile/profile.html', user=user, products = products)
+        return render_template('profile/profile.html', user=user, products = products, form = updateForm)
 
 @profile.route('/edit_profile', methods=['GET', 'POST'])
 @login_required
