@@ -17,7 +17,7 @@ class UpdateForm(FlaskForm):
     file= FileField("Ảnh sản phẩm")
     price = StringField(label='Giá:')
     description = StringField(label='Mô tả sản phẩm:')
-    myChoices = ['Tất cả', 'Đồ điện tử', 'Đồ gia dụng', 'Giải trí', 'Xe cộ']
+    myChoices = ['...','Tất cả', 'Đồ điện tử', 'Đồ gia dụng', 'Giải trí', 'Xe cộ']
     category = SelectField(u'Danh mục sản phẩm:', choices = myChoices)
     submit = SubmitField(label='Cập nhật')
 

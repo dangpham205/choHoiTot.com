@@ -20,7 +20,7 @@
           <span aria-hidden="true" style="color: white;">x</span>
         </button>
       </div>
-      <form method="POST" action="{{ url_for('main.purchase', product_id = product.id)}}">
+      <form method="POST" action="{{ url_for('main.delete', product_id = product.id)}}">
       <div class="modal-body">
           <h4 class="text-center">
            {{ product.name }} <br>
@@ -28,7 +28,7 @@
           </h4>
           <br>
           <h6 class="text-center">
-            Bấm <b>Xóa</b> để mua sản phẩm này <br>
+            Bấm <b>Xóa</b> để xoá sản phẩm này <br>
             <br>
             <button type="submit" class="btn" style="padding: 6px 32px;">Xóa</button>
           </h6>

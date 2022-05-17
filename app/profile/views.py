@@ -35,10 +35,7 @@ def edit_profile():
     if form.validate_on_submit():
         if form.username.data :
             user_to_check = User.query.filter_by(user_name=form.username.data).first()
-            if user_to_check and user_to_check.id != user.id:
-                flash('Username này đã tồn tại', category='danger')
-                return render_template('profile/edit_profile.html', user=user, form=form)
-            elif user_to_check and user_to_check.id == user.id:
+            if user_to_check and user_to_check.id == user.id:
                 flash('Hãy nhập 1 username khác', category='danger')
                 return render_template('profile/edit_profile.html', user=user, form=form)
             else:

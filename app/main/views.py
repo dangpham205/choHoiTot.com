@@ -4,7 +4,7 @@ from unicodedata import name
 from flask import render_template, redirect, url_for, flash, request, session
 
 from ..models import Product, User
-from .forms import AddForm, SearchForm
+from .forms import AddForm, SearchForm, UpdateForm
 from .. import db
 from flask_login import login_required, current_user
 from . import main
@@ -110,6 +110,11 @@ def confirm_purchase(product_id,token):
         flash('Đã xảy ra lỗi khi xác thực giao dịch.', category='danger')
     return redirect(url_for('main.chotot_page', category='all'))
 
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
+
+def allowed_file(filename):
+	return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 @main.route('/add', methods=['GET', 'POST'])
 @login_required
 def add():
@@ -135,10 +140,59 @@ def add():
             flash(f'Sản phẩm {addForm.name.data} đã được đăng bán thành công !!' , category='success')
     return redirect(url_for('main.chotot_page', category='all'))
 
-ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
+@main.route('/update/<product_id>', methods=['GET', 'POST'])
+@login_required
+def update(product_id):
+    form = UpdateForm()
+    haveChange = False
+    product = Product.query.filter_by(id = product_id).first()
+    if request.method == 'POST':
+        if form.name.data :
+            product.name = form.name.data
+            haveChange = True
+        if form.price.data :
+            if (form.price.data.isnumeric() == False):
+                flash('Hãy nhập giá tiền hợp lệ !!', category='danger')
+                return redirect(url_for('profile.profile_page', username=current_user.user_name))
+            else:
+                product.price = form.price.data
+                haveChange = True
+        if form.description.data :
+            product.description = form.description.data
+            haveChange = True
+        if form.file.data:
+            file = form.file.data
+            if allowed_file(file.filename) == False:
+                flash(f'File ảnh không hợp lệ!', category='danger')
+            else:
+                file.filename = f"{product.id}."+ file.filename.rsplit('.', 1)[1].lower()
+                file.save(os.path.join(os.path.abspath(os.path.dirname(__file__)), '../../static/product', secure_filename(file.filename)))#Then save the file
+                product.image = f"{product.id}."+ file.filename.rsplit('.', 1)[1].lower()
+                haveChange = True
+        if form.category.data != '...':
+            product.category = form.category.data
+            haveChange = True
+        if haveChange == True:
+            db.session.commit()
+            flash('Thông tin sản phẩm đã được cập nhật thành công !', category='success')
+        elif haveChange == False:
+            flash('Hãy điền các trường thông tin mà bạn muốn cập nhật!', category='info')
+    return redirect(url_for('profile.profile_page', username=current_user.user_name))
 
-def allowed_file(filename):
-	return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+@main.route('/delete/<product_id>', methods=['POST','GET'])
+@login_required
+def delete(product_id):
+    product = Product.query.filter_by(id = product_id).first()
+    if request.method == 'POST':
+        if product:
+            db.session.delete(product)
+            db.session.commit()
+            flash('Sản phẩm đã xóa thành công!', category='success')
+        else:
+            flash('Không thể xóa sản phẩm!', category='danger')
+    return redirect(url_for('profile.profile_page', username=current_user.user_name))
+    
 
 def prettier_budget(budget):
         if len(str(budget)) >= 4:
