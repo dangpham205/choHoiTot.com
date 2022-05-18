@@ -16,11 +16,11 @@ import app
 
 
 
-@profile.route('/<username>')
-def profile_page(username):
+@profile.route('/<id>')
+def profile_page(id):
     updateForm = UpdateForm()
-    if username is not None:        
-        user = User.query.filter_by(user_name = username).first_or_404()
+    if id is not None:        
+        user = User.query.filter_by(id = id).first_or_404()
         products = Product.query.filter(Product.status =='SELLING', 
                                         Product.owner_id == user.id
                                         ).order_by(Product.id.desc()).all() 

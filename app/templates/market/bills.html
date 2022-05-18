@@ -21,13 +21,16 @@
     {% endif %}
     
     {% for bill in bills %}
-        <div class="container mb-3 text-center" , style="color: #333333;">
-           {{ bill.type }} <br>
-           Ngày tạo: {{ bill.date }} <br>
-           Sản phẩm: {{ bill.product_name }} <br>
-           Tổng tiền: {{ bill.total }}
-        </div>
-        <br>
+        {% for other in others %}
+            <div class="container mb-3 text-center" , style="color: #333333;">
+                {{ bill.type }} <br>
+                Ngày tạo: {{ bill.date }} <br>
+                Sản phẩm: {{ bill.product_name }} <br>
+                Tổng tiền: {{ bill.total }} <br>
+                Người bán/ Người mua: {{ other.user_email }}
+            </div>
+            <br>
+        {% endfor %}
     {% endfor %}
 </div>
     

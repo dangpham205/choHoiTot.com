@@ -142,9 +142,14 @@ def bills():
     user = User.query.filter_by(id = current_user.id).first_or_404()
     bills = Bill.query.filter_by(user_id = user.id).order_by(Bill.id.desc()).all() 
     number_of_bills = len(bills)
+    others = []
+    for bill in bills:
+        other = User.query.filter_by(id = bill.other_id).first_or_404()
+        others.append(other)
     return render_template('market/bills.html', 
                             user=user, 
                             bills = bills, 
+                            others = others,
                             number_of_bills = number_of_bills)
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 

@@ -27,8 +27,8 @@ done    |       +thay vì nút mua thì sẽ là nút update, delete (khi ở tr
 done    |   làm trang đã mua
 done    |       +liệt kê các sp đã đc mua thành công
 done    |       +có option cho phép bán lên lại ==> set status của product lại thành 'selling'
-        |   (bảng) trang HÓA ĐƠN ĐÃ MUA hiển thị bảng BILL (giống bảng budget)
-        |       +Hiển thị các hóa đơn mua đồ, bán đồ
+done    |   (bảng) trang HÓA ĐƠN ĐÃ MUA hiển thị bảng BILL (giống bảng budget)
+done    |       +Hiển thị các hóa đơn mua đồ, bán đồ
 done    |       +email mua thành công(sẽ hiện các thứ giống bill, hiện thị mã id của bill)
     |   (bảng) lưu favorite product bằng cách tạo 1 bảng db favorite (id, productId, userId)
         khi query thì sẽ query các favorite có userId == current_user_id
