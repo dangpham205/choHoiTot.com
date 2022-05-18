@@ -1,0 +1,62 @@
+<style>
+    table, th, td, tr {
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 5px;
+      text-align: left;
+    }
+</style>
+
+Xin chào <b> {{ user.user_name }} </b> <br>
+Giao dịch mua sản phẩm <b>{{ product.name }}</b> đã được thực hiện thành công
+<br>
+Đơn hàng của bạn:
+<br>
+<br>
+<table style="width:100%">
+    <tr >
+        <td colspan="2" style="text-align: center;">
+            Thông tin người mua
+        </td>
+        <td colspan="2" style="text-align: center;">
+            Thông tin người bán
+        </td>
+    </tr>
+    <tr>
+      <th>Họ và tên:</th>
+      <td> <b>{{ user.user_fullname }}</b></td>
+      <th>Họ và tên:</th>
+      <td> <b>{{ owner.user_fullname }}</b></td>
+    </tr>
+    <tr>
+      <th>Số điện thoại:</th>
+      <td><b>{{ user.user_phone }}</b></td>
+      <th>Số điện thoại:</th>
+      <td><b>{{ owner.user_phone }}</b></td>
+    </tr>
+    <tr>
+      <th>Email:</th>
+      <td><b>{{ user.user_email }}</b></td>
+      <th>Email:</th>
+      <td><b>{{ owner.user_email }}</b></td>
+    </tr>
+</table>
+<br>
+<br>
+
+<table style="width:100%">
+    <tr>
+      <th>Name:</th>
+      <td>Bill Gates</td>
+    </tr>
+    <tr>
+      <th>Telephone:</th>
+      <td>555 77 854</td>
+    </tr>
+    <tr>
+      <th>Telephone:</th>
+      <td>555 77 855</td>
+    </tr>
+  </table>

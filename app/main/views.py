@@ -96,12 +96,12 @@ def purchase(product_id):
 def confirm_purchase(product_id,token):
     if current_user.confirm(token) == 'TRUE':
         product = Product.query.filter_by(id = product_id).first()
+        old_owner = User.query.filter_by(id=product.owner_id).first()
         if product.purchase(current_user) == True:
             print(product.owner_id)
             print(product.status)
-            send_email(current_user.user_email, 'mail/purchase_success', user=current_user, product=product)
-        #     mail_body = f"Congratulations! You just paid {student_obj.student_id} tuition for {student_obj.student_tuition}$"
-            # send_congrat_email(current_user.user_email, mail_body)
+            send_email(current_user.user_email, 'mail/purchase_success_buyer', user=current_user, product=product, owner = old_owner)
+            # send_email(old_owner.user_email, 'mail/purchase_success', user=current_user, product=product, owner = old_owner)
     elif current_user.confirm(token) == 'TOUCHED':
         flash('Link xác nhận mua hàng không hợp lệ. ', category='danger')
     elif current_user.confirm(token) == 'EXPIRED':
@@ -220,6 +220,7 @@ def resell(product_id):
                 product.image = f"{product.id}."+ file.filename.rsplit('.', 1)[1].lower()
         if form.category.data != '...':
             product.category = form.category.data
+        product.date = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
         product.status = 'SELLING'
         db.session.commit()
         flash('Sản phẩm đã được đăng bán thành công !', category='success')
