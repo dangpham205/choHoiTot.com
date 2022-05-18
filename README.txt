@@ -9,9 +9,9 @@ done    |   forgot password
 done    |   injection year now ở dưới footer
 done    |   reCAPTCHA trong login
         |   profile user(chỉnh sửa profile)+ hiển thị tin đang bán + có avatar sd Gravatar :
-done                + change password sau khi đăng nhập
-done                + Edit profile (username, full name, phone, bio)
-done                + Có avatar (avatar sẽ dựa trên cột điểm của user, mỗi lần mua hàng sẽ đc cộng điểm)
+done    |       + change password sau khi đăng nhập
+done    |       + Edit profile (username, full name, phone, bio)
+done    |       + Có avatar (avatar sẽ dựa trên cột điểm của user, mỗi lần mua hàng sẽ đc cộng điểm)
 done    |   (budget là Đồng hoi Tốt, cho người dùng tự nạp) (have verify email to confirm )
 done    |   Xem lịch sử biến động số dư
 done    |   up sản phẩm+post của mình lên có chia category (giống chợ tốt)
@@ -21,12 +21,12 @@ done    |   	+Xem người bán last seen
 done    |   	+Nút xem profile người bán
 done    |   	+Hiển thị các sp khác lquan cùng cate ở dưới
 done    |   mua sản phẩm 
-        |    xem tất cả tin của mình đang bán trong trang profile
-done    |        +liệt kê các sp ĐANG đc đăng bán
-done    |        +thay vì nút mua thì sẽ là nút update, delete (khi ở trang người khác thì sẽ là nút mua)
-    |    làm trang đã mua
-    |        +liệt kê các sp đã đc mua thành công
-    |        +có option cho phép bán lên lại ==> set status của product lại thành 'selling'
+        |   xem tất cả tin của mình đang bán trong trang profile
+done    |       +liệt kê các sp ĐANG đc đăng bán
+done    |       +thay vì nút mua thì sẽ là nút update, delete (khi ở trang người khác thì sẽ là nút mua)
+        |   làm trang đã mua
+done    |       +liệt kê các sp đã đc mua thành công
+        |       +có option cho phép bán lên lại ==> set status của product lại thành 'selling'
     |   (bảng) trang HÓA ĐƠN ĐÃ MUA hiển thị bảng BILL (giống bảng budget)
     |        +email mua thành công(sẽ hiện các thứ giống bill)
     |   (bảng) notify khi có người khác mua của mình, khi mình bán thành công, đăng tin thành công???

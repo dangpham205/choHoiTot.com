@@ -194,6 +194,38 @@ def update(product_id):
             flash('Hãy điền các trường thông tin mà bạn muốn cập nhật!', category='info')
     return redirect(url_for('profile.profile_page', username=current_user.user_name))
 
+@main.route('/resell/<product_id>', methods=['GET', 'POST'])
+@login_required
+def resell(product_id):
+    form = UpdateForm()
+    product = Product.query.filter_by(id = product_id).first()
+    if request.method == 'POST':
+        if form.name.data :
+            product.name = form.name.data
+        if form.price.data :
+            if (form.price.data.isnumeric() == False):
+                flash('Hãy nhập giá tiền hợp lệ !!', category='danger')
+                return redirect(url_for('main.product_owned'))
+            else:
+                product.price = form.price.data
+        if form.description.data :
+            product.description = form.description.data
+        if form.file.data:
+            file = form.file.data
+            if allowed_file(file.filename) == False:
+                flash(f'File ảnh không hợp lệ!', category='danger')
+            else:
+                file.filename = f"{product.id}."+ file.filename.rsplit('.', 1)[1].lower()
+                file.save(os.path.join(os.path.abspath(os.path.dirname(__file__)), '../../static/product', secure_filename(file.filename)))#Then save the file
+                product.image = f"{product.id}."+ file.filename.rsplit('.', 1)[1].lower()
+        if form.category.data != '...':
+            product.category = form.category.data
+        product.status = 'SELLING'
+        db.session.commit()
+        flash('Sản phẩm đã được đăng bán thành công !', category='success')
+
+    return redirect(url_for('main.product_owned'))
+
 
 @main.route('/delete/<product_id>', methods=['POST','GET'])
 @login_required
