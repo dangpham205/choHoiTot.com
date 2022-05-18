@@ -8,33 +8,29 @@ done    |   ghi nhớ đăng nhập
 done    |   forgot password
 done    |   injection year now ở dưới footer
 done    |   reCAPTCHA trong login
-        |   profile user(chỉnh sửa profile)+ hiển thị tin đang bán + có avatar sd Gravatar :
+done    |   profile user(chỉnh sửa profile)+ hiển thị tin đang bán + có avatar sd Gravatar :
 done    |       + change password sau khi đăng nhập
 done    |       + Edit profile (username, full name, phone, bio)
 done    |       + Có avatar (avatar sẽ dựa trên cột điểm của user, mỗi lần mua hàng sẽ đc cộng điểm)
 done    |   (budget là Đồng hoi Tốt, cho người dùng tự nạp) (have verify email to confirm )
 done    |   Xem lịch sử biến động số dư
 done    |   up sản phẩm+post của mình lên có chia category (giống chợ tốt)
-        |   Khi bấm vô trang chi tiết sp:
+done    |   Khi bấm vô trang chi tiết sp:
 done    |   	+Nút mua (xác thực email)
 done    |   	+Xem người bán last seen
 done    |   	+Nút xem profile người bán
 done    |   	+Hiển thị các sp khác lquan cùng cate ở dưới
 done    |   mua sản phẩm 
-        |   xem tất cả tin của mình đang bán trong trang profile
+done    |   xem tất cả tin của mình đang bán trong trang profile
 done    |       +liệt kê các sp ĐANG đc đăng bán
 done    |       +thay vì nút mua thì sẽ là nút update, delete (khi ở trang người khác thì sẽ là nút mua)
-        |   làm trang đã mua
+done    |   làm trang đã mua
 done    |       +liệt kê các sp đã đc mua thành công
 done    |       +có option cho phép bán lên lại ==> set status của product lại thành 'selling'
         |   (bảng) trang HÓA ĐƠN ĐÃ MUA hiển thị bảng BILL (giống bảng budget)
-done    |        +email mua thành công(sẽ hiện các thứ giống bill, hiện thị mã id của bill)
+        |       +Hiển thị các hóa đơn mua đồ
+done    |       +email mua thành công(sẽ hiện các thứ giống bill, hiện thị mã id của bill)
     |        +Hiện các hóa đơn (mua đồ, nạp tiền)
-    |   (bảng) notify khi có người khác mua của mình, khi mình bán thành công, đăng tin thành công???
-        trong bảng notify có column 'seen', mặc định khi tạo sẽ bằng False
-        mỗi lần load trang chủ sẽ kiểm tra có noti có seen bằng False, nếu có thì sẽ cho biến have_noti = True
-        rồi truyền vào template, trong template sẽ check biến nếu có thì sẽ có chấm ở icon noti
-        khi bấm vô trang tb, sẽ set tất cả noti 'seen' về True
     |   (bảng) lưu favorite product bằng cách tạo 1 bảng db favorite (id, productId, userId)
         khi query thì sẽ query các favorite có userId == current_user_id
     |   cho người dùng tìm kiếm + follow nhau (sách chap 12)
