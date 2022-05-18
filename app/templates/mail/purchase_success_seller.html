@@ -9,8 +9,8 @@
     }
 </style>
 
-Xin chào <b> {{ user.user_name }} </b> <br>
-Giao dịch mua sản phẩm <b>{{ product.name }}</b> đã được thực hiện thành công
+Xin chào <b> {{ owner.user_name }} </b> <br>
+Sản phẩm <b>{{ product.name }}</b> của bạn đã được bán thành công
 <br>
 <br>
 <h4>Đơn hàng của bạn:</h4>
@@ -63,7 +63,7 @@ Giao dịch mua sản phẩm <b>{{ product.name }}</b> đã được thực hi�
     </tr>
     <tr id="table-row">
       <td colspan="2"> <b> Số dư </b></td>
-      <td style="text-align: right;">{{ prettier_budget(user.user_budget) }} đồng</td>
+      <td style="text-align: right;">{{ prettier_budget(owner.user_budget) }} đồng</td>
     </tr>
   </tb>
 </table>

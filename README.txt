@@ -27,8 +27,8 @@ done    |       +thay vì nút mua thì sẽ là nút update, delete (khi ở tr
         |   làm trang đã mua
 done    |       +liệt kê các sp đã đc mua thành công
 done    |       +có option cho phép bán lên lại ==> set status của product lại thành 'selling'
-    |   (bảng) trang HÓA ĐƠN ĐÃ MUA hiển thị bảng BILL (giống bảng budget)
-    |        +email mua thành công(sẽ hiện các thứ giống bill, hiện thị mã id của bill)
+        |   (bảng) trang HÓA ĐƠN ĐÃ MUA hiển thị bảng BILL (giống bảng budget)
+done    |        +email mua thành công(sẽ hiện các thứ giống bill, hiện thị mã id của bill)
     |        +Hiện các hóa đơn (mua đồ, nạp tiền)
     |   (bảng) notify khi có người khác mua của mình, khi mình bán thành công, đăng tin thành công???
         trong bảng notify có column 'seen', mặc định khi tạo sẽ bằng False
@@ -48,4 +48,5 @@ sửa lại default budget là 0đ
 chưa có hàm fromnow()
 footer
 xóa unique trong model user.user_name
+trong email xác nhận mua hiển thị thêm id của bill (mã đơn hàng ), ngày tạo bill
 lúc resell phải thay đổi lại ngày đăng bán

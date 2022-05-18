@@ -101,7 +101,7 @@ def confirm_purchase(product_id,token):
             print(product.owner_id)
             print(product.status)
             send_email(current_user.user_email, 'mail/purchase_success_buyer', user=current_user, product=product, owner = old_owner)
-            # send_email(old_owner.user_email, 'mail/purchase_success', user=current_user, product=product, owner = old_owner)
+            send_email(old_owner.user_email, 'mail/purchase_success_seller', user=current_user, product=product, owner = old_owner)
     elif current_user.confirm(token) == 'TOUCHED':
         flash('Link xác nhận mua hàng không hợp lệ. ', category='danger')
     elif current_user.confirm(token) == 'EXPIRED':
