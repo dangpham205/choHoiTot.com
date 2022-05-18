@@ -3,7 +3,7 @@ import os
 from unicodedata import name
 from flask import render_template, redirect, url_for, flash, request, session
 
-from ..models import Product, User
+from ..models import Bill, Product, User
 from .forms import AddForm, SearchForm, UpdateForm
 from .. import db
 from flask_login import login_required, current_user
@@ -98,10 +98,21 @@ def confirm_purchase(product_id,token):
         product = Product.query.filter_by(id = product_id).first()
         old_owner = User.query.filter_by(id=product.owner_id).first()
         if product.purchase(current_user) == True:
-            print(product.owner_id)
-            print(product.status)
-            send_email(current_user.user_email, 'mail/purchase_success_buyer', user=current_user, product=product, owner = old_owner)
-            send_email(old_owner.user_email, 'mail/purchase_success_seller', user=current_user, product=product, owner = old_owner)
+            buyer_bill = Bill(type = 'Hóa Đơn Mua Hàng',
+                            product_name = product.name,
+                            total = prettier_budget(product.price) + " đồng",
+                            other_id = old_owner.id,
+                            user_id = current_user.id)
+            seller_bill = Bill(type = 'Hóa Đơn Bán Hàng',
+                            product_name = product.name,
+                            total = prettier_budget(product.price) + " đồng",
+                            other_id = current_user.id,
+                            user_id = old_owner.id)
+            db.session.add(buyer_bill)
+            db.session.add(seller_bill)
+            db.session.commit()
+            send_email(current_user.user_email, 'mail/purchase_success_buyer', user=current_user, product=product, owner = old_owner, bill = buyer_bill)
+            send_email(old_owner.user_email, 'mail/purchase_success_seller', user=current_user, product=product, owner = old_owner, bill = seller_bill)
     elif current_user.confirm(token) == 'TOUCHED':
         flash('Link xác nhận mua hàng không hợp lệ. ', category='danger')
     elif current_user.confirm(token) == 'EXPIRED':
@@ -125,6 +136,16 @@ def product_owned():
                             form = form,
                             number_of_products = number_of_products)
 
+@main.route('/bills', methods=['POST','GET'])
+@login_required
+def bills():
+    user = User.query.filter_by(id = current_user.id).first_or_404()
+    bills = Bill.query.filter_by(user_id = user.id).order_by(Bill.id.desc()).all() 
+    number_of_bills = len(bills)
+    return render_template('market/bills.html', 
+                            user=user, 
+                            bills = bills, 
+                            number_of_bills = number_of_bills)
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 
 def allowed_file(filename):

@@ -14,7 +14,6 @@ class ChangePassForm(FlaskForm):
     submit = SubmitField('Thay Đổi Mật Khẩu')
 
 class EditProfileForm(FlaskForm):
-
     username = StringField('Username:')
     fullname = StringField(label='Họ và tên:')
     phone = StringField(label='Số điện thoại:')

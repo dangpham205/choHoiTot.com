@@ -17,19 +17,18 @@ def load_user(user_id):
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)        #phải để id vì đang có lỗi import, mà hàm get_id của flask_login đòi column tên là id
-    user_name = db.Column(db.String(20), nullable=False, unique=True)
+    user_name = db.Column(db.String(20), nullable=False)
     user_fullname = db.Column(db.String(20), nullable=False)
     user_phone = db.Column(db.String(12), nullable=False)
     user_email = db.Column(db.String(50), nullable=False, unique=True)
     password_hash = db.Column(db.String(60), nullable=False)            #phải để 60 vì hash ra sẽ gất dài
-    user_budget = db.Column(db.Integer(), nullable=False, default=2000)
-    user_status = db.Column(db.Boolean, default=True)
+    user_budget = db.Column(db.Integer(), nullable=False, default=20000000000)
     avatar = db.Column(db.String(40), nullable=False, default="default.jpg")
     confirmed = db.Column(db.Boolean, default=False)
     bio = db.Column(db.Text())
     member_since = db.Column(db.DateTime(), default = datetime.utcnow())
     last_seen = db.Column(db.DateTime(), default=datetime.utcnow())
-    user_score = db.Column(db.Integer(), nullable=False, default=0)     #dựa vào cột này để set avatar cho người dùng
+    user_score = db.Column(db.Integer(), nullable=False, default=0)     #dựa vào cột này để set verify mark cho ng dùng
     user_paid_list = db.relationship('Product', backref = 'owned_user', lazy=True)
 
     def update_last_seen(self):
@@ -162,6 +161,20 @@ class Budget(db.Model):
     date = db.Column(db.String(40), nullable=False, default=datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
     amount = db.Column(db.Text())        # +5500, -600
     budget = db.Column(db.Text())        # số dư
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id')) 
+
+class Bill(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    type = db.Column(db.Text())          
+    date = db.Column(db.String(40), nullable=False, default=datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
+    product_name = db.Column(db.Text())  
+    total = db.Column(db.Text())         
+    other_id = db.Column(db.Integer) 
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id')) 
+
+class Favourite(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    product_id = db.Column(db.Integer) 
     user_id = db.Column(db.Integer, db.ForeignKey('user.id')) 
 
 def prettier_budget(budget):

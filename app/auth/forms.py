@@ -6,21 +6,21 @@ import re
 
 class LoginForm(FlaskForm):
     email = StringField(label='Email:', validators=[DataRequired()])
-    password = PasswordField(label='Password:', validators=[DataRequired()])
+    password = PasswordField(label='Mật khẩu:', validators=[DataRequired()])
     # recaptcha = RecaptchaField()
-    remember_me = BooleanField('Remember me')
+    remember_me = BooleanField('Ghi nhớ đăng nhập')
     submit = SubmitField(label='Đăng Nhập')
 
 class RegisterForm(FlaskForm):
-    def validate_username(self,username_to_check):
-        user = User.query.filter_by(user_name=username_to_check.data).first()       #phải có .data
-        if user:
-            raise ValidationError('Username này đã tồn tại')
 
     def validate_email(self,email_to_check):
         email = User.query.filter_by(user_email=email_to_check.data).first()
         if email:
             raise ValidationError('Email này đã tồn tại')
+            
+    def validate_phone(self, field):
+        if field.data.isnumeric() == False:
+            raise ValidationError('Số điện thoại chỉ được phép chứa số.')
 
     username = StringField('Username:', validators=[DataRequired(), Length(1, 64), Regexp('^[A-Za-z][A-Za-z0-9_.]*$', 0,
                "Usernames chỉ được phép chứa chữ cái, số, '.' or "
@@ -33,9 +33,6 @@ class RegisterForm(FlaskForm):
     #check password có giống nhau không ở đây
     submit = SubmitField(label='Đăng Kí')
 
-    def validate_phone(self, field):
-        if field.data.isnumeric() == False:
-            raise ValidationError('Số điện thoại chỉ được phép chứa số.')
 
 class SendForgotPassForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Length(1, 64),Email()])

@@ -22,7 +22,7 @@ def register_page():
         db.session.commit()
         token = new_user.generate_confirmation_token()          
         send_email(new_user.user_email, 'mail/confirm_register', user=new_user, token=token)
-        session['unconfirmed_user'] = form.username.data
+        session['unconfirmed_user'] = form.email.data
         flash('Một Email đã được gửi cho bạn, hãy kiểm tra và xác thực tài khoản !', category='success')
         return redirect(url_for('auth.login_page'))
     if form.errors != {}:       #if there are errors
@@ -33,8 +33,8 @@ def register_page():
 @auth.route('/confirm_register/<token>')
 def confirm_register(token):
     if 'unconfirmed_user' in session:
-        username = session['unconfirmed_user']
-        user = User.query.filter_by(user_name=username).first()     
+        email = session['unconfirmed_user']
+        user = User.query.filter_by(user_email=email).first()     
         session.pop('unconfirmed_user')
         if user.confirmed:
             return redirect(url_for('main.home_page'))
@@ -79,8 +79,8 @@ def unconfirmed():
 @auth.route('/resend-confirmation-email')
 def resend_confirmation():
     if 'unconfirmed_user' in session:
-        username = session['unconfirmed_user']
-        user = User.query.filter_by(user_name=username).first()    
+        email = session['unconfirmed_user']
+        user = User.query.filter_by(user_email=email).first()    
         if not user.confirmed:
             new_token = user.generate_confirmation_token() 
             send_email(user.user_email, 'mail/confirm_register', user=user, token=new_token)
@@ -94,6 +94,7 @@ def login_page():
         attempted_user = User.query.filter_by(user_email=form.email.data).first()
         if attempted_user:
             if attempted_user.confirmed == False:
+                session['unconfirmed_user'] = form.email.data
                 return redirect(url_for('auth.unconfirmed'))
         if attempted_user and attempted_user.check_password(form.password.data):
             login_user(attempted_user)

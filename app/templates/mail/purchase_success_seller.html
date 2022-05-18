@@ -12,9 +12,6 @@
 Xin chào <b> {{ owner.user_name }} </b> <br>
 Sản phẩm <b>{{ product.name }}</b> của bạn đã được bán thành công
 <br>
-<br>
-<h4>Đơn hàng của bạn:</h4>
-<br>
 <table style="width:100%">
     <tr >
         <td colspan="2" style="text-align: center;">
@@ -45,7 +42,8 @@ Sản phẩm <b>{{ product.name }}</b> của bạn đã được bán thành cô
 </table>
 <br>
 <h4>Thông tin đơn hàng:</h4>
-
+Mã đơn hàng: <b> #{{ bill.id }} </b>         <br> 
+Ngày tạo: {{ bill.date }}
 <table style="width: 100%;">
   <th>
     <tr>

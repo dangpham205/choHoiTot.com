@@ -28,13 +28,32 @@ done    |   làm trang đã mua
 done    |       +liệt kê các sp đã đc mua thành công
 done    |       +có option cho phép bán lên lại ==> set status của product lại thành 'selling'
         |   (bảng) trang HÓA ĐƠN ĐÃ MUA hiển thị bảng BILL (giống bảng budget)
-        |       +Hiển thị các hóa đơn mua đồ
+        |       +Hiển thị các hóa đơn mua đồ, bán đồ
 done    |       +email mua thành công(sẽ hiện các thứ giống bill, hiện thị mã id của bill)
-    |        +Hiện các hóa đơn (mua đồ, nạp tiền)
     |   (bảng) lưu favorite product bằng cách tạo 1 bảng db favorite (id, productId, userId)
         khi query thì sẽ query các favorite có userId == current_user_id
     |   cho người dùng tìm kiếm + follow nhau (sách chap 12)
-     
+
+bill:
+    id: mã gd
+    type: ĐƠN BÁN HÀNG / ĐƠN MUA HÀNG
+    date: ngày tạo bill
+    product_name : sản phẩm đc gd (phải lưu lại vì giá sp sau này có thể bị ng mua lại đổi) 
+    total: giá sp lúc đó gd (phải lưu lại vì giá sp sau này có thể bị ng mua lại đổi)
+    person_id: lưu lại id của ng mua/bán
+    owner_id (fk)
+
+mỗi lần có gd mua thành công: lưu bill cho cả seller và buyer
+
+query trang bill:
+    nếu owner_id trùng:
+        + title: type
+        + ngày tạo bill: date
+        + hiện tt sp (name, giá)
+        + tên ng mua
+        + nếu type là ĐƠN BÁN  thì hiện "người mua: person_id"
+          nếu type là ĐƠN MUA  thì hiện "người bán: person_id"
+
 
 add sp xong trên flash cho phép đi tới trang profile để xem các sp họ vừa post
 lúc add budget xong trên flash cho phép đi tới budget history
