@@ -24,7 +24,8 @@ def profile_page(username):
         products = Product.query.filter(Product.status =='SELLING', 
                                         Product.owner_id == user.id
                                         ).order_by(Product.id.desc()).all() 
-        return render_template('profile/profile.html', user=user, products = products, form = updateForm)
+        number_of_products = len(products)
+        return render_template('profile/profile.html', user=user, products = products, form = updateForm, number_of_products = number_of_products)
 
 @profile.route('/edit_profile', methods=['GET', 'POST'])
 @login_required

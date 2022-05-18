@@ -110,6 +110,21 @@ def confirm_purchase(product_id,token):
         flash('Đã xảy ra lỗi khi xác thực giao dịch.', category='danger')
     return redirect(url_for('main.chotot_page', category='all'))
 
+@main.route('/product_owned', methods=['POST','GET'])
+@login_required
+def product_owned():
+    form = UpdateForm()
+    user = User.query.filter_by(id = current_user.id).first_or_404()
+    products = Product.query.filter(Product.status =='OWNED', 
+                                    Product.owner_id == user.id
+                                    ).order_by(Product.id.desc()).all() 
+    number_of_products = len(products)
+    return render_template('market/product_owned.html', 
+                            user=user, 
+                            products = products, 
+                            form = form,
+                            number_of_products = number_of_products)
+
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 
 def allowed_file(filename):
