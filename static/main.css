@@ -37,6 +37,12 @@ body {
     background-color: #ef6666;
 }
 
+.btn-loved {
+    padding-left: 16px;
+    padding-right: 16px;
+    background-color: #aca5e3;
+}
+
 .btn-close {
     background-color: #ed4d4d;
 }

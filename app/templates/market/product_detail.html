@@ -27,7 +27,16 @@
                 </div>
 
                 <div style="display: flex; align-items: center; justify-content: space-between;">
-                    <a class="btn-love btn" style="margin-top: 10px">Yêu thích</a>
+
+                    {% if current_user.is_authenticated %}
+                        {% if favourite %}
+                            <a class="btn-loved btn" style="margin-top: 10px" href="{{ url_for('main.like', product_id=product.id) }}">Đã thích</a>
+                        {% else %}
+                            <a class="btn-love btn" style="margin-top: 10px" href="{{ url_for('main.like', product_id=product.id) }}">Yêu thích</a>
+                        {% endif %}
+                    {% else %}
+                        <a class="btn-love btn" style="margin-top: 10px" href="{{ url_for('main.like', product_id=product.id) }}">Yêu thích</a>
+                    {% endif %}
 
                    {% include 'includes/purchase_items_modals.html'   %}
                    <button class="btn" data-toggle="modal" data-target="#Modal-Purchase-{{ product.id }}" style="padding: 8px 24px;">Mua ngay</button>
@@ -55,7 +64,7 @@
                 </div>
 
                 <div>
-                   <a class="btn" style="margin-bottom: 16px;" href="{{ url_for('profile.profile_page', username=owner.user_name) }}">Xem trang người bán</a>
+                   <a class="btn" style="margin-bottom: 16px;" href="{{ url_for('profile.profile_page', id=owner.id) }}">Xem trang người bán</a>
                    
                 </div>
 
@@ -91,21 +100,5 @@
         </div>
     </div>
     
-           <!-- Tin được đăng vào: {{ product.date }} <br>
-            <div class="row">
-                {% for other in others %}
-                    <div style="margin-bottom: 5px" class="card text-center bg-dark">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ other.name }}</h5>
-                            <p class="card-text"><strong>
-                                {{ prettier_budget(other.price) }} đồng
-                            </strong></p>
-                            <a class="btn btn-lg btn-primary" href="{{ url_for('main.detail_page', product_id=other.id) }}" target="_blank">Chi tiết</a>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div> -->
-
-
     
 {% endblock %}

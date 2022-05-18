@@ -3,7 +3,7 @@ import os
 from unicodedata import name
 from flask import render_template, redirect, url_for, flash, request, session
 
-from ..models import Bill, Product, User
+from ..models import Bill, Favourite, Product, User
 from .forms import AddForm, SearchForm, UpdateForm
 from .. import db
 from flask_login import login_required, current_user
@@ -60,17 +60,54 @@ def chotot_page(category):
 @main.route('/product_detail/<product_id>', methods=['GET', 'POST'])
 def detail_page(product_id):
     # if product_id:
+    if current_user.is_authenticated:
+        user = current_user
+    else:
+        user = User()
     product = Product.query.filter_by(id=product_id).first()
     owner = User.query.filter_by(id=product.owner_id).first()
+    favourite = Favourite.query.filter_by(product_id=product.id, user_id = user.id).first()
     others = Product.query.filter(Product.category == product.category,
-                                Product.owner_id != current_user.id,
+                                Product.owner_id != user.id,
+                                Product.status == 'SELLING',
                                 Product.id != product.id).limit(5).all()
     return render_template('market/product_detail.html', 
                             product = product , 
                             owner = owner, 
                             others = others,
+                            favourite = favourite
                             )
-    
+
+@main.route('/product_owned', methods=['POST','GET'])
+@login_required
+def product_owned():
+    form = UpdateForm()
+    user = User.query.filter_by(id = current_user.id).first_or_404()
+    products = Product.query.filter(Product.status =='OWNED', 
+                                    Product.owner_id == user.id
+                                    ).order_by(Product.id.desc()).all() 
+    number_of_products = len(products)
+    return render_template('market/product_owned.html', 
+                            user=user, 
+                            products = products, 
+                            form = form,
+                            number_of_products = number_of_products)
+
+@main.route('/bills', methods=['POST','GET'])
+@login_required
+def bills():
+    user = User.query.filter_by(id = current_user.id).first_or_404()
+    bills = Bill.query.filter_by(user_id = user.id).order_by(Bill.id.desc()).all() 
+    number_of_bills = len(bills)
+    others = []
+    for bill in bills:
+        other = User.query.filter_by(id = bill.other_id).first_or_404()
+        others.append(other)
+    return render_template('market/bills.html', 
+                            user=user, 
+                            bills = bills, 
+                            others = others,
+                            number_of_bills = number_of_bills)
 
 @main.route('/purchase/<product_id>', methods=['POST','GET'])
 @login_required
@@ -121,36 +158,20 @@ def confirm_purchase(product_id,token):
         flash('Đã xảy ra lỗi khi xác thực giao dịch.', category='danger')
     return redirect(url_for('main.chotot_page', category='all'))
 
-@main.route('/product_owned', methods=['POST','GET'])
+@main.route('/like/<product_id>', methods=['POST','GET'])
 @login_required
-def product_owned():
-    form = UpdateForm()
-    user = User.query.filter_by(id = current_user.id).first_or_404()
-    products = Product.query.filter(Product.status =='OWNED', 
-                                    Product.owner_id == user.id
-                                    ).order_by(Product.id.desc()).all() 
-    number_of_products = len(products)
-    return render_template('market/product_owned.html', 
-                            user=user, 
-                            products = products, 
-                            form = form,
-                            number_of_products = number_of_products)
+def like(product_id):
+    user = current_user
+    favourite = Favourite.query.filter_by(product_id=product_id, user_id = user.id).first()
+    if favourite:
+        db.session.delete(favourite)
+    else:
+        new_favourite = Favourite(product_id = product_id, user_id = user.id)
+        db.session.add(new_favourite)
+    db.session.commit()
+    return redirect(url_for('main.detail_page', product_id=product_id))
 
-@main.route('/bills', methods=['POST','GET'])
-@login_required
-def bills():
-    user = User.query.filter_by(id = current_user.id).first_or_404()
-    bills = Bill.query.filter_by(user_id = user.id).order_by(Bill.id.desc()).all() 
-    number_of_bills = len(bills)
-    others = []
-    for bill in bills:
-        other = User.query.filter_by(id = bill.other_id).first_or_404()
-        others.append(other)
-    return render_template('market/bills.html', 
-                            user=user, 
-                            bills = bills, 
-                            others = others,
-                            number_of_bills = number_of_bills)
+
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 
 def allowed_file(filename):
