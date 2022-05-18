@@ -20,17 +20,15 @@
         
     {% endif %}
     
-    {% for bill in bills %}
-        {% for other in others %}
+    {% for i in range( 0, number_of_bills ) %}
             <div class="container mb-3 text-center" , style="color: #333333;">
-                {{ bill.type }} <br>
-                Ngày tạo: {{ bill.date }} <br>
-                Sản phẩm: {{ bill.product_name }} <br>
-                Tổng tiền: {{ bill.total }} <br>
-                Người bán/ Người mua: {{ other.user_email }}
+                {{ bills[i].type }} <br>
+                Ngày tạo: {{ bills[i].date }} <br>
+                Sản phẩm: {{ bills[i].product_name }} <br>
+                Tổng tiền: {{ bills[i].total }} <br>
+                Người bán/ Người mua: {{ others[i].user_email }}
             </div>
             <br>
-        {% endfor %}
     {% endfor %}
 </div>
     

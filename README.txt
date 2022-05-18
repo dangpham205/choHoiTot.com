@@ -65,3 +65,4 @@ footer
 xóa unique trong model user.user_name
 trong email xác nhận mua hiển thị thêm id của bill (mã đơn hàng ), ngày tạo bill
 lúc resell phải thay đổi lại ngày đăng bán
+chú ý mấy cái datetime.now()
