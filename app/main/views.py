@@ -50,10 +50,12 @@ def chotot_page(category):
 @main.route('/search/<type>/<keyword>', methods=['POST','GET'])
 def search(type, keyword):
     form = SearchForm()
+    addForm = AddForm()
     if current_user.is_authenticated:
         user = current_user
     else:
         user = User()
+
     products = []
     all_products = Product.query.filter(Product.status =='SELLING', 
                                     Product.owner_id != user.id,
@@ -64,17 +66,18 @@ def search(type, keyword):
     
     users = []
     all_users = User.query.order_by(User.id.desc()).all()
-    for user in all_users:
-        if keyword.strip() in user.user_name:
-            users.append(user)
-    for user in users:
-        print(user.user_name)
-        
+    for user_qualified in all_users:
+        if keyword.strip() in user_qualified.user_name and user_qualified.id != user.id:
+            users.append(user_qualified)
+
     return render_template('market/search.html', 
                             user=user,
                             type = type,
                             keyword = keyword, 
-                            form = form
+                            products = products,
+                            users = users,
+                            form = form,
+                            addForm = addForm
                             )
 
 @main.route('/product_detail/<product_id>', methods=['GET', 'POST'])
