@@ -18,11 +18,16 @@ def home_page():
     return render_template("home.html")
 
 @main.route('/chotot/<category>', methods=['GET', 'POST'])
-@login_required             #yêu cầu user phải đăng nhập mới được vô trang market ==> file init phải có thêm dòng 13,14
+#@login_required             #yêu cầu user phải đăng nhập mới được vô trang market ==> file init phải có thêm dòng 13,14
 def chotot_page(category):
     addForm = AddForm()
     searchForm = SearchForm()
+    if current_user.is_authenticated:
+        user = current_user
+    else:
+        user = User()
     stuId = ""
+
     if request.method == 'POST':
         # student_to_search = Student.query.filter_by(student_id=(searchForm.keyword.data).strip(),student_owner=None).first()
         # if student_to_search:
@@ -42,11 +47,11 @@ def chotot_page(category):
         if category == "all" or category == 'Tất cả':
             category = 'Tất cả'
             products = Product.query.filter(Product.status =='SELLING', 
-                                        Product.owner_id != current_user.id
+                                        Product.owner_id != user.id
                                         ).order_by(Product.id.desc()).all() 
         else:    
             products = Product.query.filter(Product.status =='SELLING', 
-                                        Product.owner_id != current_user.id,
+                                        Product.owner_id != user.id,
                                         Product.category == category).order_by(Product.id.desc()).all()    #return all the items in the db MÀ CHƯA CÓ OWNER
         return render_template('market/chotot.html', 
                                 products = products, 
@@ -87,6 +92,21 @@ def product_owned():
                             user=user, 
                             products = products, 
                             form = form,
+                            number_of_products = number_of_products)
+
+@main.route('/product_liked', methods=['POST','GET'])
+@login_required
+def product_liked():
+    user = current_user
+    liked_products_id = Favourite.query.filter_by(user_id = user.id).order_by(Favourite.id.desc()).all() 
+    products = []
+    for liked_product_id in liked_products_id:
+        product = Product.query.filter_by(id = liked_product_id.product_id, status = 'SELLING').first() 
+        products.append(product)
+    number_of_products = len(products)
+    return render_template('market/product_liked.html', 
+                            user=user, 
+                            products = products, 
                             number_of_products = number_of_products)
 
 @main.route('/bills', methods=['POST','GET'])
