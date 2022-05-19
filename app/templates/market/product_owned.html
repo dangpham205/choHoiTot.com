@@ -11,12 +11,15 @@
     <h4 style="color: #333333; text-align: center; margin-top: 40px; margin-bottom: 30px;">Sản phẩm đang sở hữu - {{ number_of_products }} sản phẩm</h4>
     
     {% if number_of_products == 0 %}
-        <div style="background-color: white; display: block; text-align: center; margin-top: 100px ">
+        <div style="opacity: 0.4; display: flex; flex-direction: column; margin: auto">
+            <div style="background-color: white; display: block; text-align: center; margin-top: 100px ">
+    
+                <img src="/static/chohoitot_logo.svg" alt="My Happy SVG" width="200" style="display: inline-block; background-color: #ffba00;" >
+            </div>
+    
+            <h4 style="color: #7b6f6f; text-align: center">Bạn hiện chưa sở hữu sản phẩm nào</h4>
 
-            <img src="/static/chohoitot_logo.svg" alt="My Happy SVG" width="200" style="display: inline-block; background-color: #ffba00;" >
         </div>
-
-        <h4 style="color: #7b6f6f; text-align: center">Bạn hiện chưa sở hữu sản phẩm nào</h4>
         
     {% endif %}
     

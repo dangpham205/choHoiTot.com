@@ -53,9 +53,10 @@
 
         <!-- Member since <em>{{ moment(user.member_since).format('LL') }}</em>.&nbsp; -->
         <div style="color: rgb(143, 143, 143);">
-            Là thành viên từ: {{user.member_since}}
+            {{ moment.include_moment() }}
+            Là thành viên từ: {{moment(user.member_since).format('L')}}
             <br>
-            Lần cuối hoạt động: {{user.last_seen}}
+            Lần cuối hoạt động: {{moment(user.last_seen).fromNow()}}
     
             <!-- Last seen <em style="color: black;">{{ moment(user.last_seen).fromNow() }}</em>. -->
         </div>

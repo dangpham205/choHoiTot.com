@@ -235,7 +235,7 @@ def update(product_id):
             flash('Thông tin sản phẩm đã được cập nhật thành công !', category='success')
         elif haveChange == False:
             flash('Hãy điền các trường thông tin mà bạn muốn cập nhật!', category='info')
-    return redirect(url_for('profile.profile_page', username=current_user.user_name))
+    return redirect(url_for('profile.profile_page', id=current_user.id))
 
 @main.route('/resell/<product_id>', methods=['GET', 'POST'])
 @login_required
