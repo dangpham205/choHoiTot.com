@@ -15,13 +15,13 @@ Quản lí số dư
             </h1>
 
             <br>
-            {{ form1.submit(class="btn btn-lg btn-block btn-primary") }}
+            {{ form1.submit(class="btn btn-lg btn-block") }}
 
         </form>
         <form method="POST" class="form-signin" style="color:#333333" action="{{ url_for('profile.budget_history') }}">
             {{ form2.hidden_tag() }}
             <br>
-            {{ form2.submit(class="btn btn-lg btn-block btn-primary") }}
+            {{ form2.submit(class="btn btn-lg btn-block") }}
 
         </form>
     </div>

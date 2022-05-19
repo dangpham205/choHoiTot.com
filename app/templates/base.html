@@ -53,12 +53,15 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="nav-drop">
                             <a class="dropdown-item" id="nav-drop-item"href="{{ url_for('profile.profile_page', id=current_user.id) }}">Trang cá nhân</a>
-                            <a class="dropdown-item" id="nav-drop-item"href="{{ url_for('profile.manage_budget') }}">Quản lí số dư</a>
-                            <a class="dropdown-item" id="nav-drop-item"href="{{ url_for('main.product_owned') }}">Sản phẩm đã mua</a>
-                            <a class="dropdown-item" id="nav-drop-item"href="{{ url_for('main.bills') }}">Hóa đơn</a>
-                            <a class="dropdown-item" id="nav-drop-item">Thay đổi Email</a>
                             <a class="dropdown-item" id="nav-drop-item"href="{{ url_for('profile.change_password') }}">Thay đổi mật khẩu</a>
-                            <a class="dropdown-item" id="nav-drop-item"href="{{ url_for('auth.logout_page') }}">Đăng xuất</a>
+                            <div style="width: 100%; background-color:rgb(221, 221, 221); height: 0.69px"></div>
+                            <a class="dropdown-item" id="nav-drop-item"href="{{ url_for('profile.manage_budget') }}">Quản lí số dư</a>
+                            <a class="dropdown-item" id="nav-drop-item"href="{{ url_for('main.bills') }}">Hóa đơn</a>
+                            <div style="width: 100%; background-color:rgb(221, 221, 221); height: 0.69px"></div>
+                            <a class="dropdown-item" id="nav-drop-item"href="{{ url_for('main.product_owned') }}">Sản phẩm của tôi</a>
+                            <a class="dropdown-item" id="nav-drop-item"href="{{ url_for('main.product_owned') }}">Sản phẩm đã thích</a>
+                            <div style="width: 100%; background-color:rgb(221, 221, 221); height: 0.69px"></div>
+                            <a class="dropdown-item" id="nav-drop-item"href="{{ url_for('auth.logout_page') }}" style="color: red;">Đăng xuất</a>
                         </div>
                     </div>
                 </li>
@@ -93,7 +96,7 @@
 
     <!-- Future Content here -->
     {% block content %}
-        
+        <div style="margin-top: 56px;"></div>
     {% endblock %}
 
     
@@ -103,8 +106,8 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-</body>
-    <!-- <div class="text-center" id="copyright">
+    <div class="text-center" id="copyright">
         Copyright © {{ now.year }} Dawnny X Kalio. <br> All Rights Reserved
-    </div> -->
+    </div>
+</body>
 </html>

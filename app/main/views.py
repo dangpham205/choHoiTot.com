@@ -282,7 +282,7 @@ def delete(product_id):
             flash('Sản phẩm đã xóa thành công!', category='success')
         else:
             flash('Không thể xóa sản phẩm!', category='danger')
-    return redirect(url_for('profile.profile_page', username=current_user.user_name))
+    return redirect(url_for('profile.profile_page', id=current_user.id))
     
 
 def prettier_budget(budget):

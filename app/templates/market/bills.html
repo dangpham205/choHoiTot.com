@@ -11,25 +11,42 @@
     <h4 style="color: #333333; text-align: center; margin-top: 40px; margin-bottom: 30px;"></h4>
     
     {% if number_of_bills == 0 %}
-        <div style="background-color: white; display: block; text-align: center; margin-top: 100px ">
-
-            <img src="/static/chohoitot_logo.svg" alt="My Happy SVG" width="200" style="display: inline-block; background-color: #ffba00;" >
+        <div style="opacity: 0.3;">
+            <div style="background-color: white; display: block; text-align: center; margin-top: 100px ">
+                <img src="/static/chohoitot_logo.svg" alt="My Happy SVG" width="200" style="display: inline-block; background-color: #ffba00;" >
+            </div>
+    
+            <h4 style="color: #7b6f6f; text-align: center">Hiện không có hóa đơn nào</h4>
         </div>
-
-        <h4 style="color: #7b6f6f; text-align: center">Hiện không có hóa đơn nào</h4>
         
     {% endif %}
     
     {% for i in range( 0, number_of_bills ) %}
-            <div class="container mb-3 text-center" , style="color: #333333;">
-                {{ bills[i].type }} <br>
-                Ngày tạo: {{ bills[i].date }} <br>
-                Sản phẩm: {{ bills[i].product_name }} <br>
-                Tổng tiền: {{ bills[i].total }} <br>
-                Người bán/ Người mua: {{ others[i].user_email }} (Email: {{ others[i].user_email }})
+        <div class="bill-card">
+            <div class="bill-title {% if bills[i].type == 'Hóa Đơn Bán Hàng' %} bill-sell {% else %} bill-buy {% endif %}">
+                {{ bills[i].type }}
             </div>
-            <br>
+            <div class="bill-body">
+                <div class="bill-info">
+                    <b>Mã hóa đơn: </b><span class="bill-content">#{{ bills[i].id }} </span><br>
+                    <b>Sản phẩm: </b><span class="bill-content">{{ bills[i].product_name }} </span><br>
+                    <b>Tổng tiền: </b><span class="bill-content"> {{ bills[i].total }} </span> <br>
+                    <b>
+                    {% if bills[i].type == 'Hóa Đơn Bán Hàng' %}
+                        Người mua: 
+                    {% else %}
+                        Người bán: 
+                    {% endif %}
+                    </b>
+                    <span class="bill-person"> {{ others[i].user_name }} (Email: {{ others[i].user_email }}) </span>
+                </div>
+                <div class="bill-date">
+                    Ngày tạo: {{ bills[i].date }}
+                </div>
+            </div>
+        </div>
     {% endfor %}
+    <br>
 </div>
     
 {% endblock %}
