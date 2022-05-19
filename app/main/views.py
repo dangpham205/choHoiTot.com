@@ -49,17 +49,14 @@ def chotot_page(category):
             products = Product.query.filter(Product.status =='SELLING', 
                                         Product.owner_id != current_user.id,
                                         Product.category == category).order_by(Product.id.desc()).all()    #return all the items in the db MÀ CHƯA CÓ OWNER
-        # owned_students = Student.query.filter_by(student_owner=current_user.id) 
         return render_template('market/chotot.html', 
                                 products = products, 
                                 category = category,
-                                # owned_students = owned_students, 
                                 addForm= addForm, 
                                 searchForm=searchForm)
 
 @main.route('/product_detail/<product_id>', methods=['GET', 'POST'])
 def detail_page(product_id):
-    # if product_id:
     if current_user.is_authenticated:
         user = current_user
     else:
