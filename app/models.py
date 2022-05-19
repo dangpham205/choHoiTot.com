@@ -6,6 +6,7 @@ from datetime import datetime
 from flask import current_app, flash
 import authlib.jose.errors
 from authlib.jose import JsonWebSignature
+import random
 
 #import class UserMixin để class User kế thừa
 #nếu kế thừa thì trong User đỡ phải implement các method mà flask_login đòi
@@ -29,6 +30,8 @@ class User(db.Model, UserMixin):
     member_since = db.Column(db.DateTime(), default = datetime.utcnow())
     last_seen = db.Column(db.DateTime(), default=datetime.utcnow())
     user_score = db.Column(db.Integer(), nullable=False, default=0)     #dựa vào cột này để set verify mark cho ng dùng
+    status = db.Column(db.Boolean, default=True)
+    last_add_budget = db.Column(db.Text())
     user_paid_list = db.relationship('Product', backref = 'owned_user', lazy=True)
 
     def update_last_seen(self):
@@ -151,6 +154,9 @@ class Product(db.Model):
             db.session.commit()
             flash(f"Chúc mừng! Bạn vừa mua {self.name} với giá {self.price} đồng!", category='success')
             return True
+        elif self.owner_id == user.id: 
+            flash(f'Sản phẩm đã được mua thành công trước đó.' , category='danger')
+            return False
         else:
             flash(f'Sản phẩm đã được mua bởi người dùng khác.' , category='danger')
             return False
@@ -175,6 +181,14 @@ class Bill(db.Model):
 class Favourite(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     product_id = db.Column(db.Integer) 
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id')) 
+
+class Otp(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    status = db.Column(db.String(40), nullable=False, default="PENDING")
+    code = db.Column(db.String(6), nullable=False )
+    timestamp = db.Column(db.String(40), nullable=False)
+    amount = db.Column(db.Integer(), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id')) 
 
 def prettier_budget(budget):

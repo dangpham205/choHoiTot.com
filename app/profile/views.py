@@ -1,9 +1,10 @@
 from datetime import datetime
 import os
+import random
 from flask import render_template, redirect, url_for, flash
 from app.main.forms import UpdateForm
-from app.profile.forms import ChangePassForm, EditProfileForm, AddBudgetForm, Go2AddBudgetForm, Go2ManageBudgetForm, UploadFileForm
-from ..models import Product, User, Budget
+from app.profile.forms import ChangePassForm, ConfirmAddBudgetForm, EditProfileForm, AddBudgetForm, Go2AddBudgetForm, Go2ManageBudgetForm, UploadFileForm
+from ..models import Otp, Product, User, Budget
 from .. import db
 from flask_login import login_required, current_user
 from . import profile
@@ -102,40 +103,73 @@ def budget_history():
 @login_required
 def add_budget():
     form = AddBudgetForm()
-    user = User.query.filter_by(user_name = current_user.user_name).first()
+    user = User.query.filter_by(id = current_user.id).first()
     if form.validate_on_submit():
         if (form.amount.data.isnumeric() == False):
             flash('Giá tiền có kiểu dữ liệu là số !', category='danger')
         else:
-            token = user.generate_confirmation_token()          
-            send_email(user.user_email, 'mail/add_budget', user=user, token=token, amount=form.amount.data)
-            flash('Hãy xác nhận giao dịch thông qua Email của bạn !', category='success')
-            return redirect(url_for('profile.manage_budget'))
+            if user.last_add_budget:
+                timestamp = datetime.strptime(user.last_add_budget, '%d/%m/%Y %H:%M:%S')
+                duration_in_second = (datetime.utcnow() - timestamp).total_seconds()
+                if (duration_in_second > 180):      # nếu lần cuối request nạp đã quá 3 phút
+                    user.status = True
+                    db.session.commit()
+            if user.status == False:
+                flash("Hiện đang có 1 giao dịch nạp tiền khác đang được thực hiện!", category='info')
+                return redirect(url_for('profile.confirm_add_budget'))
+            elif user.status == True:
+                user.status = False
+                user.last_add_budget = datetime.utcnow().strftime("%d/%m/%Y %H:%M:%S")
+                otp = Otp(amount= int(form.amount.data), 
+                            user_id = current_user.id,
+                            code = '{:06}'.format(random.randrange(1, 1000000)),
+                            timestamp = datetime.utcnow().strftime("%d/%m/%Y %H:%M:%S") 
+                            )
+                db.session.add(otp)
+                db.session.commit()
+                send_email(user.user_email, 'mail/add_budget', user=user, otp = otp )
+                flash('Hãy nhập mã OTP vừa được gửi đến email của bạn !', category='success')
+                return redirect(url_for('profile.confirm_add_budget'))
     return render_template('profile/add_budget.html', user=user, form=form)
     
-@profile.route('/confirm_add_budget/<amount>/<token>')
+@profile.route('/confirm_add_budget', methods=['GET', 'POST'])
 @login_required
-def confirm_add_budget(amount,token):
-    if current_user.confirm(token) == 'TRUE':
-        current_user.user_budget += int(amount)
-        db.session.commit()
-        record_amount = prettier_budget(int(amount))
-        record_budget = prettier_budget(current_user.user_budget)
-        budget_record = Budget(description='Tiền chuyển vào',
-                                amount='+'+ record_amount,
-                                budget=record_budget,
-                                user_id= current_user.id)
-        db.session.add(budget_record)
-        db.session.commit()
-        flash('Bạn đã nạp tiền vào tài khoản thành công!', category='success')
-        return redirect(url_for('main.chotot_page', category='all'))
-    elif current_user.confirm(token) == 'TOUCHED':
-        flash('Link nạp tiền không hợp lệ. ', category='danger')
-    elif current_user.confirm(token) == 'EXPIRED':
-        flash('Link nạp tiền đã hết hạn. ', category='danger')
-    else:
-        flash('Ôi không ...', category='danger')
-    return redirect(url_for('main.home_page'))
+def confirm_add_budget():
+    form = ConfirmAddBudgetForm()
+    user = current_user
+    if form.validate_on_submit():
+        otp = Otp.query.filter(Otp.status =='PENDING', 
+                                Otp.user_id == user.id,
+                                Otp.code == form.otp.data
+                                ).order_by(Otp.id.desc()).first()
+        if otp:
+            timestamp = datetime.strptime(otp.timestamp, '%d/%m/%Y %H:%M:%S')
+            duration_in_second = (datetime.utcnow() - timestamp).total_seconds()
+            if duration_in_second > 180:
+                otp.status = 'EXPIRED'
+                user.status = True
+                db.session.commit()
+                flash("Mã OTP đã hết hạn, hãy gửi yêu cầu nạp tiền khác!", category='info')
+                return redirect(url_for('profile.add_budget'))
+            elif duration_in_second <= 180:
+                otp.status = 'SUCCEED'
+                current_user.user_budget += otp.amount
+                current_user.status = True
+                db.session.commit()
+                record_amount = prettier_budget(otp.amount)
+                record_budget = prettier_budget(current_user.user_budget)
+                budget_record = Budget(description='Tiền chuyển vào',
+                                        amount='+'+ record_amount,
+                                        budget=record_budget,
+                                        user_id= current_user.id)
+                db.session.add(budget_record)
+                db.session.commit()
+                flash('Bạn đã nạp tiền vào tài khoản thành công!', category='success')
+                return redirect(url_for('profile.budget_history'))
+        else:        
+            flash("Mã OTP không hợp lệ!", category='danger')
+    return render_template('profile/confirm_add_budget.html', user=user, form=form)
+
 
 
 

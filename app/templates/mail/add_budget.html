@@ -1,8 +1,7 @@
 <p>Tới {{ user.user_name }},</p>
-<p>Để hoàn thành giao dịch nạp {{ amount }} đồng vào tài khoản choHoiTot của bạn.</p>
-<a href="{{ url_for('profile.confirm_add_budget', amount= amount, token=token, _external=True) }}">BẤM VÀO ĐÂY ĐỂ XÁC THỰC</a>
-<p>Hoặc, bạn có thể đi tới đường link sau bằng cửa sổ browser của bạn:</p>
-<p>{{ url_for('profile.confirm_add_budget', amount= amount, token=token, _external=True) }}</p>
+<p>Để hoàn thành giao dịch nạp {{ prettier_budget(otp.amount) }} đồng vào tài khoản choHoiTot của bạn.</p>
+<p>Vui lòng nhập mã xác thực:</p>
+<h3>{{ otp.code }}</h3>
 <br>
 <p>Yêu cầu này sẽ hết hiệu lực sau 3 phút!</p>
 <p>Xin trân trọng cảm ơn,</p>

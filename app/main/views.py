@@ -115,9 +115,9 @@ def product_owned():
                             form = form,
                             number_of_products = number_of_products)
 
-@main.route('/product_liked', methods=['POST','GET'])
+@main.route('/like_page', methods=['POST','GET'])
 @login_required
-def product_liked():
+def like_page():
     user = current_user
     liked_products_id = Favourite.query.filter_by(user_id = user.id).order_by(Favourite.id.desc()).all() 
     products = []

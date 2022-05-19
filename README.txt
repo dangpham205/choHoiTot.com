@@ -32,38 +32,63 @@ done    |       +Hiển thị các hóa đơn mua đồ, bán đồ
 done    |       +email mua thành công(sẽ hiện các thứ giống bill, hiện thị mã id của bill)
 done    |   (bảng) lưu favorite product bằng cách tạo 1 bảng db favorite (id, productId, userId)
             khi query thì sẽ query các favorite có userId == current_user_id
-    |   cho người dùng tìm kiếm + follow nhau (sách chap 12)
+done    |   cho người dùng tìm kiếm : sản phẩm / user khác 
+    |   follow nhau (sách chap 12)
 
-click vào search ở trang chủ
-=> chạy tới hàm search_page(type = 'products', kw)
-
-click vào tab đc hiển thị bằng tab <a> (giống category trang chủ)
-=> chạy tới hàm search_page(type = chữ trong tag <a> , kw = kw đang đc truyền vào)
-
-click search ở trang search
-=> chạy tới hàm search_page(type = 'products', kw = form.kw.data)
-
-
-search_page(type,kw):
-    form = SearchForm (phải có để trong trang search user có thể dùng để search tiếp kw khác)
-    products = Product.query()
-    users = User.query()
-	return (search.html,
-		  type = products/users
-		  kw = kw,
-          form = form,
-          products = products
-          users = users
-          )
-
-
-add sp xong trên flash cho phép đi tới trang profile để xem các sp họ vừa post
-lúc add budget xong trên flash cho phép đi tới budget history
-sửa lại không hiển thị sp của mình ngoài trang chủ và trong product detail
+có nên cho search bằng họ tên? (thêm điều kiện trong hàm search lúc add list users[])
 gỡ recaptcha field
 sửa lại default budget là 0đ
-chưa có hàm fromnow()
 lúc resell phải thay đổi lại ngày đăng bán
-chú ý mấy cái datetime.now()
+ẩn nút POST với guest
+chưa có hàm fromnow()
 hàm ping để xem last seen
-ẩn nút POST nếu là guest
+chú ý mấy cái datetime.now()
+link nạp tiền đã nạp r vẫn xài lại đc?
+
+bảng user:
+    thêm cột status để xem có đang có 1 GD NẠP TIỀN chưa thực hiện xong kh (giống gki)
+    TRUE LÀ CÓ THỂ NẠP và ngược lại
+    thêm cột last_add_budget (default = None)
+
+khi mà bấm 'NẠP' trong trang REQUEST NẠP:
+    +Check user.last_add_budget:
+    ==> if user.last_add_budget != None (vì lúc mới tạo tk thì default là None)
+    ==> nếu now() - user.last_add_budget >= 3 phút
+    ==> set 'user_status' = TRUE
+    +Nếu 'user_status' == TRUE thì tiến hành request nạp tiền
+    ==> set 'user_status' thành FALSE ==> Tức là tạm thời không thể nạp tiếp
+    ==> lưu biến user.last_add_budget thành now()
+    ==> tạo ra 1 row OTP
+    ==> Gửi OTP.OTP_CODE đến current_user.user_email
+    ==> direct đến trang NHẬP OTP
+    +Nếu 'user_status' == FALSE
+    ==> direct đến trang NHẬP OTP
+    ==> flash (đang có gd khác)
+    ==> gửi lại otp khác ???
+
+
+khi bấm vô 'XÁC NHẬN' ở trang NHẬP OTP:
+    +query ra OTP ROW có:
+        OTP_CODE ĐC ĐIỀN 
+        STATUS = 'PENDING' 
+        user_id==current_user.id 
+        ==> .LAST() vì đó chắc chắn là otp cuối cùng đc tạo 
+        query ra otp thi cu lay last vi khi bam request thi trong vong 3 phut tiep theo se chi co 1 otp là dùng để xác thực
+    +Nếu now() - timestamp >= 3 phút
+        ==> flash(OTP đã quá hạn, vui lòng gửi request add budget khác)
+    +Nếu now() - timestamp <= 3 phút
+        ==> hợp lệ
+        ==> add vô budget
+        ==> set user.status = TRUE
+        ==> set otp.status = EXPIRED
+    +Nếu không ra: flash (OTP không đúng)
+
+
+bảng otp:
+    id:
+    status: default 'PENDING'   // khi mà mới tạo sẽ là 'PENDING'
+                                // khi mà verify otp thành công => nạp thành công => thì set thành 'USED'
+                                // khi mà verify otp 
+    otp_code = random 6 số (nếu trong BẢNG OTP có row nào status là PENDING mà OTP_CODE trùng thì random 6 số khác)
+    timestamp:
+    user_id: fk ==> current_user.id
