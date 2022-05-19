@@ -30,8 +30,8 @@ done    |       +có option cho phép bán lên lại ==> set status của produ
 done    |   (bảng) trang HÓA ĐƠN ĐÃ MUA hiển thị bảng BILL (giống bảng budget)
 done    |       +Hiển thị các hóa đơn mua đồ, bán đồ
 done    |       +email mua thành công(sẽ hiện các thứ giống bill, hiện thị mã id của bill)
-    |   (bảng) lưu favorite product bằng cách tạo 1 bảng db favorite (id, productId, userId)
-        khi query thì sẽ query các favorite có userId == current_user_id
+done    |   (bảng) lưu favorite product bằng cách tạo 1 bảng db favorite (id, productId, userId)
+            khi query thì sẽ query các favorite có userId == current_user_id
     |   cho người dùng tìm kiếm + follow nhau (sách chap 12)
 
 bill:
