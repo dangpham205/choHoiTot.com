@@ -1,11 +1,10 @@
 from datetime import datetime
 import os
-from flask import render_template, redirect, url_for, flash, request, session
+from flask import render_template, redirect, url_for, flash
 from app.main.forms import UpdateForm
 from app.profile.forms import ChangePassForm, EditProfileForm, AddBudgetForm, Go2AddBudgetForm, Go2ManageBudgetForm, UploadFileForm
 from ..models import Product, User, Budget
 from .. import db
-from hashlib import md5
 from flask_login import login_required, current_user
 from . import profile
 from sqlalchemy import desc

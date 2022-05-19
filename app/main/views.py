@@ -1,14 +1,13 @@
 from datetime import datetime
 import os
-from unicodedata import name
-from flask import render_template, redirect, url_for, flash, request, session
+from flask import render_template, redirect, url_for, flash, request
 
 from ..models import Bill, Favourite, Product, User
 from .forms import AddForm, SearchForm, UpdateForm
 from .. import db
 from flask_login import login_required, current_user
 from . import main
-from ..email import send_email, send_congrat_email
+from ..email import send_email
 from werkzeug.utils import secure_filename
 
 

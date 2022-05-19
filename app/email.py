@@ -18,11 +18,3 @@ def send_email(to, template, **kwargs):
     thr.start()
     return thr
 
-def send_congrat_email(to, subject, **kwargs):
-    app = current_app._get_current_object()
-    msg = Message("TDTU iBanking",
-                  sender='Flasky Admin <flasky@example.com>', recipients=[to])
-    msg.body = subject
-    thr = Thread(target=send_async_email, args=[app, msg])
-    thr.start()
-    return thr

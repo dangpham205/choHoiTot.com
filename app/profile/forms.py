@@ -1,9 +1,8 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, PasswordField, FileField
 from wtforms.validators import DataRequired, EqualTo, InputRequired
-from wtforms.validators import Length, EqualTo, Email, DataRequired, ValidationError, Regexp
+from wtforms.validators import EqualTo, DataRequired
 
-from ..models import User
 
 
 class ChangePassForm(FlaskForm):
