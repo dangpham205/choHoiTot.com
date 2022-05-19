@@ -29,19 +29,7 @@ def chotot_page(category):
     stuId = ""
 
     if request.method == 'POST':
-        # student_to_search = Student.query.filter_by(student_id=(searchForm.keyword.data).strip(),student_owner=None).first()
-        # if student_to_search:
-        #     stuId = (searchForm.keyword.data).strip()
-        # else:
-        #     flash(f"Student Not Found !!", category='danger')
-        
-        # students = Student.query.filter_by(student_owner=None, student_id=stuId)    #return all the items in the db MÀ CHƯA CÓ OWNER
-        # owned_students = Student.query.filter_by(student_owner=current_user.id) 
-        return render_template('market/chotot.html', 
-                                # students=students, 
-                                # owned_students = owned_students, 
-                                addForm= addForm, 
-                                searchForm=searchForm)
+        return redirect(url_for('main.search', type = 'products', keyword = searchForm.keyword.data))
 
     if request.method == 'GET':
         if category == "all" or category == 'Tất cả':
@@ -58,6 +46,36 @@ def chotot_page(category):
                                 category = category,
                                 addForm= addForm, 
                                 searchForm=searchForm)
+
+@main.route('/search/<type>/<keyword>', methods=['POST','GET'])
+def search(type, keyword):
+    form = SearchForm()
+    if current_user.is_authenticated:
+        user = current_user
+    else:
+        user = User()
+    products = []
+    all_products = Product.query.filter(Product.status =='SELLING', 
+                                    Product.owner_id != user.id,
+                                    ).order_by(Product.id.desc()).all()
+    for product in all_products:
+        if keyword.strip() in product.name:
+            products.append(product)
+    
+    users = []
+    all_users = User.query.order_by(User.id.desc()).all()
+    for user in all_users:
+        if keyword.strip() in user.user_name:
+            users.append(user)
+    for user in users:
+        print(user.user_name)
+        
+    return render_template('market/search.html', 
+                            user=user,
+                            type = type,
+                            keyword = keyword, 
+                            form = form
+                            )
 
 @main.route('/product_detail/<product_id>', methods=['GET', 'POST'])
 def detail_page(product_id):
@@ -231,7 +249,7 @@ def update(product_id):
         if form.price.data :
             if (form.price.data.isnumeric() == False):
                 flash('Hãy nhập giá tiền hợp lệ !!', category='danger')
-                return redirect(url_for('profile.profile_page', username=current_user.user_name))
+                return redirect(url_for('profile.profile_page', id=current_user.id))
             else:
                 product.price = form.price.data
                 haveChange = True

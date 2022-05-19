@@ -34,25 +34,27 @@ done    |   (bảng) lưu favorite product bằng cách tạo 1 bảng db favori
             khi query thì sẽ query các favorite có userId == current_user_id
     |   cho người dùng tìm kiếm + follow nhau (sách chap 12)
 
-bill:
-    id: mã gd
-    type: ĐƠN BÁN HÀNG / ĐƠN MUA HÀNG
-    date: ngày tạo bill
-    product_name : sản phẩm đc gd (phải lưu lại vì giá sp sau này có thể bị ng mua lại đổi) 
-    total: giá sp lúc đó gd (phải lưu lại vì giá sp sau này có thể bị ng mua lại đổi)
-    person_id: lưu lại id của ng mua/bán
-    owner_id (fk)
+click vào search ở trang chủ
+=> chạy tới hàm search_page(type = 'products', kw)
 
-mỗi lần có gd mua thành công: lưu bill cho cả seller và buyer
+click vào tab đc hiển thị bằng tab <a> (giống category trang chủ)
+=> chạy tới hàm search_page(type = chữ trong tag <a> , kw = kw đang đc truyền vào)
 
-query trang bill:
-    nếu owner_id trùng:
-        + title: type
-        + ngày tạo bill: date
-        + hiện tt sp (name, giá)
-        + tên ng mua
-        + nếu type là ĐƠN BÁN  thì hiện "người mua: person_id"
-          nếu type là ĐƠN MUA  thì hiện "người bán: person_id"
+click search ở trang search
+=> chạy tới hàm search_page(type = 'products', kw = form.kw.data)
+
+
+search_page(type,kw):
+    form = SearchForm (phải có để trong trang search user có thể dùng để search tiếp kw khác)
+    products = Product.query()
+    users = User.query()
+	return (search.html,
+		  type = products/users
+		  kw = kw,
+          form = form,
+          products = products
+          users = users
+          )
 
 
 add sp xong trên flash cho phép đi tới trang profile để xem các sp họ vừa post
@@ -61,8 +63,7 @@ sửa lại không hiển thị sp của mình ngoài trang chủ và trong prod
 gỡ recaptcha field
 sửa lại default budget là 0đ
 chưa có hàm fromnow()
-footer
-xóa unique trong model user.user_name
-trong email xác nhận mua hiển thị thêm id của bill (mã đơn hàng ), ngày tạo bill
 lúc resell phải thay đổi lại ngày đăng bán
 chú ý mấy cái datetime.now()
+hàm ping để xem last seen
+ẩn nút POST nếu là guest

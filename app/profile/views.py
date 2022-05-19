@@ -57,7 +57,7 @@ def edit_profile():
         if haveChange == True:
             db.session.commit()
             flash('Trang cá nhân được cập nhật thành công !', category='success')
-            return redirect(url_for('profile.profile_page', username=current_user.user_name))
+            return redirect(url_for('profile.profile_page', id=current_user.id))
         elif haveChange == False:
             flash('Hãy điền các trường thông tin mà bạn muốn cập nhật!', category='info')
     return render_template('profile/edit_profile.html', user=user, form=form)

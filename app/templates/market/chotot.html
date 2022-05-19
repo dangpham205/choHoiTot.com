@@ -41,22 +41,6 @@ Chợ Hơi Tốt
             <br>
 
             
-            <!-- BẢNG HIỂN THỊ HỌC PHÍ -->
-            <!-- <br>
-            <div style="overflow-x: auto; height: 550px; max-height: 490px;">
-            <table class="table table-hover" id="table" style="margin-top: -16px;">
-                <thead>
-                    <tr> -->
-                        <!-- Your Columns HERE -->
-                        <!-- <th scope="col" style="padding-top: 24px;">Student ID</th>
-                        <th scope="col">Student Name</th>
-                        <th scope="col">Tuition</th>
-                        <th scope="col">Create Date</th>
-                        <th scope="col">Options</th>
-                    </tr>
-                </thead>
-                <tbody> -->
-                    <!-- Your rows inside the table HERE: -->
             <div class="product-wrapper">
                 {% for product in products %}
                     <div class="product-col product-card">
@@ -82,67 +66,10 @@ Chợ Hơi Tốt
                     </div>
                 {% endfor %}
             </div>
-                <!-- </tbody>
-            </table>
-            </div> -->
+                
         </div>
 
-        <!-- Bảng THÔNG TIN USER -->
-        <!-- <div class="col-2 " style="padding-right: 0px; margin-top: -22px;">
-            {% if current_user.is_authenticated %}
-            <div class="row" style=" margin-top: 40px;">
-                <div class="col">
-                    <h4 style="color: #ffba00;">User Information</h4> 
-                    <br>
-                    <table class="table table-hover" id="table" style="margin-top: 0px;">
-                        <thead>
-                        <tr>
-                            Your Columns HERE
-                            <th scope="col">Full Name</th>
-                            <th scope="col">Phone Number</th>
-                            <th scope="col">Email</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                            <tr id="table-row">
-                                <td>{{ current_user.user_fullname }}</td>
-                                <td>{{ current_user.user_phone }}</td>
-                                <td>{{ current_user.user_email }}</td>
-                            </tr>
-                    </tbody>
-                </table>
-                </div>
-            </div>
-            {% endif %}
-
-            BẢNG LỊCH SỬ GIAO DỊCH
-            <h4 style="margin-top: 12px; color: #ffba00;">Paid History</h4>        
-            <br>
-            <div style="overflow-x: auto; max-height: 320px;">
-                <table class="table table-hover" id="table" style="margin-top: -14px; ">
-                    <thead>
-                        <tr>
-                            Your Columns HERE
-                            <th scope="col" style="padding-top: 24px;">Student ID</th>
-                            <th scope="col" >Student Name</th>
-                            <th scope="col" >Tuition</th>
-                            <th scope="col" >Date</th>
-                        </tr,>
-                    </thead>
-                    <tbody>
-                        Your rows inside the table HERE:
-                        {% for owned_student in owned_students %}
-                            <tr id="table-row">
-                                <td style="padding-bottom: 8px;">{{ owned_student.student_id }}</td>
-                                <td>{{ owned_student.student_name }}</td>
-                                <td>{{ owned_student.student_tuition }}$</td>
-                                <td>{{ owned_student.student_date }}</td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div> -->
+        
     </div>
     <br>
    
