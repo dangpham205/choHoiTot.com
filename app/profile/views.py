@@ -139,7 +139,7 @@ def add_budget():
             otps = Otp.query.filter(Otp.status =='PENDING',  
                         Otp.user_id == user.id,).all()
             for otp in otps:
-                otp.status = "EXIPRED"          #lần cuối request nạp đã quá 3 phút ==> sẽ không còn otp nào còn hạn
+                otp.status = "EXPIRED"          #lần cuối request nạp đã quá 3 phút ==> sẽ không còn otp nào còn hạn
             db.session.commit()
     if form.validate_on_submit():
         if (form.amount.data.isnumeric() == False):
@@ -211,12 +211,18 @@ def resend_add_budget() :
                             Otp.user_id == user.id,
                             ).order_by(Otp.id.desc()).first()
     if otp:
-        otp.timestamp = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-        otp.code = '{:06}'.format(random.randrange(1, 1000000))
-        user.last_add_budget = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-        db.session.commit()
-        send_email(user.user_email, 'mail/add_budget', user=user, otp = otp )
-        flash('Hãy nhập mã OTP vừa được gửi đến email của bạn !', category='success')
+        timestamp = datetime.strptime(otp.timestamp, '%d/%m/%Y %H:%M:%S')
+        duration_in_second = (datetime.now() - timestamp).total_seconds()
+        if duration_in_second <= 180:
+            otp.timestamp = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+            otp.code = '{:06}'.format(random.randrange(1, 1000000))
+            user.last_add_budget = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+            db.session.commit()
+            send_email(user.user_email, 'mail/add_budget', user=user, otp = otp )
+            flash('Hãy nhập mã OTP vừa được gửi đến email của bạn !', category='success')
+        else:           #ở trong màn OTP quá 3 phút
+            flash('Hãy thực hiện giao dịch khác !', category='success')
+            return redirect(url_for('profile.add_budget'))
     else:           #ở trong màn OTP quá 3 phút
         flash('Hãy thực hiện giao dịch khác !', category='success')
         return redirect(url_for('profile.add_budget'))
