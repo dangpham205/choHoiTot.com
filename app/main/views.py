@@ -28,8 +28,75 @@ def chotot_page(category):
         user = User()
 
     if request.method == 'POST':
-        if searchForm.keyword.data:
-            return redirect(url_for('main.search', type = 'products', keyword = searchForm.keyword.data))
+        select = request.form.get('sort')
+        if category == "all" or category == 'Tất cả':
+            category = 'Tất cả'
+            if select == 'date':
+                products = Product.query.filter(Product.status =='SELLING', 
+                                                Product.owner_id != user.id
+                                                ).order_by(Product.date.desc()).all() 
+            elif select == 'price_az':
+                products = Product.query.filter(Product.status =='SELLING', 
+                                                Product.owner_id != user.id
+                                                ).order_by(Product.price).all() 
+            elif select == 'price_za':
+                products = Product.query.filter(Product.status =='SELLING', 
+                                                Product.owner_id != user.id
+                                                ).order_by(Product.price.desc()).all() 
+            elif select == 'name_az':
+                products = Product.query.filter(Product.status =='SELLING', 
+                                                Product.owner_id != user.id
+                                                ).order_by(Product.name).all() 
+            elif select == 'name_za':
+                products = Product.query.filter(Product.status =='SELLING', 
+                                                Product.owner_id != user.id
+                                                ).order_by(Product.name.desc()).all() 
+            else:
+                products = Product.query.filter(Product.status =='SELLING', 
+                                                Product.owner_id != user.id
+                                                ).order_by(Product.date.desc()).all()
+            # products = Product.query.filter(Product.status =='SELLING', 
+            #                             Product.owner_id != user.id
+            #                             ).order_by(Product.date.desc()).all() 
+        else:    
+            if select == 'date':
+                products = Product.query.filter(Product.status =='SELLING', 
+                                                Product.owner_id != user.id,
+                                                Product.category == category,
+                                                ).order_by(Product.date.desc()).all() 
+            elif select == 'price_az':
+                products = Product.query.filter(Product.status =='SELLING', 
+                                                Product.owner_id != user.id,
+                                                Product.category == category,
+                                                ).order_by(Product.price).all() 
+            elif select == 'price_za':
+                products = Product.query.filter(Product.status =='SELLING', 
+                                                Product.owner_id != user.id,
+                                                Product.category == category,
+                                                ).order_by(Product.price.desc()).all() 
+            elif select == 'name_az':
+                products = Product.query.filter(Product.status =='SELLING', 
+                                                Product.owner_id != user.id,
+                                                Product.category == category,
+                                                ).order_by(Product.name).all() 
+            elif select == 'name_za':
+                products = Product.query.filter(Product.status =='SELLING', 
+                                                Product.owner_id != user.id,
+                                                Product.category == category,
+                                                ).order_by(Product.name.desc()).all() 
+            else:
+                products = Product.query.filter(Product.status =='SELLING', 
+                                                Product.owner_id != user.id,
+                                                Product.category == category,
+                                                ).order_by(Product.date.desc()).all()
+            # products = Product.query.filter(Product.status =='SELLING', 
+            #                             Product.owner_id != user.id,
+            #                             Product.category == category).order_by(Product.date.desc()).all()    
+        return render_template('market/chotot.html', 
+                                products = products, 
+                                category = category,
+                                addForm= addForm, 
+                                searchForm=searchForm)
     
     if request.method == 'GET':
         if category == "all" or category == 'Tất cả':
@@ -46,6 +113,14 @@ def chotot_page(category):
                                 category = category,
                                 addForm= addForm, 
                                 searchForm=searchForm)
+
+
+@main.route('/go2search', methods=['POST','GET'])
+def go2search():
+    searchForm = SearchForm()
+    if request.method == 'POST':
+        if searchForm.keyword.data:
+            return redirect(url_for('main.search', type = 'products', keyword = searchForm.keyword.data))
 
 @main.route('/search/<type>/<keyword>', methods=['POST','GET'])
 def search(type, keyword):

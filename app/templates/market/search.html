@@ -12,7 +12,7 @@
             <br>
             <div class="search-wrapper">
                 <!-- SEARCH -->
-                <form action="{{ url_for('main.chotot_page', category='all') }}" method="POST" style="margin-left: 0px; width: 70%;" class="row">
+                <form action="{{ url_for('main.go2search') }}" method="POST" style="margin-left: 0px; width: 70%;" class="row">
                     {{ form.keyword(class="form-control col-10", style= "height: 50px", value=keyword) }}
                     {{ form.submitSearch(class="btn btn-block col-1", style=" margin-left: 8px;") }}
                 </form>
@@ -45,7 +45,7 @@
                             <option value="name_az">Tên A-Z</option>
                             <option value="name_za">Tên Z-A</option>
                         </select>
-                        <input class="" style="transform: translateY(-1x);"  type="submit" value="Submit" />
+                        <input class="btn" style="transform: translateY(-1x);"  type="submit" value="Sắp xếp" />
                     </form>
                 {% endif %}
             </div>

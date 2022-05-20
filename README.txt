@@ -48,11 +48,12 @@ done    chưa có hàm fromnow()
 done    hàm để cập nhật last seen
 done    Gửi mail nạp tiền thành công bạn đã gửi
 done    Sort product theo thời gian
-done    sort sản phẩm (trang đang bán):
+done    sort sản phẩm (trang đang bán, trang chủ và trang kết quả search):
             +theo date (mặc định)
             +theo giá (tăng giảm)
             +theo alphabet (tăng giảm)
 hàm resend otp trong màn NHẬP OTP
+chỉnh lại vị trí nút search ở trang chủ
 
 
 

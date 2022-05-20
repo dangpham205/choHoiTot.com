@@ -12,7 +12,7 @@ Chợ Hơi Tốt
             <br>
             <div class="search-wrapper">
                 <!-- SEARCH -->
-                <form action="{{ url_for('main.chotot_page', category='all') }}" method="POST" style="margin-left: 0px; width: 70%;" class="row">
+                <form action="{{ url_for('main.go2search') }}" method="POST" style="margin-left: 0px; width: 70%;" class="row">
                     {{ searchForm.keyword(class="form-control col-10", style= "height: 50px", placeholder='Tìm kiếm trên chợHơiTốt') }}
                     {{ searchForm.submitSearch(class="btn btn-block col-1", style=" margin-left: 8px;") }}
                 </form>
@@ -35,6 +35,18 @@ Chợ Hơi Tốt
                 <a class="btn btn-s ml-2" href="{{ url_for('main.chotot_page', category='Đồ gia dụng') }}">Đồ gia dụng</a>
                 <a class="btn btn-s ml-2" href="{{ url_for('main.chotot_page', category='Giải trí') }}">Giải trí</a>
                 <a class="btn btn-s ml-2" href="{{ url_for('main.chotot_page', category='Xe cộ') }}">Xe cộ</a>
+                
+                <form action="{{ url_for('main.chotot_page', category = category) }}" method="POST">
+                    <select style="padding: 2px;" name="sort" id="lang">
+                        <option value="date">Sắp xếp theo</option>
+                        <option value="date">Thời gian đăng</option>
+                        <option value="price_az">Giá từ thấp đến cao</option>
+                        <option value="price_za">Giá từ cao đến thấp</option>
+                        <option value="name_az">Tên A-Z</option>
+                        <option value="name_za">Tên Z-A</option>
+                    </select>
+                    <input class="btn" style="transform: translateY(-1x);"  type="submit" value="Sắp xếp" />
+                </form>
             </div>
 
             <br>
