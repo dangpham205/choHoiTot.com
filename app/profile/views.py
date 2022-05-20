@@ -1,7 +1,7 @@
 from datetime import datetime
 import os
 import random
-from flask import render_template, redirect, url_for, flash
+from flask import render_template, redirect, request, url_for, flash
 from app.main.forms import UpdateForm
 from app.profile.forms import ChangePassForm, ConfirmAddBudgetForm, EditProfileForm, AddBudgetForm, Go2AddBudgetForm, Go2ManageBudgetForm, UploadFileForm
 from ..models import Otp, Product, User, Budget
@@ -16,16 +16,38 @@ import app
 
 
 
-@profile.route('/<id>')
+@profile.route('/<id>', methods=['GET', 'POST'])
 def profile_page(id):
     updateForm = UpdateForm()
     if id is not None:        
         if current_user.is_authenticated:
             current_user.update_last_seen()
         user = User.query.filter_by(id = id).first_or_404()
-        products = Product.query.filter(Product.status =='SELLING', 
-                                        Product.owner_id == user.id
-                                        ).order_by(Product.date.desc()).all() 
+        select = request.form.get('sort')
+        if select == 'date':
+            products = Product.query.filter(Product.status =='SELLING', 
+                                            Product.owner_id == user.id
+                                            ).order_by(Product.date.desc()).all() 
+        elif select == 'price_az':
+            products = Product.query.filter(Product.status =='SELLING', 
+                                            Product.owner_id == user.id
+                                            ).order_by(Product.price).all() 
+        elif select == 'price_za':
+            products = Product.query.filter(Product.status =='SELLING', 
+                                            Product.owner_id == user.id
+                                            ).order_by(Product.price.desc()).all() 
+        elif select == 'name_az':
+            products = Product.query.filter(Product.status =='SELLING', 
+                                            Product.owner_id == user.id
+                                            ).order_by(Product.name).all() 
+        elif select == 'name_za':
+            products = Product.query.filter(Product.status =='SELLING', 
+                                            Product.owner_id == user.id
+                                            ).order_by(Product.name.desc()).all() 
+        else:
+            products = Product.query.filter(Product.status =='SELLING', 
+                                            Product.owner_id == user.id
+                                            ).order_by(Product.date.desc()).all()
         number_of_products = len(products)
         return render_template('profile/profile.html', user=user, products = products, form = updateForm, number_of_products = number_of_products)
 

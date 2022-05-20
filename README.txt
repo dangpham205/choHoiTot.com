@@ -48,12 +48,11 @@ done    chưa có hàm fromnow()
 done    hàm để cập nhật last seen
 done    Gửi mail nạp tiền thành công bạn đã gửi
 done    Sort product theo thời gian
-
+done    sort sản phẩm (trang đang bán):
+            +theo date (mặc định)
+            +theo giá (tăng giảm)
+            +theo alphabet (tăng giảm)
 hàm resend otp trong màn NHẬP OTP
-sort sản phẩm:
-    +theo date (mặc định)
-    +theo giá (tăng giảm)
-    +theo alphabet (tăng giảm)
 
 
 
@@ -62,7 +61,7 @@ sort sản phẩm:
 
 
 
-    
+
 bảng user:
     thêm cột status để xem có đang có 1 GD NẠP TIỀN chưa thực hiện xong kh (giống gki)
     TRUE LÀ CÓ THỂ NẠP và ngược lại
