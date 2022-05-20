@@ -46,13 +46,23 @@ done    ẩn nút POST với guest
 done    gỡ recaptcha field
 done    chưa có hàm fromnow()
 done    hàm để cập nhật last seen
+done    Gửi mail nạp tiền thành công bạn đã gửi
+done    Sort product theo thời gian
 
-có nên cho search bằng họ tên hoặc email? (thêm điều kiện trong hàm search lúc add list users[])
-căn giữa screen change avatar
 hàm resend otp trong màn NHẬP OTP
-làm ui màn search (users), custom lại cái card product
-thêm nút để điều hướng trong các màn số dư
+sort sản phẩm:
+    +theo date (mặc định)
+    +theo giá (tăng giảm)
+    +theo alphabet (tăng giảm)
 
+
+
+
+
+
+
+
+    
 bảng user:
     thêm cột status để xem có đang có 1 GD NẠP TIỀN chưa thực hiện xong kh (giống gki)
     TRUE LÀ CÓ THỂ NẠP và ngược lại

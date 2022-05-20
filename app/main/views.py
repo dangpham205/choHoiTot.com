@@ -36,11 +36,11 @@ def chotot_page(category):
             category = 'Tất cả'
             products = Product.query.filter(Product.status =='SELLING', 
                                         Product.owner_id != user.id
-                                        ).order_by(Product.id.desc()).all() 
+                                        ).order_by(Product.date.desc()).all() 
         else:    
             products = Product.query.filter(Product.status =='SELLING', 
                                         Product.owner_id != user.id,
-                                        Product.category == category).order_by(Product.id.desc()).all()    #return all the items in the db MÀ CHƯA CÓ OWNER
+                                        Product.category == category).order_by(Product.date.desc()).all()    #return all the items in the db MÀ CHƯA CÓ OWNER
         return render_template('market/chotot.html', 
                                 products = products, 
                                 category = category,
@@ -59,7 +59,7 @@ def search(type, keyword):
     products = []
     all_products = Product.query.filter(Product.status =='SELLING', 
                                     Product.owner_id != user.id,
-                                    ).order_by(Product.id.desc()).all()
+                                    ).order_by(Product.date.desc()).all()
     for product in all_products:
         if keyword.strip() in product.name:
             products.append(product)
@@ -103,11 +103,12 @@ def detail_page(product_id):
 @main.route('/product_owned', methods=['POST','GET'])
 @login_required
 def product_owned():
+    current_user.update_last_seen()
     form = UpdateForm()
     user = User.query.filter_by(id = current_user.id).first_or_404()
     products = Product.query.filter(Product.status =='OWNED', 
                                     Product.owner_id == user.id
-                                    ).order_by(Product.id.desc()).all() 
+                                    ).order_by(Product.date.desc()).all() 
     number_of_products = len(products)
     return render_template('market/product_owned.html', 
                             user=user, 
@@ -118,6 +119,7 @@ def product_owned():
 @main.route('/like_page', methods=['POST','GET'])
 @login_required
 def like_page():
+    current_user.update_last_seen()
     user = current_user
     liked_products_id = Favourite.query.filter_by(user_id = user.id).order_by(Favourite.id.desc()).all() 
     products = []
@@ -136,6 +138,7 @@ def like_page():
 @main.route('/bills', methods=['POST','GET'])
 @login_required
 def bills():
+    current_user.update_last_seen()
     user = User.query.filter_by(id = current_user.id).first_or_404()
     bills = Bill.query.filter_by(user_id = user.id).order_by(Bill.id.desc()).all() 
     number_of_bills = len(bills)
@@ -203,6 +206,7 @@ def confirm_purchase(product_id,token):
 @main.route('/like/<product_id>', methods=['POST','GET'])
 @login_required
 def like(product_id):
+    current_user.update_last_seen()
     user = current_user
     favourite = Favourite.query.filter_by(product_id=product_id, user_id = user.id).first()
     if favourite:

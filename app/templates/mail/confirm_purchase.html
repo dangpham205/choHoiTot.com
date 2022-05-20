@@ -1,4 +1,4 @@
-<p>Tới {{ user.user_name }},</p>
+<p>Xin chào {{ user.user_name }},</p>
 <p>Để xác nhận cho giao dịch mua <b> {{ product.name }} </b> với giá  <b>{{ prettier_budget(product.price)}} đồng</b>.</p>
 <a href="{{ url_for('main.confirm_purchase', product_id=product.id, token=token, _external=True) }}">BẤM VÀO ĐÂY ĐỂ XÁC THỰC</a>
 <br>

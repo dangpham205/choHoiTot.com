@@ -46,6 +46,14 @@ Chợ Hơi Tốt
 
             
             <div class="product-wrapper">
+                {% if length(products) == 0 %}    <!-- Nếu không có sản phẩm nào-->
+                    <div style="opacity: 0.3; height: 300px; display: flex; margin: auto; flex-direction: column;">
+                        <div style="background-color: white; display: block; text-align: center; margin-top: 75px ">
+                            <img src="/static/chohoitot_logo.svg" alt="My Happy SVG" width="200" style="display: inline-block; background-color: #ffba00;" >
+                        </div>
+                        <h4 style="color: #7b6f6f; text-align: center">Không có sản phẩm nào</h4>
+                    </div>
+                {% endif %}
                 {% for product in products %}
                     <div class="product-col product-card">
                         

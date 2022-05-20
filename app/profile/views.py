@@ -23,7 +23,7 @@ def profile_page(id):
         user = User.query.filter_by(id = id).first_or_404()
         products = Product.query.filter(Product.status =='SELLING', 
                                         Product.owner_id == user.id
-                                        ).order_by(Product.id.desc()).all() 
+                                        ).order_by(Product.date.desc()).all() 
         number_of_products = len(products)
         return render_template('profile/profile.html', user=user, products = products, form = updateForm, number_of_products = number_of_products)
 
@@ -33,6 +33,7 @@ def edit_profile():
     form = EditProfileForm()
     user = User.query.filter_by(user_name = current_user.user_name).first()
     haveChange = False
+    current_user.update_last_seen()
     if form.validate_on_submit():
         if form.username.data :
             user_to_check = User.query.filter_by(user_name=form.username.data).first()
@@ -71,6 +72,7 @@ def allowed_file(filename):
 @profile.route('change_avatar', methods=['GET', 'POST'])
 @login_required
 def change_avatar():
+    current_user.update_last_seen()
     form = UploadFileForm()
     if form.validate_on_submit():
         file =form.file.data#First grab the file
@@ -95,6 +97,7 @@ def manage_budget():
 @profile.route('budget_history', methods=['GET', 'POST'])
 @login_required
 def budget_history():
+    current_user.update_last_seen()
     records = Budget.query.filter_by(user_id=current_user.id).order_by(desc(Budget.id))
     return render_template('profile/budget_history.html', records = records)
 
@@ -169,6 +172,7 @@ def confirm_add_budget():
                                         user_id= current_user.id)
                 db.session.add(budget_record)
                 db.session.commit()
+                send_email(user.user_email, 'mail/add_budget_success', user=user, budget = budget_record )
                 flash('Bạn đã nạp tiền vào tài khoản thành công!', category='success')
                 return redirect(url_for('profile.budget_history'))
         else:        
@@ -181,6 +185,7 @@ def confirm_add_budget():
 @profile.route('/change_password', methods=['GET', 'POST'])
 @login_required
 def change_password() :
+    current_user.update_last_seen()
     form = ChangePassForm()
     if form.validate_on_submit():
         user = current_user
