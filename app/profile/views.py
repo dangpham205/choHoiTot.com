@@ -20,6 +20,8 @@ import app
 def profile_page(id):
     updateForm = UpdateForm()
     if id is not None:        
+        if current_user.is_authenticated:
+            current_user.update_last_seen()
         user = User.query.filter_by(id = id).first_or_404()
         products = Product.query.filter(Product.status =='SELLING', 
                                         Product.owner_id == user.id
