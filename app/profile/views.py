@@ -203,7 +203,24 @@ def confirm_add_budget():
             flash("Mã OTP không hợp lệ!", category='danger')
     return render_template('profile/confirm_add_budget.html', user=user, form=form)
 
-
+@profile.route('/resend_add_budget', methods=['GET', 'POST'])
+@login_required
+def resend_add_budget() :
+    user = current_user
+    otp = Otp.query.filter(Otp.status =='PENDING', 
+                            Otp.user_id == user.id,
+                            ).order_by(Otp.id.desc()).first()
+    if otp:
+        otp.timestamp = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+        otp.code = '{:06}'.format(random.randrange(1, 1000000))
+        user.last_add_budget = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+        db.session.commit()
+        send_email(user.user_email, 'mail/add_budget', user=user, otp = otp )
+        flash('Hãy nhập mã OTP vừa được gửi đến email của bạn !', category='success')
+    else:           #ở trong màn OTP quá 3 phút
+        flash('Hãy thực hiện giao dịch khác !', category='success')
+        return redirect(url_for('profile.add_budget'))
+    return redirect(url_for('profile.confirm_add_budget'))
 
 
 @profile.route('/change_password', methods=['GET', 'POST'])
