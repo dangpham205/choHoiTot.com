@@ -22,7 +22,7 @@ class UpdateForm(FlaskForm):
     submit = SubmitField(label='Cập nhật')
 
 class SearchForm(FlaskForm):
-    keyword = StringField(label='Tìm kiếm sản phẩm', validators=[])
+    keyword = StringField(label='Tìm kiếm sản phẩm', validators=[DataRequired()])
     submitSearch = SubmitField(label='🔍')
 
 

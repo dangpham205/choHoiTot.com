@@ -18,13 +18,11 @@
             {{ form.email(class="form-control mb-3", placeholder="............") }}
 
             {{ form.password.label() }}
-            {{ form.password(class="form-control", placeholder="............") }}
+            {{ form.password(class="form-control", placeholder="") }}
 
             <br>
-            {# 
-                {{ form.recaptcha }}
-                 #}
             <div class="checkbox mb-3 mt-3 text-center">
+                {{ form.recaptcha }}
                 <br>
                 {{ form.remember_me }}
                 Ghi nhớ đăng nhập

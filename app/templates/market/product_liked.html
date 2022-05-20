@@ -45,10 +45,11 @@
                 <div class="profile-item-cate">
                     Danh mục: {{ product.category }}
                 </div>
-                
-                <div class="profile-item-date">
-                    Ngày mua: {{ product.date }}
-                </div>
+                {% if product %}
+                    <div class="profile-item-date">
+                        Tin được đăng vào: {{ fromNow2(product.date) }}
+                    </div>
+                {% endif %}
             </div>
 
             <div class="profile-btn-wrapper">

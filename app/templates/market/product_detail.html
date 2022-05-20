@@ -20,7 +20,7 @@
                     <span class="detail-prod-price">{{ prettier_budget(product.price) }} đồng</span>
                 </div>
                 
-                <div>Tin được đăng vào: {{ product.date }}</div>
+                <div>Tin được đăng vào: {{ fromNow2(product.date) }}</div>
             
                 <div>
                     Mô tả: {{  product.description }}
@@ -29,6 +29,7 @@
                 <div style="display: flex; align-items: center; justify-content: space-between;">
 
                     {% if current_user.is_authenticated %}
+                       {{ current_user.update_last_seen() }}
                         {% if favourite %}
                             <a class="btn-loved btn" style="margin-top: 10px" href="{{ url_for('main.like', product_id=product.id) }}">Đã thích</a>
                         {% else %}
@@ -69,7 +70,7 @@
                 </div>
 
                 <div>
-                    Last seen: {{ owner.last_seen }}
+                    Lần cuối hoạt động: {{ fromNow(owner.last_seen) }}
                 </div>
             </div>  
         </div>

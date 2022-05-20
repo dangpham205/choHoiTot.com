@@ -35,16 +35,21 @@ done    |   (bảng) lưu favorite product bằng cách tạo 1 bảng db favori
 done    |   cho người dùng tìm kiếm : sản phẩm / user khác 
 
     |   follow nhau (sách chap 12)
-sửa lại default budget là 0đ
-lúc resell phải thay đổi lại ngày đăng bán
-chú ý mấy cái datetime.now()
-link nạp tiền đã nạp r vẫn xài lại đc?
 
-có nên cho search bằng họ tên? (thêm điều kiện trong hàm search lúc add list users[])
-gỡ recaptcha field
-ẩn nút POST với guest
-chưa có hàm fromnow()
-hàm ping để xem last seen
+######## NOTE ########
+
+done    sửa lại default budget là 0đ
+done    lúc resell phải thay đổi lại ngày đăng bán
+done    chú ý mấy cái datetime.now()
+done    link nạp tiền đã nạp r vẫn xài lại đc?
+done    ẩn nút POST với guest
+done    gỡ recaptcha field
+done    chưa có hàm fromnow()
+done    hàm để cập nhật last seen
+
+có nên cho search bằng họ tên hoặc email? (thêm điều kiện trong hàm search lúc add list users[])
+căn giữa screen change avatar
+hàm resend otp trong màn NHẬP OTP
 
 bảng user:
     thêm cột status để xem có đang có 1 GD NẠP TIỀN chưa thực hiện xong kh (giống gki)

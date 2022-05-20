@@ -4,6 +4,8 @@ from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_mail import Mail
 from flask_moment import Moment
+from datetime import datetime
+
 
 login_manager = LoginManager()
 login_manager.login_view = 'auth.login_page'    #login_required sẽ direct đến trang này nếu chưa login
@@ -25,6 +27,47 @@ def prettier_budget(budget):
 def length(list):
     return len(list)
 
+def fromNow(string):
+    timestamp = datetime.strptime(str(string), '%Y-%m-%d %H:%M:%S.%f')
+    duration_in_second = (datetime.now() - timestamp).total_seconds()
+    if 0 <= duration_in_second <= 44:
+        return 'Vài giây trước'
+    elif 45 <= duration_in_second <= 120:
+        return 'Một phút trước'
+    elif 121 <= duration_in_second <= 3600:          #90 tới 60 phút
+        return f'{str(duration_in_second//60).split(".")[0]} phút trước'    
+    elif 3601 <= duration_in_second <= 86400:       #1 giờ tới 24 giờ
+        return f'{str(duration_in_second//(60*60)).split(".")[0]} giờ trước'
+    elif 86401 <= duration_in_second <= 172800:       #24 giờ tới 48 giờ
+        return f'Một ngày trước'
+    elif 172801 <= duration_in_second <= 2592000:       #48 giờ tới 30 ngày
+        return f'{str(duration_in_second//(24*60*60)).split(".")[0]} ngày trước'
+    elif 2592001 <= duration_in_second <= 31104000:       #1 tháng tới 12 tháng
+        return f'{str(duration_in_second//(30*24*60*60)).split(".")[0]} tháng trước'
+    else:
+        return 'Hơn 1 năm trước'
+        
+def fromNow2(string):
+    timestamp = datetime.strptime(str(string), '%d/%m/%Y %H:%M:%S')
+    duration_in_second = (datetime.now() - timestamp).total_seconds()
+    if 0 <= duration_in_second <= 44:
+        return 'Vài giây trước'
+    elif 45 <= duration_in_second <= 120:
+        return 'Một phút trước'
+    elif 121 <= duration_in_second <= 3600:          #90 tới 60 phút
+        return f'{str(duration_in_second//60).split(".")[0]} phút trước'    
+    elif 3601 <= duration_in_second <= 86400:       #1 giờ tới 24 giờ
+        return f'{str(duration_in_second//(60*60)).split(".")[0]} giờ trước'
+    elif 86401 <= duration_in_second <= 172800:       #24 giờ tới 48 giờ
+        return f'Một ngày trước'
+    elif 172801 <= duration_in_second <= 2592000:       #48 giờ tới 30 ngày
+        return f'{str(duration_in_second//(24*60*60)).split(".")[0]} ngày trước'
+    elif 2592001 <= duration_in_second <= 31104000:       #1 tháng tới 12 tháng
+        return f'{str(duration_in_second//(30*24*60*60)).split(".")[0]} tháng trước'
+    else:
+        return 'Hơn 1 năm trước'
+    
+
 def create_app():
     app = Flask(__name__, static_folder="../static")
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///endterm.db'
@@ -35,7 +78,7 @@ def create_app():
     bcrypt.init_app(app)
     login_manager.init_app(app)
     moment.init_app(app)
-    app.jinja_env.globals.update(prettier_budget=prettier_budget, length = length)
+    app.jinja_env.globals.update(prettier_budget=prettier_budget, length = length, fromNow = fromNow, fromNow2 = fromNow2)
     app.config['MAIL_SERVER']='smtp.gmail.com'
     app.config['MAIL_PORT'] = 465
     app.config['MAIL_USERNAME'] = 'ipos10d@gmail.com'

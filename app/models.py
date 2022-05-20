@@ -27,16 +27,15 @@ class User(db.Model, UserMixin):
     avatar = db.Column(db.String(40), nullable=False, default="default.jpg")
     confirmed = db.Column(db.Boolean, default=False)
     bio = db.Column(db.Text())
-    member_since = db.Column(db.DateTime(), default = datetime.now())
-    last_seen = db.Column(db.DateTime(), default=datetime.now())
+    member_since = db.Column(db.DateTime())
+    last_seen = db.Column(db.DateTime())
     user_score = db.Column(db.Integer(), nullable=False, default=0)     #dựa vào cột này để set verify mark cho ng dùng
     status = db.Column(db.Boolean, default=True)
     last_add_budget = db.Column(db.Text())
     user_paid_list = db.relationship('Product', backref = 'owned_user', lazy=True)
 
     def update_last_seen(self):
-        self.last_seen = datetime.utcnow()
-        # db.session.add(self)
+        self.last_seen = datetime.now()
         db.session.commit()
 
     #tạo ra 1 property tên password 
@@ -135,7 +134,7 @@ class Product(db.Model):
             old_owner.user_budget += self.price
             self.owner_id = user.id
             self.status = 'OWNED'
-            self.date = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+            self.date = datetime.now().strftime("%d/%m/%Y %H:%M:%S")        #lúc mua thì sửu lại date
             user.user_budget -= self.price
             db.session.commit()
             record_amount = prettier_budget(int(self.price))
@@ -150,7 +149,7 @@ class Product(db.Model):
                                 date = datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
                                 amount='+'+ record_amount,
                                 budget=record_budget_2,
-                                user_id= user.id)
+                                user_id= old_owner.id)
             db.session.add(budget_record_mua)
             db.session.add(budget_record_ban)
             db.session.commit()

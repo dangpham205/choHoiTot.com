@@ -34,6 +34,6 @@ class ConfirmAddBudgetForm(FlaskForm):
     otp = StringField(label='Mã OTP của bạn:', validators=[DataRequired()])
     submit = SubmitField(label='Xác nhận')
 
-class UploadFileForm(FlaskForm):
+class UploadFileForm(FlaskForm):                #dùng trong change avatar
     file= FileField("File", validators=[InputRequired()])
     submit=SubmitField("Cập Nhật")

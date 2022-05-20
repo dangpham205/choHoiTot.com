@@ -7,7 +7,7 @@ import re
 class LoginForm(FlaskForm):
     email = StringField(label='Email:', validators=[DataRequired()])
     password = PasswordField(label='Mật khẩu:', validators=[DataRequired()])
-    # recaptcha = RecaptchaField()
+    recaptcha = RecaptchaField()
     remember_me = BooleanField('Ghi nhớ đăng nhập')
     submit = SubmitField(label='Đăng Nhập')
 

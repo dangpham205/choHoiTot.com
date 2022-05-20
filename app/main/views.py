@@ -26,11 +26,11 @@ def chotot_page(category):
         user = current_user
     else:
         user = User()
-    stuId = ""
 
     if request.method == 'POST':
-        return redirect(url_for('main.search', type = 'products', keyword = searchForm.keyword.data))
-
+        if searchForm.keyword.data:
+            return redirect(url_for('main.search', type = 'products', keyword = searchForm.keyword.data))
+    
     if request.method == 'GET':
         if category == "all" or category == 'Tất cả':
             category = 'Tất cả'
@@ -124,6 +124,9 @@ def like_page():
     for liked_product_id in liked_products_id:
         product = Product.query.filter_by(id = liked_product_id.product_id, status = 'SELLING').first() 
         products.append(product)
+    for product in products:
+        if not product:
+            products.remove(product)
     number_of_products = len(products)
     return render_template('market/product_liked.html', 
                             user=user, 

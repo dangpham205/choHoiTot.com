@@ -1,3 +1,5 @@
+from datetime import datetime
+import re
 from flask import render_template, redirect, session, url_for, flash
 
 from app.email import send_email
@@ -16,6 +18,8 @@ def register_page():
                         user_fullname=form.fullname.data,
                         user_phone=form.phone.data,
                         user_email=form.email.data,
+                        member_since = datetime.now(),
+                        last_seen = datetime.now(),
                         password=form.password1.data)   
                         #không truyền password_hash mà truyền password, để hàm setter trong model generate tự hash password_hash
         db.session.add(new_user)
@@ -97,7 +101,7 @@ def login_page():
                 session['unconfirmed_user'] = form.email.data
                 return redirect(url_for('auth.unconfirmed'))
         if attempted_user and attempted_user.check_password(form.password.data):
-            login_user(attempted_user)
+            login_user(attempted_user, remember = form.remember_me.data)
             flash('Đăng nhập thành công !', category='success')
             return redirect(url_for('main.chotot_page', category='all'))
         else:

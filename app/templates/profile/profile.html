@@ -14,14 +14,14 @@
         <br>
         <!-- THAY AVATAR -->
         {% if current_user.is_authenticated %}
-            {% if current_user.user_name == user.user_name %}
+            {% if current_user.id == user.id %}
                 <a class="btn btn-sm edit-profile-btn" href="{{ url_for('profile.change_avatar') }}" style="display: block;" >Thay đổi ảnh đại diện</a>
             {% endif %}
         {% endif %}
         <!-- THAY TT CÁ NHÂN -->
         <div id="user-ava-bellow">
             {% if current_user.is_authenticated %}
-                {% if current_user.user_name == user.user_name %}
+                {% if current_user.id == user.id %}
                     <a class="btn btn-sm edit-profile-btn" href="{{ url_for('profile.edit_profile') }}" style="display: inline-block;" >Chỉnh sửa trang cá nhân</a>
                     <br>
                 {% endif %}
@@ -56,9 +56,8 @@
             {{ moment.include_moment() }}
             Là thành viên từ: {{moment(user.member_since).format('L')}}
             <br>
-            Lần cuối hoạt động: {{moment(user.last_seen).fromNow()}}
+            Lần cuối hoạt động: {{ fromNow(user.last_seen) }}
     
-            <!-- Last seen <em style="color: black;">{{ moment(user.last_seen).fromNow() }}</em>. -->
         </div>
     </div>
 
