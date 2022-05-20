@@ -50,6 +50,8 @@ done    hàm để cập nhật last seen
 có nên cho search bằng họ tên hoặc email? (thêm điều kiện trong hàm search lúc add list users[])
 căn giữa screen change avatar
 hàm resend otp trong màn NHẬP OTP
+làm ui màn search (users), custom lại cái card product
+thêm nút để điều hướng trong các màn số dư
 
 bảng user:
     thêm cột status để xem có đang có 1 GD NẠP TIỀN chưa thực hiện xong kh (giống gki)
