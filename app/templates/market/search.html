@@ -33,6 +33,19 @@
             <div class="row" style="width: 1200px; display:flex; margin:auto;">
                 <a class="btn btn-s" href="{{ url_for('main.search', type='products', keyword = keyword) }}">Sản phẩm</a>
                 <a class="btn btn-s ml-2" href="{{ url_for('main.search', type='users', keyword = keyword) }}">Mọi người</a>
+                {% if type == 'products' %}
+                    <form action="{{ url_for('main.search', type= 'products', keyword = keyword) }}" method="POST">
+                        <select name="sort" id="lang">
+                            <option value="date">Sắp xếp theo</option>
+                            <option value="date">Thời gian đăng</option>
+                            <option value="price_az">Giá từ thấp đến cao</option>
+                            <option value="price_za">Giá từ cao đến thấp</option>
+                            <option value="name_az">Tên A-Z</option>
+                            <option value="name_za">Tên Z-A</option>
+                        </select>
+                        <input type="submit" value="Submit" />
+                    </form>
+                {% endif %}
             </div>
 
             <br>

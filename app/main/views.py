@@ -55,11 +55,39 @@ def search(type, keyword):
         user = current_user
     else:
         user = User()
-
+    
     products = []
-    all_products = Product.query.filter(Product.status =='SELLING', 
-                                    Product.owner_id != user.id,
-                                    ).order_by(Product.date.desc()).all()
+    
+    select = request.form.get('sort')
+    if select == 'date':
+        all_products = Product.query.filter(Product.status =='SELLING', 
+                                        Product.owner_id != user.id
+                                        ).order_by(Product.date.desc()).all() 
+    elif select == 'price_az':
+        all_products = Product.query.filter(Product.status =='SELLING', 
+                                        Product.owner_id != user.id
+                                        ).order_by(Product.price).all() 
+    elif select == 'price_za':
+        all_products = Product.query.filter(Product.status =='SELLING', 
+                                        Product.owner_id != user.id
+                                        ).order_by(Product.price.desc()).all() 
+    elif select == 'name_az':
+        all_products = Product.query.filter(Product.status =='SELLING', 
+                                        Product.owner_id != user.id
+                                        ).order_by(Product.name).all() 
+    elif select == 'name_za':
+        all_products = Product.query.filter(Product.status =='SELLING', 
+                                        Product.owner_id != user.id
+                                        ).order_by(Product.name.desc()).all() 
+    else:
+        all_products = Product.query.filter(Product.status =='SELLING', 
+                                        Product.owner_id != user.id
+                                        ).order_by(Product.date.desc()).all()
+
+    
+    # all_products = Product.query.filter(Product.status =='SELLING', 
+    #                                 Product.owner_id != user.id,
+    #                                 ).order_by(Product.date.desc()).all()
     for product in all_products:
         if keyword.strip() in product.name:
             products.append(product)
