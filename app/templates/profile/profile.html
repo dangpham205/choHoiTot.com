@@ -81,18 +81,20 @@
 </div>
 
 <div>
-    <h4 style="color: #333333; text-align: center; margin-top: 80px; margin-bottom: 30px;">Sản phẩm đang đăng bán - {{ number_of_products }} sản phẩm</h4>
-    <form action="{{ url_for('profile.profile_page', id=user.id) }}" method="POST">
-        <select name="sort" id="lang">
-            <option value="date">Sắp xếp theo</option>
-            <option value="date">Thời gian đăng</option>
-            <option value="price_az">Giá từ thấp đến cao</option>
-            <option value="price_za">Giá từ cao đến thấp</option>
-            <option value="name_az">Tên A-Z</option>
-            <option value="name_za">Tên Z-A</option>
-        </select>
-        <input type="submit" value="Submit" />
-    </form>
+    <div style="display: flex; align-items:center; justify-content: space-between; width: 1200px; margin: auto; margin-top: 50px;">
+        <h4 style="color: #333333; text-align: center;">Sản phẩm đang đăng bán - {{ number_of_products }} sản phẩm</h4>
+        <form action="{{ url_for('profile.profile_page', id=user.id) }}" method="POST" style="text-align:center;">
+            <select style="padding: 5px;" name="sort" id="lang">
+                <option value="date">Sắp xếp theo</option>
+                <option value="date">Thời gian đăng</option>
+                <option value="price_az">Giá từ thấp đến cao</option>
+                <option value="price_za">Giá từ cao đến thấp</option>
+                <option value="name_az">Tên A-Z</option>
+                <option value="name_za">Tên Z-A</option>
+            </select>
+            <input class="btn" style="transform: translateY(-4px);" type="submit" value="Đồng ý" />
+        </form>
+    </div>
 
     
     {% if number_of_products == 0 %}
