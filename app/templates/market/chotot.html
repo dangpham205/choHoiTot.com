@@ -61,10 +61,10 @@ Chợ Hơi Tốt
 
                         <div class="product-footer">
                             <div class="product-date">
-                                {{ fromNow2(product.date) }}
+                                Đã đăng: {{ fromNow2(product.date) }}
                             </div>
     
-                            <a class="btn" href="{{ url_for('main.detail_page', product_id=product.id) }}" target="_blank">Chi tiết</a>
+                            <a class="btn" href="{{ url_for('main.detail_page', product_id=product.id) }}" target="_blank" style="width: 100%; margin-top: 10px; ">Chi tiết</a>
 
                         </div>
                     </div>

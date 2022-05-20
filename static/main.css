@@ -200,6 +200,12 @@ body {
     justify-content: space-between;
 }
 
+.product-user-fname {
+    font-size: 20px;
+    color: #333333;
+    margin-bottom: 40px;
+}
+
 .product-wrapper {
     width: 1200px;
     display: flex;
