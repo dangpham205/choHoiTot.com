@@ -23,12 +23,12 @@ class User(db.Model, UserMixin):
     user_phone = db.Column(db.String(12), nullable=False)
     user_email = db.Column(db.String(50), nullable=False, unique=True)
     password_hash = db.Column(db.String(60), nullable=False)            #phải để 60 vì hash ra sẽ gất dài
-    user_budget = db.Column(db.Integer(), nullable=False, default=20000000000)
+    user_budget = db.Column(db.Integer(), nullable=False, default=0)
     avatar = db.Column(db.String(40), nullable=False, default="default.jpg")
     confirmed = db.Column(db.Boolean, default=False)
     bio = db.Column(db.Text())
-    member_since = db.Column(db.DateTime(), default = datetime.utcnow())
-    last_seen = db.Column(db.DateTime(), default=datetime.utcnow())
+    member_since = db.Column(db.DateTime(), default = datetime.now())
+    last_seen = db.Column(db.DateTime(), default=datetime.now())
     user_score = db.Column(db.Integer(), nullable=False, default=0)     #dựa vào cột này để set verify mark cho ng dùng
     status = db.Column(db.Boolean, default=True)
     last_add_budget = db.Column(db.Text())
@@ -142,10 +142,12 @@ class Product(db.Model):
             record_budget = prettier_budget(user.user_budget)
             record_budget_2 = prettier_budget(old_owner.user_budget)
             budget_record_mua = Budget(description='Tiền chuyển ra',
+                                date = datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
                                 amount='-'+ record_amount,
                                 budget=record_budget,
                                 user_id= user.id)
             budget_record_ban = Budget(description='Tiền chuyển vào',
+                                date = datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
                                 amount='+'+ record_amount,
                                 budget=record_budget_2,
                                 user_id= user.id)

@@ -173,11 +173,13 @@ def confirm_purchase(product_id,token):
         old_owner = User.query.filter_by(id=product.owner_id).first()
         if product.purchase(current_user) == True:
             buyer_bill = Bill(type = 'Hóa Đơn Mua Hàng',
+                            date = datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
                             product_name = product.name,
                             total = prettier_budget(product.price) + " đồng",
                             other_id = old_owner.id,
                             user_id = current_user.id)
             seller_bill = Bill(type = 'Hóa Đơn Bán Hàng',
+                            date = datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
                             product_name = product.name,
                             total = prettier_budget(product.price) + " đồng",
                             other_id = current_user.id,
@@ -226,6 +228,7 @@ def add():
             flash(f'File ảnh không hợp lệ!', category='danger')
         else:
             add_product = Product(description=addForm.description.data,
+                            date = datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
                             name=addForm.name.data,
                             price=addForm.price.data,
                             category=addForm.category.data,
@@ -304,7 +307,7 @@ def resell(product_id):
                 product.image = f"{product.id}."+ file.filename.rsplit('.', 1)[1].lower()
         if form.category.data != '...':
             product.category = form.category.data
-        product.date = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+        product.date = datetime.now().strftime("%d/%m/%Y %H:%M:%S")         #lúc đăng bán thì chuyển lại date thành ngày đăng bán
         product.status = 'SELLING'
         db.session.commit()
         flash('Sản phẩm đã được đăng bán thành công !', category='success')

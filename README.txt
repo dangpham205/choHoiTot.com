@@ -12,7 +12,7 @@ done    |   profile user(chỉnh sửa profile)+ hiển thị tin đang bán + c
 done    |       + change password sau khi đăng nhập
 done    |       + Edit profile (username, full name, phone, bio)
 done    |       + Có avatar (avatar sẽ dựa trên cột điểm của user, mỗi lần mua hàng sẽ đc cộng điểm)
-done    |   (budget là Đồng hoi Tốt, cho người dùng tự nạp) (have verify email to confirm )
+done    |   (budget là Đồng, cho người dùng tự nạp) (VERIFY BẰNG OTP CODE )
 done    |   Xem lịch sử biến động số dư
 done    |   up sản phẩm+post của mình lên có chia category (giống chợ tốt)
 done    |   Khi bấm vô trang chi tiết sp:
@@ -33,17 +33,18 @@ done    |       +email mua thành công(sẽ hiện các thứ giống bill, hi�
 done    |   (bảng) lưu favorite product bằng cách tạo 1 bảng db favorite (id, productId, userId)
             khi query thì sẽ query các favorite có userId == current_user_id
 done    |   cho người dùng tìm kiếm : sản phẩm / user khác 
+
     |   follow nhau (sách chap 12)
+sửa lại default budget là 0đ
+lúc resell phải thay đổi lại ngày đăng bán
+chú ý mấy cái datetime.now()
+link nạp tiền đã nạp r vẫn xài lại đc?
 
 có nên cho search bằng họ tên? (thêm điều kiện trong hàm search lúc add list users[])
 gỡ recaptcha field
-sửa lại default budget là 0đ
-lúc resell phải thay đổi lại ngày đăng bán
 ẩn nút POST với guest
 chưa có hàm fromnow()
 hàm ping để xem last seen
-chú ý mấy cái datetime.now()
-link nạp tiền đã nạp r vẫn xài lại đc?
 
 bảng user:
     thêm cột status để xem có đang có 1 GD NẠP TIỀN chưa thực hiện xong kh (giống gki)

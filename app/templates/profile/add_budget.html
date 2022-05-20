@@ -22,6 +22,19 @@
             <br>
             {{ form.submit(class="btn btn-lg btn-block") }}
 
+            <br>
+            <br>
+            <br>
+            {% if user.status == False %}
+                
+            <h4 class=" mb-3 font-weight-normal text-center mt-3">
+                <br>
+                Hiện đang có 1 giao dịch nạp tiền khác đang được thực hiện! <br>
+                <a href="{{ url_for('profile.confirm_add_budget') }}">Xác nhận giao dịch</a>
+                
+            </h4>
+            {% endif %}
+
         </form>
     </div>
 

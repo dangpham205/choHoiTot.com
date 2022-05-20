@@ -104,26 +104,30 @@ def budget_history():
 def add_budget():
     form = AddBudgetForm()
     user = User.query.filter_by(id = current_user.id).first()
+    if user.last_add_budget:        #NẾU CÓ TỒN TẠI last_add_budget
+        timestamp = datetime.strptime(user.last_add_budget, '%d/%m/%Y %H:%M:%S')
+        duration_in_second = (datetime.now() - timestamp).total_seconds()
+        if (duration_in_second > 180):      # nếu lần cuối request nạp đã quá 3 phút
+            user.status = True
+            otps = Otp.query.filter(Otp.status =='PENDING',  
+                        Otp.user_id == user.id,).all()
+            for otp in otps:
+                otp.status = "EXIPRED"          #lần cuối request nạp đã quá 3 phút ==> sẽ không còn otp nào còn hạn
+            db.session.commit()
     if form.validate_on_submit():
         if (form.amount.data.isnumeric() == False):
             flash('Giá tiền có kiểu dữ liệu là số !', category='danger')
         else:
-            if user.last_add_budget:
-                timestamp = datetime.strptime(user.last_add_budget, '%d/%m/%Y %H:%M:%S')
-                duration_in_second = (datetime.utcnow() - timestamp).total_seconds()
-                if (duration_in_second > 180):      # nếu lần cuối request nạp đã quá 3 phút
-                    user.status = True
-                    db.session.commit()
             if user.status == False:
                 flash("Hiện đang có 1 giao dịch nạp tiền khác đang được thực hiện!", category='info')
                 return redirect(url_for('profile.confirm_add_budget'))
             elif user.status == True:
                 user.status = False
-                user.last_add_budget = datetime.utcnow().strftime("%d/%m/%Y %H:%M:%S")
+                user.last_add_budget = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
                 otp = Otp(amount= int(form.amount.data), 
                             user_id = current_user.id,
                             code = '{:06}'.format(random.randrange(1, 1000000)),
-                            timestamp = datetime.utcnow().strftime("%d/%m/%Y %H:%M:%S") 
+                            timestamp = datetime.now().strftime("%d/%m/%Y %H:%M:%S") 
                             )
                 db.session.add(otp)
                 db.session.commit()
@@ -144,7 +148,7 @@ def confirm_add_budget():
                                 ).order_by(Otp.id.desc()).first()
         if otp:
             timestamp = datetime.strptime(otp.timestamp, '%d/%m/%Y %H:%M:%S')
-            duration_in_second = (datetime.utcnow() - timestamp).total_seconds()
+            duration_in_second = (datetime.now() - timestamp).total_seconds()
             if duration_in_second > 180:
                 otp.status = 'EXPIRED'
                 user.status = True
@@ -159,6 +163,7 @@ def confirm_add_budget():
                 record_amount = prettier_budget(otp.amount)
                 record_budget = prettier_budget(current_user.user_budget)
                 budget_record = Budget(description='Tiền chuyển vào',
+                                        date = datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
                                         amount='+'+ record_amount,
                                         budget=record_budget,
                                         user_id= current_user.id)
