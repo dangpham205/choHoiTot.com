@@ -29,25 +29,29 @@
                 <img src="/static/product/{{ product.image }}" alt="product-img" style="width: 100%; border-radius: 8px;">
             </div>
 
-            <div style="margin-left: 40px; text-align: left; flex:1;">
-                <div class="profile-item-name">
-                    {{ product.name }} 
-                </div>
-
-                <div class="profile-item-price">
-                    Giá: {{ prettier_budget( product.price ) }} đồng
+            <div style="margin-left: 40px; text-align: left; flex:1; display: flex; flex-direction: column;">
+                <div>
+                    <div class="profile-item-name">
+                        {{ product.name }} 
+                    </div>
+    
+                    <div class="profile-item-price">
+                        Giá: {{ prettier_budget( product.price ) }} đồng
+                    </div>
                 </div>
 
                 <div class="profile-item-desc">
                     Mô tả: {{  product.description }}
                 </div>
 
-                <div class="profile-item-cate">
-                    Danh mục: {{ product.category }}
-                </div>
-                
-                <div class="profile-item-date">
-                    Ngày mua: {{ product.date }}
+                <div>
+                    <div class="profile-item-cate">
+                        Danh mục: {{ product.category }}
+                    </div>
+                    
+                    <div class="profile-item-date">
+                        Ngày mua: {{ product.date }}
+                    </div>
                 </div>
             </div>
 

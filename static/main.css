@@ -167,10 +167,10 @@ body {
 
 .profile-item-desc {
     font-size: 18px;
+    flex: 1;
 }
 
 .profile-item-cate {
-    margin-top: 190px;
     color: #6b6b6b;
     font-size: 16px;
 }
@@ -279,6 +279,7 @@ body {
 .detail-header-col-1 {
     color: #333333;
     width: 65%;
+    text-align: center;
 }
 
 .detail-prod-name {

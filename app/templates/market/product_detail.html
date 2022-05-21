@@ -10,7 +10,7 @@
         <div class="detail-header">
             <div class="detail-header-col-1">
 
-                <img src="/static/product/{{ product.image }}" alt="product image"  style="width: 100%; ">
+                <img src="/static/product/{{ product.image }}" alt="product image"  style="width: 80%; margin: auto;">
 
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 12px;">
                     <h3 class="detail-prod-name">
@@ -20,9 +20,9 @@
                     <span class="detail-prod-price">{{ prettier_budget(product.price) }} đồng</span>
                 </div>
                 
-                <div>Tin được đăng vào: {{ fromNow2(product.date) }}</div>
+                <div style="text-align: left;">Tin được đăng vào: {{ fromNow2(product.date) }}</div>
             
-                <div>
+                <div style="text-align: left;">
                     Mô tả: {{  product.description }}
                 </div>
 
