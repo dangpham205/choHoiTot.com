@@ -262,7 +262,6 @@ def purchase(product_id):
     if request.method == 'POST':
         product = Product.query.filter_by(id = product_id, status= 'SELLING').first()
         if product:
-            print(product.name)
             if current_user.can_purchase(product):
                 user = current_user
                 token = user.generate_confirmation_token()      
@@ -271,7 +270,7 @@ def purchase(product_id):
             else:
                 flash(f"Số dư trong tài khoản của bản không đủ để mua {product.name}!", category='danger')
         else:
-            flash('Sản phẩm này không phải để bán!', category='danger')
+            flash('Không thể mua sản phẩm này! Xin thử lại sau! ', category='danger')
     return redirect(url_for('main.detail_page', product_id=product_id))
 
 @main.route('/confirm_email/<product_id>/<token>')

@@ -46,7 +46,7 @@ def confirm_register(token):
             login_user(user)
             flash('Bạn đã xác thực tài khoản thành công, Xin Chào !', category='success')
         else:
-            flash('Email xác thực đã hết thời hạn.', category='danger')
+            flash('Token xác nhận gặp vấn đề!', category='danger')
     return redirect(url_for('main.home_page'))
 
 @auth.route('/forgot_pass_request', methods=['GET', 'POST'])
@@ -72,7 +72,7 @@ def forgot_pass(token):
                 flash('Mật khẩu được đổi thành công.', category='success')
                 return redirect(url_for('auth.login_page'))
             else:
-                flash('Email xác nhận mật khẩu mới đã hết thời hạn.', category='danger')
+                flash('Token xác nhận gặp vấn đề! Xin vui lòng thử lại', category='danger')
                 return render_template('auth/forgot_pass.html', form=form)
     return render_template('auth/forgot_pass.html', form=form)
 
