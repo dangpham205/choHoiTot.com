@@ -29,15 +29,18 @@ Chợ Hơi Tốt
 
 
             <!-- Category -->
-            <div class="row" style="width: 1200px; display:flex; margin:auto;">
-                <a class="btn btn-s" href="{{ url_for('main.chotot_page', category='all') }}">Tất cả</a>
-                <a class="btn btn-s ml-2" href="{{ url_for('main.chotot_page', category='Đồ điện tử') }}">Đồ điện tử</a>
-                <a class="btn btn-s ml-2" href="{{ url_for('main.chotot_page', category='Đồ gia dụng') }}">Đồ gia dụng</a>
-                <a class="btn btn-s ml-2" href="{{ url_for('main.chotot_page', category='Giải trí') }}">Giải trí</a>
-                <a class="btn btn-s ml-2" href="{{ url_for('main.chotot_page', category='Xe cộ') }}">Xe cộ</a>
+            <div class="row" style="width: 1200px; display:flex; margin:auto; justify-content: space-between; align-items: center;">
+                <div>
+                    <a class="btn btn-s" href="{{ url_for('main.chotot_page', category='all') }}">Tất cả</a>
+                    <a class="btn btn-s ml-2" href="{{ url_for('main.chotot_page', category='Đồ điện tử') }}">Đồ điện tử</a>
+                    <a class="btn btn-s ml-2" href="{{ url_for('main.chotot_page', category='Đồ gia dụng') }}">Đồ gia dụng</a>
+                    <a class="btn btn-s ml-2" href="{{ url_for('main.chotot_page', category='Giải trí') }}">Giải trí</a>
+                    <a class="btn btn-s ml-2" href="{{ url_for('main.chotot_page', category='Xe cộ') }}">Xe cộ</a>
+
+                </div>
                 
                 <form action="{{ url_for('main.chotot_page', category = category) }}" method="POST">
-                    <select style="padding: 2px;" name="sort" id="lang">
+                    <select style="padding: 3px;" name="sort" id="lang">
                         <option value="date">Sắp xếp theo</option>
                         <option value="date">Thời gian đăng</option>
                         <option value="price_az">Giá từ thấp đến cao</option>
@@ -45,7 +48,7 @@ Chợ Hơi Tốt
                         <option value="name_az">Tên A-Z</option>
                         <option value="name_za">Tên Z-A</option>
                     </select>
-                    <input class="btn" style="transform: translateY(-1x);"  type="submit" value="Sắp xếp" />
+                    <input style="transform: translateY(-1x);"  type="submit" value="Sắp xếp" />
                 </form>
             </div>
 
